@@ -1,0 +1,24 @@
+---
+title: "Notes for the presentation"
+output: html_notebook
+---
+
+# Introduction 
+
+GLM notes from here: https://timnewbold.github.io/teaching_resources/GLMs.html
+
+## On variable significance and selection 
+It can be definitely OK, but it depends on what you're trying to do, and what "reality" is (i.e. what's the most correct answer). Adding variables that aren't needed won't help your model (particularly your estimates), but also might not matter much (e.g. predictions). However, removing variables that are real, even if they don't meet significance, can really mess up your model.
+
+Here's a few rules of thumb:
+
+Include the variable if it is of interest before hand, or you want a direct estimate of its effect. If your business collaborators say to put it in, put it in. If they're looking for estimates of the holiday effects, put it in (although there might be some debate as to whether you should look at each holiday individually).
+Include the variable if you have some prior knowledge that it should be relevant. This can be misleading, because it's a confirmation bias, but I'd say in most cases it makes sense to do so. Particularly for holiday effects (I assume this is something like sales or energy consumption), these are well-known and documented, and those small but not-statistically-significant are real.
+In general practice (i.e. most real world situations), it's better to have a slightly overspecified model than an underspecified one. This is particularly true for the purposes of prediction, because the response remains unbiased (i.e. determining the response of Y). This rule is very conditional, but the other bullets that favor overspecification tend to be more common in practice, especially in the business/applied world. Note that by saying that, I bring it back to the second bullet point, emphasizing business experience.
+If you want a model that can generalize to many cases, you should favor fewer variables. Overfitting works, but it tends to make your model only work for a narrow inference space (i.e. the one reflected by your sample).
+If you need precise (low variance) estimates, use fewer variables.
+Just to re-emphasize; these are rules of thumb. There are plenty of exceptions. Judging by the limited information you've provided, you probably should include the non-significant "holiday" variable.
+
+I've seen many saturated models (every term included) that perform extremely well. This isn't always true, but this works because, in a lot of business problems, reality is a complex response (so you should expect a lot of variables to be present), in addition to the lack of statistical bias from adding all these variables. Less relevant to this question, but relevant to this answer is that "Big data" also captures the power of the law of large numbers and the central limit theorem.
+
+Variable selection is a long and complicated topic. Look up descriptions of the drawbacks of underspecification vs. overspecification, while remembering that the "right" model is the best - but unachievable. Determine if your interest is in the mean or the variance. There's a lot of focus on variances, especially in teaching and academia...but in practice and in most business settings, most people are more interested in the mean! This goes back to why overspecification in most real world cases should probably be favored.
