@@ -2,13 +2,13 @@
 title: Forest Modeling Exercises
 subtitle: Process based and empirical modeling
 format:
-   titlepage-pdf:
+  titlepage-pdf:
     documentclass: scrbook
     classoption: ["oneside", "open=any"]
     number-sections: true
     toc: true
     titlepage: "bg-image"
-    titlepage-bg-image: "images/cartoon1.png"
+    titlepage-bg-image: ""
     titlepage-logo: "images/logo3.jpg"
     titlepage-header: "The Publisher"
     titlepage-footer: |
@@ -18,53 +18,68 @@ format:
 author:
   - name: Olalla Díaz-Yáñez
     affiliations:
-      - name: ETH Zurich
-    email: olalla.diaz@usys.ethz.ch
-  - name: Laura Dobor
+      - name: olalla.diaz@usys.ethz.ch (ETH Zurich)
+  - name: Laura Dobor 
     affiliations:
-      - name: your institution
-    email: youremail@.com
-  - name: Katarina
+      - name: laura.dobor@gmail.com (CZU)
+  - name: Katarina Merganicova
     affiliations:
-      - name: your institution
-    email: youremail@.com
+      - name: merganicova@fld.czu.cz (CZU)
   - name: Mats Nieberg
     affiliations:
-      - name: your institution
-    email: youremail@.com    
+      - name: mats.nieberg@pik-potsdam.de (PIK-Potsdam | EFI ()
 bibliography: bibliography.bib  
 ---
 
+```{r not to show, echo=FALSE}
+   # html:
+   #  toc: true
+   #  toc-depth: 3
+   #  toc-location: left
+```
+
 # Overview {#sec-overview}
 
-In this session, we will cover two examples of how to create two models based on observed data. We will use two approaches Generalized Linear Models (GLMs) and Boosted Regression trees (BRTs).
+This document contains the instructions of the modeling group assignments. It contains a section for the process model approach and a different section for the empirical modelling.
 
-Please take all the results with a grain of salt, we are making very generalized statements from a limited data set and we are not getting into the details of how each of the models should be assessed, the goal here is that you learn how observed data can be used to create a models that helps you to better understand the data and relationships.
+This document describes all the exercises, but your group has been assigned to only one, including one specific modeling approach. Each group has two questions to be answered (one question per subgroup inside each group). Please get in touch with your group coach if you are unsure what section you should focus on. The table below summarizes and links to the different parts of this document:
 
-In this document we describe all the exercises, but your group has been assigned to only one which include to using one specific modelling approach. Each group has two questions to be answered (one question per subgroup inside each group). Please contact your group coach if you are unsure what section you should be focusing on. The table below summarizes and links to the different parts of this document:
+| Group | Subgroup Question  | Question                                                                                                    | Approach | Go to section |
+|--------|----------|------------------------------------|----------|--------|
+| 1     | A                  |                                                                                                             | iLand    |               |
+| 1     | B                  |                                                                                                             | iLand    |               |
+| 1     | C                  | Does a more diverse forest in structure and composition have more Bryophites species?                       | GLM      | @sec-q1       |
+| 1     | D                  | Is the number of Bryophites species affected by forest management type and the forest structural diversity? | GLM      | @sec-q2       |
+| 2     | A                  |                                                                                                             | iLand    |               |
+| 2     | B                  |                                                                                                             | iLand    |               |
+| 2     | C                  | Does a more diverse forest in structure and composition have more bird species?                             | GLM      | @sec-q3       |
+| 2     | D                  | Is the number of bird species affected by forest management type and the forest structural diversity?       | GLM      | @sec-q4       |
+| 3     | A                  |                                                                                                             | iLand    |               |
+| 3     | B                  |                                                                                                             | iLand    |               |
+| 3     | C                  | Is the presence of the Great spotted woodpecker affected by forest density?                                 | BRT      | @sec-q5       |
+| 3     | D                  | Is the presence of the Great spotted woodpecker affected by forest diversity?                               | BRT      | @sec-q6       |
+| 4     | A                  |                                                                                                             | iLand    |               |
+| 4     | B                  |                                                                                                             | iLand    |               |
+| 4     | C                  | Is the presence of the Eurasian treecreeper affected by forest density?                                     | BRT      | @sec-q7       |
+| 4     | D                  | Is the presence of the Eurasian treecreeper affected by forest management?                                  | BRT      | @sec-q8       |
 
-| Group | Sub | Question number | Question                                                                                                    | Approach | Go to section |
-|-----------|-----------|-----------|----------------|-----------|-----------|
-| 1     | 3   | 1               | Does a more diverse forest in structure and composition have more Bryophites species?                       | GLM      |               |
-| 1     | 4   | 2               | Is the number of Bryophites species affected by forest management type and the forest structural diversity? | GLM      |               |
-| 2     | 3   | 3               | Does a more diverse forest in structure and composition have more bird species?                             | GLM      |               |
-| 2     | 4   | 4               | Is the number of bird species affected by forest management type and the forest structural diversity?       | GLM      |               |
-| 3     | 3   | 5               | Is the presence of the Great spotted woodpecker affected by forest density?                                 | BRT      |               |
-| 3     | 4   | 6               | Is the presence of the Great spotted woodpecker affected by forest diversity?                               | BRT      |               |
-| 4     | 3   | 7               | Is the presence of the Eurasian treecreeper affected by forest density?                                     | BRT      |               |
-| 4     | 4   | 8               | Is the presence of the Eurasian treecreeper affected by forest management?                                  | BRT      |               |
+# Process based
 
-# Data
+# Empiricial modeling
 
-We will work with one dataset derived from the inventory developed to assess forest structure and dead wood properties of six representative forest areas in the Czech Republic [@hosek]. This dataset collects observations of presence /absence of certain species of biodiversity importance across 99 plots.
+In the empricial modelling we will cover two examples of creating two models based on observed data. We will use two approaches Generalized Linear Models (GLMs) and Boosted Regression trees (BRTs). Please take all the results with a grain of salt, we are making very generalized statements from a limited data set, and we are not getting into the details of how each of the models should be assessed; the goal here is that you learn how observed data can be used to create models that help you to understand the data and relationships better.
 
-The data was collected from square sampling plots (2500 m2 each) located in six forested regions in the Czech Republic. These regions are representative of the main bio-regions and elevation range of forests, with consideration of their importance in terms of territorial representation, forestry, and ecology. The inventory sampled for biodiversity variables such as the presence / absence of different species of birds, tracheophyta, bryophytes, fungi, lichens and beetles.
+## Data
 
-The dataset has been generously provided by XXXXXX to be used in the context of this exercise. It should not be used for other purposes or be further distributed. If you are interested in using this data or learning more about it please contact XXXX in here: XXXX.
+We will work with one dataset derived from the inventory developed to assess forest structure and deadwood properties of six representative forest areas in the Czech Republic [@hosek]. This dataset collects observations of the presence /absence of certain species of biodiversity importance across 99 plots.
 
-The data you can download for this exercises is an aggregated summary from the original data, some aspects have been modified from the observed data, so the results you will obtain will not completely match the observed reality. This data is very similar in structure and observed variables as the one you have collected in this summer school. The idea is that you move from data collection, analysis to this part where you use the data to create a model.
+The data was collected from square sampling plots (2500 m2 each) in six forested Czech Republic regions. These regions are representative of the main bio-regions and elevation range of forests, considering their importance in territorial representation, forestry, and ecology. The inventory sampled for biodiversity variables such as the presence/absence of different species of birds, Tracheophyta, bryophytes, fungi, lichens, and beetles.
 
-## Data description {#sec-dataDescription}
+The dataset has been generously provided by XXXXXX to be used in the context of this exercise. It should not be used for other purposes or be further distributed. If you want to use this data or learn more about it, please get in touch with XXXX here: XXXX.
+
+The data you can download for this exercise is an aggregated summary of the original data, some aspects have been modified from the observed data, so the results you will obtain will only partially match the observed reality. This data is very similar in structure and observed variables to the one you collected in this summer school. The idea is to move from data collection, analysis to this part, where you use the data to create a model.
+
+### Data description {#sec-dataDescription}
 
 These are the variables available in the data
 
@@ -99,7 +114,7 @@ These are the variables available in the data
 -   `P.strobus`: proportion of this tree species in the plot in volume
 -   `Q.rubra`: proportion of this tree species in the plot in volume
 -   `volAllha`: total volume in the plot
--   `GiniDBH`: Gini index calculated to assess the forest structural diversity in diamter sizes, higher values indicate more structural heterogeneity; lower values indicate more homogeneous stands
+-   `GiniDBH`: Gini index calculated to assess the forest structural diversity in diameter sizes, higher values indicate more structural heterogeneity; lower values indicate more homogeneous stands
 -   `ShannonIndexTreeSpp`: The Shannon index is way to measure the diversity of tree species in the plot
 -   `Tracheophyta_rich`: Species richness across Tracheophyta species
 -   `Birds_rich`: Species richness across Birds species
@@ -113,33 +128,33 @@ These are the variables available in the data
 -   `birdNumObs`: number of observed Bird species
 -   `PlotID`: ID number for the plot
 
-# Species description
+## Species description
 
-## Species 1 - Bryophytes
+### Species 1 - Bryophytes
 
 Bryophytes constitute an important and permanent component of the forest flora and diversity. They colonize various substrates, which are unsuitable for vascular plants, because of low light intensity or low nutrient level, such as deadwood, bark, rocks, and open soil. They provide shelter habitats, food, and nest material for many animals.
 
 In forests, different ecological guilds of bryophytes can be distinguished by the substrate on which they are growing, including terricolous, lignicolous, corticolous and saxicolous species that occur on soil, deadwood, bark of living trees and shrubs, or rocks, respectively. As diversity and quality of these substrates is affected by forest management, bryophytes are suitable indicators for the effect of management on forest conditions. Especially typical woodland bryophytes, which are strictly depending on forest conditions. It is interesting to better understand the relation of forest management effects on bryophytes and some studies have already demonstrated their sensitivity to management practices.
 
-## Species 2 - Great spotted woodpecker (**Dendrocopos major**)
+### Species 2 - Great spotted woodpecker (**Dendrocopos major**)
 
 The great spotted woodpecker (*Dendrocopos major*) is a medium-sized woodpecker with pied black and white plumage and a red patch on the lower belly. It is found in a wide variety of woodlands, broadleaf, coniferous or mixed forests. The great spotted woodpecker spends much of its time climbing trees. It a quite generalist bird species.
 
-## Species 3 - Eurasian treecreeper
+### Species 3 - Eurasian treecreeper
 
 The Eurasian treecreeper or common treecreeper (Certhia familiaris) is a small passerine bird. It prefers mature trees, and in most of Europe, it tends to be found mainly in coniferous forest, especially spruce and fir.
 
-# Models
+## Models
 
-## Generalized Linear Models (GLMs)
+### Generalized Linear Models (GLMs)
 
-We propose to use a generalized linear model (GLM) to understand the abundance of different bryophites species at the 99 plots. Count data often conform to a Poisson distribution, in this case we have a count of the number of species recorded at each plot.
+We propose to use a generalized linear model (GLM) to understand the abundance of different bryophytes species in the 99 plots. Count data often conform to a Poisson distribution; in this case, we have a count of the number of species recorded at each plot.
 
-Fitting a Poisson GLM in R is very similar to fitting an analysis of covariance (or linear model), except that now we need to use the glm function. To run a GLM, we need to provide one extra piece of information beyond that needed for a linear model: the family of model we want to use. In this case, we want a Poisson family, family=poisson.
+Fitting a Poisson GLM in R is similar to analyzing covariance (or linear model), except that we now need to use the glm function. To run a GLM, we need to provide one extra piece of information beyond that required for a linear model: the family of models we want to use. In this case, we want a Poisson family, family=poisson.
 
-## Boosted regression trees (BRTs) {#sec-modelBRT}
+### Boosted regression trees (BRTs) {#sec-modelBRT}
 
-Boosted regression trees (BRT) are a combination of two powerful statistical techniques: boosting and regression trees . Boosting is a machine learning technique similar to model averaging, where the results of several competing models are merged. Unlike model averaging, however, boosting uses a forward, stage-wise procedure, where tree models are fitted iteratively to a subset of the training data. Subsets of the training data used at each iteration of the model fit are randomly selected without replacement, where the proportion of the training data used is determined by the modeler, this is defined with the "bag fraction" parameter. This procedure, known as stochastic gradient boosting, introduces an element of stochasticity that improves model accuracy and reduces overfitting [@elith2008].
+Boosted regression trees (BRT) are a combination of two powerful statistical techniques: boosting and regression trees. Boosting is a machine learning technique similar to model averaging, where the results of several competing models are merged. Unlike model averaging, however, boosting uses a forward, stage-wise procedure, where tree models are fitted iteratively to a subset of the training data. Subsets of the training data used at each iteration of the model fit are randomly selected without replacement, where the proportion of the training data used is determined by the modeler, this is defined with the "bag fraction" parameter. This procedure, known as stochastic gradient boosting, introduces an element of stochasticity that improves model accuracy and reduces overfitting [@elith2008].
 
 The BRT model calibration is defined by four parameters:
 
@@ -151,21 +166,27 @@ The BRT model calibration is defined by four parameters:
 
 -   The `number of trees` required for optimal prediction: The optimal number of trees is selected based on the three previous parameters. The values fitted by the final model are computed as the sum of all of the predictions of the trees, multiplied by their respective learning rates.
 
-# The exercise
+## The exercise
 
-## Download the data
+### The project folder
+
+All the project is available in a github repository. You can download the project with this document, code, the `.rproj` and the correct folder structure in [here \[2\]](https://github.com/oldiya/summerSchoolExercise).
+
+\[2\] https://github.com/oldiya/summerSchoolExercise
+
+In this project you will find a folder called `code` where the codes for each question are storaged. A folder called `data` where you have to storage the data that you have downloaded. A folder called `exercise`, that contains this document and all the required files to build it.
+
+### Download the data
 
 You can download the data in [here \[1\]](https://polybox.ethz.ch/index.php/s/qERYKjzmFTr81Sq)
 
 \[1\] https://polybox.ethz.ch/index.php/s/qERYKjzmFTr81Sq
 
-Our recomendation is that you follow this folder structure and you put the data in the folder data of the project and the .rproj into the main folder. If you decide to organized things in a different way then you will have to change the path to the code provided to load the data in the section "Explore the data"
+Our recommendation is that you follow this folder structure and you put the data in the folder data of the project and the `.rproj` into the main folder. If you decide to organized things in a different way then you will have to change the path to the code provided to load the data in the section "Explore the data"
 
-PHOTO OF THE FOLDER STRUCTURE HERE
+![](images/folderStruc.png){width="300"}
 
-You can download the whole project with this document, the rproj and the correct folder structure in here \[2\] but this has to be done using git.
-
-## Explore the data
+### Explore the data
 
 You can load the data in R by doing:
 
@@ -173,7 +194,7 @@ You can load the data in R by doing:
 observations <- read.csv(here::here("data/observations.csv"))
 ```
 
-You should then explore the data and understand its structure. You should pay attention to the meaning of each variable and the type of data structure. In this dataset each row is one plot (see `PlotID`), and each column is one variable.
+Once you have obtained the data, your next step is to explore it. It is important to carefully analyze the structure of the data and understand its meaning. Each variable must be examined closely, along with the data structure. Remember that each row in this dataset represents one plot, identified by its `PlotID`, and each column represents one variable.
 
 You can explore each of the variables by doing:
 
@@ -181,11 +202,11 @@ You can explore each of the variables by doing:
 str(observations)
 ```
 
-You have a description of each of the variables in the section @sec-dataDescription
+You have a description of each of the variables in the section @sec-dataDescription.
 
 You could do further analysis by exploring the data correlations and you can even plot them to explore their values and ranges better. During this process you should start thinking:
 
--   What am I trying to understand with this model? (aka your question)
+-   What am I trying to understand with this model? (your question)
 -   What variables are important to answer my question?
 
 You could for example explore the behavior of the variables by plotting a scatterplot:
@@ -213,17 +234,15 @@ plot(y = observations$bryophitaNumObs,
      xlab = "Ginni index", ylab = "Number of observed bryophita" )
 ```
 
-## Question 1
-
-In this question we want to know.
+### Question 1 {#sec-q1}
 
 -   Does a more diverse forest in structure and composition have more Bryophytes species?
 
-### Fitting a Poisson GLM in R
+#### Fitting a Poisson GLM in R
 
-During your data exploration you should have selected your response variable: `bryophitaNumObs`. In this case since we are trying to understand forest structure and composition you should also select explanatory variables for that such as `GiniDBH` which indicates the forest structural diversity in diameter sizes, higher values indicate more structural heterogeneity and lower values indicate more homogeneous stands, or the `ShannonIndexTreeSpp` which assess the diversity of tree species in the plot.
+During your data exploration, you should have selected your response variable, `bryophitaNumObs`. In this case, since we are trying to understand forest structure and composition, you should also choose explanatory variables for that, such as `GiniDBH,` which indicates the forest structural diversity in diameter sizes; higher values indicate more structural heterogeneity, and lower values indicate more homogeneous stands, or the `ShannonIndexTreeSpp` which assess the diversity of tree species in the plot.
 
-We could start by only looking at how the forest structural diversity affects the number Bryophytes species that we have in a plot. You can do this by creating a GLM model which has `bryophitaNumObs` as response variable and `GiniDBH` as explanatory variable. For that you will use the function `glm`in R and use the `family = poisson`. You can see how to create and see this model here:
+We could start by only looking at how the forest structural diversity affects the number of Bryophytes species that we have in a plot. You can create a GLM model with `bryophitaNumObs` as the response variable and `GiniDBH` as an explanatory variable. You will use the function glm in R and the `family = poisson`. You can see how to create and see this model here:
 
 ```{r fit glm struct11}
 bryoModel1 <- glm(bryophitaNumObs ~ GiniDBH,
@@ -233,9 +252,9 @@ bryoModel1 <- glm(bryophitaNumObs ~ GiniDBH,
 summary(bryoModel1)
 ```
 
-Here you can see that the coefficient table produced by a GLM is very similar to a linear model. The intercept tells us the estimated value of the response variable when the continuous explanatory variables (here just Gini index) has a value of 0. We then also have coefficients describing the slope of the relationship with our continuous explanatory variables. We can see here that the number of Bryophytes species appears to show a positive relationship with Gini index, which means that increasing structural diversity in trees diameter sizes has a positive relationship with the number of Bryophytes species in the plot.
+Here you can see that the coefficient table produced by a GLM is very similar to a linear model. The intercept tells us the estimated value of the response variable when the continuous explanatory variables (here, just the Gini index) has a value of 0. We then also have coefficients describing the slope of the relationship with our continuous explanatory variables. We can see here that the number of Bryophytes species appears to show a positive relationship with the Gini index, which means that increasing structural diversity in tree diameter sizes has a positive relationship with the number of Bryophytes species in the plot.
 
-We are also interested in understanding the relationship with the number of Bryophytes species and the trees species diversity, we can now try to add this variable into the model and see if it help us to understand things. You can do that by adding the variable `ShannonIndexTreeSpp` into the model
+We are also interested in understanding the relationship between the number of Bryophytes species and the tree species diversity; we can now try to add this variable into the model and see if it helps us to understand things. You can do that by adding the variable `ShannonIndexTreeSpp` to the model:
 
 ```{r fit glm struct12}
 bryoModel2 <- glm(bryophitaNumObs ~ GiniDBH + ShannonIndexTreeSpp,
@@ -245,13 +264,13 @@ bryoModel2 <- glm(bryophitaNumObs ~ GiniDBH + ShannonIndexTreeSpp,
 summary(bryoModel2)
 ```
 
-Here we can see that the variable Shannon index also has a positive relationship with the number of Bryophytes species in the plot but its effect is much smaller. We can also observed that this variable it is not significant. This does not mean that is wrong to add this variable, because we want to understand its effect, but keeping this variable in the model or not it depends on what you're trying to do, and what "reality" is. Adding variables that are not needed will not help your model (particularly your estimates), but also might not matter much (e.g. predictions). However, removing variables that are real, even if they don't meet significance, can create a useless model.
+Here we can see that the variable Shannon index also has a positive relationship with the number of Bryophytes species in the plot, but its effect is much smaller. We can also observe that this variable is not significant. This does not mean it is wrong to add this variable because we want to understand its effect, but keeping this variable in the model depends on what you're trying to do and what "reality" is. Adding variables that are not needed will not help your model (particularly your estimates) but also might not matter much (e.g., predictions). However, removing actual variables can create a useless model even if they don't meet significance.
 
-Variable selection is a long and complicated topic. some general rules of thumb include: (1) Include the variable if it is of interest, (2) Include the variable if you have some prior knowledge that it should be relevant. This can be misleading, because it's a confirmation bias, but in most cases this makes sense. (3) If you want a model that can generalize to many cases, you should favor fewer variables.
+Variable selection is a long and complicated topic. Some general rules of thumb include: (1) Include the variable if it is of interest, (2) Include the variable if you have some prior knowledge that it should be relevant. This can be misleading because it's a confirmation bias, but in most cases, this makes sense. (3) If you want a model that can generalize to many cases, you should favor fewer variables.
 
-### Explanatory Power of the model
+#### Explanatory Power of the model
 
-When we ran linear models, we used the coefficient of determination, or R^2^ to assess how much of the variability in our response variable is explained by a given model. R^2^ is based on the sums of squares of our model, and so cannot be calculated for GLMs. Instead, we can calculate the the deviance explained by our model:
+When we ran linear models, we used the coefficient of determination, or R^2^ to assess how much of the variability in our response variable is explained by a given model. R^2^ is based on the sums of squares of our model, and so cannot be calculated for GLMs. Instead, we can calculate the deviance explained by our model:
 
 ```{r deviance explained by our model1}
 
@@ -271,7 +290,7 @@ dev.explained
 
 Variability in forest structure (Gini index) explain 15% of the variation in Bryophytes species richness in this study. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness for Bryophytes and we are attempting to explain everything with just one variable).
 
-### Model Assumptions
+#### Model Assumptions
 
 For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter λ, which describes both the mean and the variance of the distribution.
 
@@ -291,11 +310,11 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have time to continuou in this exercise.
 
-## Question 2
+### Question 2 {#sec-q2}
 
 -   Is the number of Briophites species affected by forest management type and the forest structural diversity?
 
-### Fitting a Poisson GLM in R
+#### Fitting a Poisson GLM in R
 
 Fitting a Poisson GLM in R is very similar to fitting an analysis of covariance (or linear model), except that now we need to use the glm function. To run a GLM, we need to provide one extra piece of information beyond that needed for a linear model: the family of model we want to use. In this case, we want a Poisson family.
 
@@ -325,7 +344,7 @@ The intercept here tells us the estimated value of the response variable when th
 
 The type simple clearcutting it appears to be no significant, which only tell us about the pairwise differences between the levels. To test whether the categorical predictor, as a whole, is significant is equivalent to testing whether there is any heterogeneity in the means of the levels of the predictor. When there are no other predictors in the model, this is a classical [ANOVA](http://en.wikipedia.org/wiki/Analysis_of_variance) problem.
 
-### Explanatory Power of the model
+#### Explanatory Power of the model
 
 When we ran linear models, we used the coefficient of determination, or R^2^ to assess how much of the variability in our response variable is explained by a given model. R^2^ is based on the sums of squares of our model, and so cannot be calculated for GLMs. Instead, we can calculate the the deviance explained by our model:
 
@@ -347,7 +366,7 @@ dev.explained
 
 Variability in forest structure (Gini index) explain 15% of the variation in bryophita species richness in this study system. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness for bryophitas and we are attempting to explain everything with one variable).
 
-### Model Assumptions
+#### Model Assumptions
 
 For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter λ, which describes both the mean and the variance of the distribution.
 
@@ -367,11 +386,11 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have to continuou in this exercise.
 
-## Question 3
+### Question 3 {#sec-q3}
 
 -   Does a more diverse forest in structure and composition have more bird species?
 
-### Fitting a Poisson GLM in R
+#### Fitting a Poisson GLM in R
 
 During your data exploration you should have selected your response variable: `bryophitaNumObs`. In this case since we are trying to understand forest structure and composition you should also select explanatory variables for that such as `GiniDBH` which indicates the forest structural diversity in diameter sizes, higher values indicate more structural heterogeneity and lower values indicate more homogeneous stands, or the `ShannonIndexTreeSpp` which assess the diversity of tree species in the plot.
 
@@ -401,7 +420,7 @@ Here we can see that the variable Shannon index also has a positive relationship
 
 Variable selection is a long and complicated topic. some general rules of thumb include: (1) Include the variable if it is of interest, (2) Include the variable if you have some prior knowledge that it should be relevant. This can be misleading, because it's a confirmation bias, but in most cases this makes sense. (3) If you want a model that can generalize to many cases, you should favor fewer variables.
 
-### Explanatory Power of the model
+#### Explanatory Power of the model
 
 When we ran linear models, we used the coefficient of determination, or R^2^ to assess how much of the variability in our response variable is explained by a given model. R^2^ is based on the sums of squares of our model, and so cannot be calculated for GLMs. Instead, we can calculate the the deviance explained by our model:
 
@@ -423,7 +442,7 @@ dev.explained
 
 Variability in forest structure (Gini index) explain 8% of the variation in bird species richness in this study. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness for birds and we are attempting to explain everything with just one variable).
 
-### Model Assumptions
+#### Model Assumptions
 
 For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter λ, which describes both the mean and the variance of the distribution.
 
@@ -443,11 +462,11 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have time to continuou in this exercise.
 
-## Question 4
+### Question 4 {#sec-q4}
 
 -   Is the number of bird species affected by forest management type and the forest structural diversity?
 
-### Fitting a Poisson GLM in R
+#### Fitting a Poisson GLM in R
 
 Fitting a Poisson GLM in R is very similar to fitting an analysis of covariance (or linear model), except that now we need to use the glm function. To run a GLM, we need to provide one extra piece of information beyond that needed for a linear model: the family of model we want to use. In this case, we want a Poisson family.
 
@@ -477,7 +496,7 @@ The intercept here tells us the estimated value of the response variable when th
 
 The type simple clearcutting and unmanaged it appears to be no significant, which only tell us about the pairwise differences between the levels. To test whether the categorical predictor, as a whole, is significant is equivalent to testing whether there is any heterogeneity in the means of the levels of the predictor. When there are no other predictors in the model, this is a classical [ANOVA](http://en.wikipedia.org/wiki/Analysis_of_variance) problem.
 
-### Explanatory Power of the model
+#### Explanatory Power of the model
 
 When we ran linear models, we used the coefficient of determination, or R^2^ to assess how much of the variability in our response variable is explained by a given model. R^2^ is based on the sums of squares of our model, and so cannot be calculated for GLMs. Instead, we can calculate the the deviance explained by our model:
 
@@ -499,7 +518,7 @@ dev.explained
 
 Variability in forest structure (Gini index) explain 15% of the variation in bryophita species richness in this study system. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness for bryophitas and we are attempting to explain everything with one variable).
 
-### Model Assumptions
+#### Model Assumptions
 
 For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter λ, which describes both the mean and the variance of the distribution.
 
@@ -519,11 +538,11 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have to continuou in this exercise.
 
-## Question 5
+### Question 5 {#sec-q5}
 
 -   Is the presence of the Great spotted woodpecker affected by forest density?
 
-### Fitting a BRT in R
+#### Fitting a BRT in R
 
 In this case we want to assess the occurrence of certain species across the plots. In other words, we want to assess what is the probability of a certain species with biodiversity interest to be present in a plot based on the variables that describe the forest of that plot. In this case the response variable is `dendrocoposMajor` that represents if the Great spotted woodpecker has been observed in this plot or not.
 
@@ -601,7 +620,7 @@ The model is built with the default 10-fold cross-validation (CV). In the plotte
 
 Ideally, you should invest time in modifying the parameters and finr the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
 
-### Model behaviour
+#### Model behaviour
 
 You can summarized the model parameters used and the cross validation statistics from the fitted model by doing this:
 
@@ -646,7 +665,7 @@ print(t(results))
 
 ```
 
-### Model output analysis
+#### Model output analysis
 
 We can look at the relative contribution of each of the predictor variables. The measures are based on the number of time the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
 
@@ -661,7 +680,7 @@ Here we can see that the two variables with the highest influence in the respons
 Now we can evaluate the model behavior via partial dependence plots, showing the effect of each of the variables on the response by accounting for the average effects of all other predictors in the model:
 
 ```{r marginallEffects}
-    gbm.plot(modelBRT, n.plots = 6,
+    dismo::gbm.plot(modelBRT, n.plots = 6,
              plot.layout = c(2, 3), write.title = F)
 ```
 
@@ -676,16 +695,16 @@ It seems that there is an increase in probability of finding a Great spotted woo
 To plot this pairwise interactions we have to do:
 
 ```{r pairwise int, warning=FALSE, message=FALSE}
-gbm.perspec(modelBRT, 3, 6)
+dismo::gbm.perspec(modelBRT, 3, 6)
 ```
 
 Here we can see that both increasing bird diversity and forest density provides the highest probabilities for finding the Great spotted woodpecker.
 
-## Question 6
+## Question 6 {#sec-q6}
 
 -   Is the presence of the Great spotted woodpecker affected by forest diversity?
 
-### Fitting a BRT in R
+#### Fitting a BRT in R
 
 In this case we want to assess the occurrence of certain species across the plots. In other words, we want to assess what is the probability of a certain species with biodiversity interest to be present in a plot based on the variables that describe the forest of that plot. In this case the response variable is `dendrocoposMajor` that represents if the Great spotted woodpecker has been observed in this plot or not.
 
@@ -763,7 +782,7 @@ The model is built with the default 10-fold cross-validation (CV). In the plotte
 
 Ideally, you should invest time in modifying the parameters and finr the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
 
-### Model behaviour
+#### Model behaviour
 
 You can summarized the model parameters used and the cross validation statistics from the fitted model by doing this:
 
@@ -808,7 +827,7 @@ print(t(results))
 
 ```
 
-### Model output analysis
+#### Model output analysis
 
 We can look at the relative contribution of each of the predictor variables. The measures are based on the number of time the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
 
@@ -823,7 +842,7 @@ Here we can see that the two variables with the highest influence in the respons
 Now we can evaluate the model behavior via partial dependence plots, showing the effect of each of the variables on the response by accounting for the average effects of all other predictors in the model:
 
 ```{r marginallEffects6}
-    gbm.plot(modelBRT, n.plots = 6,
+    dismo::gbm.plot(modelBRT, n.plots = 6,
              plot.layout = c(2, 3), write.title = F)
 ```
 
@@ -838,16 +857,16 @@ It seems that there is an increase in probability of finding a Great spotted woo
 To plot this pairwise interactions we have to do:
 
 ```{r pairwise int6, warning=FALSE, message=FALSE}
-gbm.perspec(modelBRT, 3, 5)
+dismo::gbm.perspec(modelBRT, 3, 5)
 ```
 
 Here we can not see a very clear combined behavior between forest diversity and forest structural diversity in respect to the probabilities for finding the Great spotted woodpecker.
 
-## Question 7
+### Question 7 {#sec-q7}
 
 -   Is the presence of the Eurasian treecreeper affected by forest density?
 
-### Fitting a BRT in R
+#### Fitting a BRT in R
 
 In this case we want to assess the occurrence of certain species across the plots. In other words, we want to assess what is the probability of a certain species with biodiversity interest to be present in a plot based on the variables that describe the forest of that plot. In this case the response variable is `phoenicurus` that represents if the Great spotted woodpecker has been observed in this plot or not.
 
@@ -924,7 +943,7 @@ The model is built with the default 10-fold cross-validation (CV). In the plotte
 
 Ideally, you should invest time in modifying the parameters and finr the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
 
-### Model behaviour
+#### Model behaviour
 
 You can summarized the model parameters used and the cross validation statistics from the fitted model by doing this:
 
@@ -969,7 +988,7 @@ print(t(results))
 
 ```
 
-### Model output analysis
+#### Model output analysis
 
 We can look at the relative contribution of each of the predictor variables. The measures are based on the number of time the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
 
@@ -984,7 +1003,7 @@ Here we can see that the two variables with the highest influence in the respons
 Now we can evaluate the model behavior via partial dependence plots, showing the effect of each of the variables on the response by accounting for the average effects of all other predictors in the model:
 
 ```{r marginallEffects7}
-    gbm.plot(modelBRT, n.plots = 6,
+    dismo::gbm.plot(modelBRT, n.plots = 6,
              plot.layout = c(2, 3), write.title = F)
 ```
 
@@ -999,16 +1018,16 @@ It seems that there is an increase in probability of finding a Eurasian treecree
 To plot this pairwise interactions we have to do:
 
 ```{r pairwise int7, warning=FALSE, message=FALSE}
-gbm.perspec(modelBRT, 3, 5)
+dismo::gbm.perspec(modelBRT, 3, 5)
 ```
 
 It seems that the highes chances to see a Eurasian treecreeper is in dense forests with highest tree diversity.
 
-## Question 8
+### Question 8 {#sec-q8}
 
 -   Is the presence of the Eurasian treecreeper affected by forest management?
 
-### Fitting a BRT in R
+#### Fitting a BRT in R
 
 In this case we want to assess the occurrence of certain species across the plots. In other words, we want to assess what is the probability of a certain species with biodiversity interest to be present in a plot based on the variables that describe the forest of that plot. In this case the response variable is `phoenicurus` that represents if the Great spotted woodpecker has been observed in this plot or not.
 
@@ -1085,7 +1104,7 @@ The model is built with the default 10-fold cross-validation (CV). In the plotte
 
 Ideally, you should invest time in modifying the parameters and finr the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
 
-### Model behaviour
+#### Model behaviour
 
 You can summarized the model parameters used and the cross validation statistics from the fitted model by doing this:
 
@@ -1130,7 +1149,7 @@ print(t(results))
 
 ```
 
-### Model output analysis
+#### Model output analysis
 
 We can look at the relative contribution of each of the predictor variables. The measures are based on the number of time the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
 
@@ -1145,7 +1164,7 @@ Here we can see that the two variables with the highest influence in the respons
 Now we can evaluate the model behavior via partial dependence plots, showing the effect of each of the variables on the response by accounting for the average effects of all other predictors in the model:
 
 ```{r marginallEffects8}
-    gbm.plot(modelBRT, n.plots = 6,
+    dismo::gbm.plot(modelBRT, n.plots = 6,
              plot.layout = c(2, 3), write.title = F)
 ```
 
@@ -1160,7 +1179,7 @@ It seems that there is a small difference in the probability of finding the Eura
 To plot this pairwise interactions we have to do:
 
 ```{r pairwise int8, warning=FALSE, message=FALSE}
-gbm.perspec(modelBRT, 5, 4)
+dismo::gbm.perspec(modelBRT, 5, 4)
 ```
 
 It seems that there are not clear pattenrs in the combined effect of forest structure diversity and forest tree species diversity.
