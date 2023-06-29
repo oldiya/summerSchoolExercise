@@ -1754,62 +1754,10 @@ display: none;
 <!-- rnb-text-begin -->
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>GLM notes from here: <a href="https://timnewbold.github.io/teaching_resources/GLMs.html" class="uri">https://timnewbold.github.io/teaching_resources/GLMs.html</a></p>
-<div id="on-variable-significance-and-selection" class="section level2">
-<h2>On variable significance and selection</h2>
-<p>It can be definitely OK, but it depends on what you’re trying to do,
-and what “reality” is (i.e. what’s the most correct answer). Adding
-variables that aren’t needed won’t help your model (particularly your
-estimates), but also might not matter much (e.g. predictions). However,
-removing variables that are real, even if they don’t meet significance,
-can really mess up your model.</p>
-<p>Here’s a few rules of thumb:</p>
-<p>Include the variable if it is of interest before hand, or you want a
-direct estimate of its effect. If your business collaborators say to put
-it in, put it in. If they’re looking for estimates of the holiday
-effects, put it in (although there might be some debate as to whether
-you should look at each holiday individually). Include the variable if
-you have some prior knowledge that it should be relevant. This can be
-misleading, because it’s a confirmation bias, but I’d say in most cases
-it makes sense to do so. Particularly for holiday effects (I assume this
-is something like sales or energy consumption), these are well-known and
-documented, and those small but not-statistically-significant are real.
-In general practice (i.e. most real world situations), it’s better to
-have a slightly overspecified model than an underspecified one. This is
-particularly true for the purposes of prediction, because the response
-remains unbiased (i.e. determining the response of Y). This rule is very
-conditional, but the other bullets that favor overspecification tend to
-be more common in practice, especially in the business/applied world.
-Note that by saying that, I bring it back to the second bullet point,
-emphasizing business experience. If you want a model that can generalize
-to many cases, you should favor fewer variables. Overfitting works, but
-it tends to make your model only work for a narrow inference space
-(i.e. the one reflected by your sample). If you need precise (low
-variance) estimates, use fewer variables. Just to re-emphasize; these
-are rules of thumb. There are plenty of exceptions. Judging by the
-limited information you’ve provided, you probably should include the
-non-significant “holiday” variable.</p>
-<p>I’ve seen many saturated models (every term included) that perform
-extremely well. This isn’t always true, but this works because, in a lot
-of business problems, reality is a complex response (so you should
-expect a lot of variables to be present), in addition to the lack of
-statistical bias from adding all these variables. Less relevant to this
-question, but relevant to this answer is that “Big data” also captures
-the power of the law of large numbers and the central limit theorem.</p>
-<p>Variable selection is a long and complicated topic. Look up
-descriptions of the drawbacks of underspecification
-vs. overspecification, while remembering that the “right” model is the
-best - but unachievable. Determine if your interest is in the mean or
-the variance. There’s a lot of focus on variances, especially in
-teaching and academia…but in practice and in most business settings,
-most people are more interested in the mean! This goes back to why
-overspecification in most real world cases should probably be
-favored.</p>
 <!-- rnb-text-end -->
 </div>
-</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTm90ZXMgZm9yIHRoZSBwcmVzZW50YXRpb24iCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCiMgSW50cm9kdWN0aW9uIAoKR0xNIG5vdGVzIGZyb20gaGVyZTogaHR0cHM6Ly90aW1uZXdib2xkLmdpdGh1Yi5pby90ZWFjaGluZ19yZXNvdXJjZXMvR0xNcy5odG1sCgojIyBPbiB2YXJpYWJsZSBzaWduaWZpY2FuY2UgYW5kIHNlbGVjdGlvbiAKSXQgY2FuIGJlIGRlZmluaXRlbHkgT0ssIGJ1dCBpdCBkZXBlbmRzIG9uIHdoYXQgeW91J3JlIHRyeWluZyB0byBkbywgYW5kIHdoYXQgInJlYWxpdHkiIGlzIChpLmUuIHdoYXQncyB0aGUgbW9zdCBjb3JyZWN0IGFuc3dlcikuIEFkZGluZyB2YXJpYWJsZXMgdGhhdCBhcmVuJ3QgbmVlZGVkIHdvbid0IGhlbHAgeW91ciBtb2RlbCAocGFydGljdWxhcmx5IHlvdXIgZXN0aW1hdGVzKSwgYnV0IGFsc28gbWlnaHQgbm90IG1hdHRlciBtdWNoIChlLmcuIHByZWRpY3Rpb25zKS4gSG93ZXZlciwgcmVtb3ZpbmcgdmFyaWFibGVzIHRoYXQgYXJlIHJlYWwsIGV2ZW4gaWYgdGhleSBkb24ndCBtZWV0IHNpZ25pZmljYW5jZSwgY2FuIHJlYWxseSBtZXNzIHVwIHlvdXIgbW9kZWwuCgpIZXJlJ3MgYSBmZXcgcnVsZXMgb2YgdGh1bWI6CgpJbmNsdWRlIHRoZSB2YXJpYWJsZSBpZiBpdCBpcyBvZiBpbnRlcmVzdCBiZWZvcmUgaGFuZCwgb3IgeW91IHdhbnQgYSBkaXJlY3QgZXN0aW1hdGUgb2YgaXRzIGVmZmVjdC4gSWYgeW91ciBidXNpbmVzcyBjb2xsYWJvcmF0b3JzIHNheSB0byBwdXQgaXQgaW4sIHB1dCBpdCBpbi4gSWYgdGhleSdyZSBsb29raW5nIGZvciBlc3RpbWF0ZXMgb2YgdGhlIGhvbGlkYXkgZWZmZWN0cywgcHV0IGl0IGluIChhbHRob3VnaCB0aGVyZSBtaWdodCBiZSBzb21lIGRlYmF0ZSBhcyB0byB3aGV0aGVyIHlvdSBzaG91bGQgbG9vayBhdCBlYWNoIGhvbGlkYXkgaW5kaXZpZHVhbGx5KS4KSW5jbHVkZSB0aGUgdmFyaWFibGUgaWYgeW91IGhhdmUgc29tZSBwcmlvciBrbm93bGVkZ2UgdGhhdCBpdCBzaG91bGQgYmUgcmVsZXZhbnQuIFRoaXMgY2FuIGJlIG1pc2xlYWRpbmcsIGJlY2F1c2UgaXQncyBhIGNvbmZpcm1hdGlvbiBiaWFzLCBidXQgSSdkIHNheSBpbiBtb3N0IGNhc2VzIGl0IG1ha2VzIHNlbnNlIHRvIGRvIHNvLiBQYXJ0aWN1bGFybHkgZm9yIGhvbGlkYXkgZWZmZWN0cyAoSSBhc3N1bWUgdGhpcyBpcyBzb21ldGhpbmcgbGlrZSBzYWxlcyBvciBlbmVyZ3kgY29uc3VtcHRpb24pLCB0aGVzZSBhcmUgd2VsbC1rbm93biBhbmQgZG9jdW1lbnRlZCwgYW5kIHRob3NlIHNtYWxsIGJ1dCBub3Qtc3RhdGlzdGljYWxseS1zaWduaWZpY2FudCBhcmUgcmVhbC4KSW4gZ2VuZXJhbCBwcmFjdGljZSAoaS5lLiBtb3N0IHJlYWwgd29ybGQgc2l0dWF0aW9ucyksIGl0J3MgYmV0dGVyIHRvIGhhdmUgYSBzbGlnaHRseSBvdmVyc3BlY2lmaWVkIG1vZGVsIHRoYW4gYW4gdW5kZXJzcGVjaWZpZWQgb25lLiBUaGlzIGlzIHBhcnRpY3VsYXJseSB0cnVlIGZvciB0aGUgcHVycG9zZXMgb2YgcHJlZGljdGlvbiwgYmVjYXVzZSB0aGUgcmVzcG9uc2UgcmVtYWlucyB1bmJpYXNlZCAoaS5lLiBkZXRlcm1pbmluZyB0aGUgcmVzcG9uc2Ugb2YgWSkuIFRoaXMgcnVsZSBpcyB2ZXJ5IGNvbmRpdGlvbmFsLCBidXQgdGhlIG90aGVyIGJ1bGxldHMgdGhhdCBmYXZvciBvdmVyc3BlY2lmaWNhdGlvbiB0ZW5kIHRvIGJlIG1vcmUgY29tbW9uIGluIHByYWN0aWNlLCBlc3BlY2lhbGx5IGluIHRoZSBidXNpbmVzcy9hcHBsaWVkIHdvcmxkLiBOb3RlIHRoYXQgYnkgc2F5aW5nIHRoYXQsIEkgYnJpbmcgaXQgYmFjayB0byB0aGUgc2Vjb25kIGJ1bGxldCBwb2ludCwgZW1waGFzaXppbmcgYnVzaW5lc3MgZXhwZXJpZW5jZS4KSWYgeW91IHdhbnQgYSBtb2RlbCB0aGF0IGNhbiBnZW5lcmFsaXplIHRvIG1hbnkgY2FzZXMsIHlvdSBzaG91bGQgZmF2b3IgZmV3ZXIgdmFyaWFibGVzLiBPdmVyZml0dGluZyB3b3JrcywgYnV0IGl0IHRlbmRzIHRvIG1ha2UgeW91ciBtb2RlbCBvbmx5IHdvcmsgZm9yIGEgbmFycm93IGluZmVyZW5jZSBzcGFjZSAoaS5lLiB0aGUgb25lIHJlZmxlY3RlZCBieSB5b3VyIHNhbXBsZSkuCklmIHlvdSBuZWVkIHByZWNpc2UgKGxvdyB2YXJpYW5jZSkgZXN0aW1hdGVzLCB1c2UgZmV3ZXIgdmFyaWFibGVzLgpKdXN0IHRvIHJlLWVtcGhhc2l6ZTsgdGhlc2UgYXJlIHJ1bGVzIG9mIHRodW1iLiBUaGVyZSBhcmUgcGxlbnR5IG9mIGV4Y2VwdGlvbnMuIEp1ZGdpbmcgYnkgdGhlIGxpbWl0ZWQgaW5mb3JtYXRpb24geW91J3ZlIHByb3ZpZGVkLCB5b3UgcHJvYmFibHkgc2hvdWxkIGluY2x1ZGUgdGhlIG5vbi1zaWduaWZpY2FudCAiaG9saWRheSIgdmFyaWFibGUuCgpJJ3ZlIHNlZW4gbWFueSBzYXR1cmF0ZWQgbW9kZWxzIChldmVyeSB0ZXJtIGluY2x1ZGVkKSB0aGF0IHBlcmZvcm0gZXh0cmVtZWx5IHdlbGwuIFRoaXMgaXNuJ3QgYWx3YXlzIHRydWUsIGJ1dCB0aGlzIHdvcmtzIGJlY2F1c2UsIGluIGEgbG90IG9mIGJ1c2luZXNzIHByb2JsZW1zLCByZWFsaXR5IGlzIGEgY29tcGxleCByZXNwb25zZSAoc28geW91IHNob3VsZCBleHBlY3QgYSBsb3Qgb2YgdmFyaWFibGVzIHRvIGJlIHByZXNlbnQpLCBpbiBhZGRpdGlvbiB0byB0aGUgbGFjayBvZiBzdGF0aXN0aWNhbCBiaWFzIGZyb20gYWRkaW5nIGFsbCB0aGVzZSB2YXJpYWJsZXMuIExlc3MgcmVsZXZhbnQgdG8gdGhpcyBxdWVzdGlvbiwgYnV0IHJlbGV2YW50IHRvIHRoaXMgYW5zd2VyIGlzIHRoYXQgIkJpZyBkYXRhIiBhbHNvIGNhcHR1cmVzIHRoZSBwb3dlciBvZiB0aGUgbGF3IG9mIGxhcmdlIG51bWJlcnMgYW5kIHRoZSBjZW50cmFsIGxpbWl0IHRoZW9yZW0uCgpWYXJpYWJsZSBzZWxlY3Rpb24gaXMgYSBsb25nIGFuZCBjb21wbGljYXRlZCB0b3BpYy4gTG9vayB1cCBkZXNjcmlwdGlvbnMgb2YgdGhlIGRyYXdiYWNrcyBvZiB1bmRlcnNwZWNpZmljYXRpb24gdnMuIG92ZXJzcGVjaWZpY2F0aW9uLCB3aGlsZSByZW1lbWJlcmluZyB0aGF0IHRoZSAicmlnaHQiIG1vZGVsIGlzIHRoZSBiZXN0IC0gYnV0IHVuYWNoaWV2YWJsZS4gRGV0ZXJtaW5lIGlmIHlvdXIgaW50ZXJlc3QgaXMgaW4gdGhlIG1lYW4gb3IgdGhlIHZhcmlhbmNlLiBUaGVyZSdzIGEgbG90IG9mIGZvY3VzIG9uIHZhcmlhbmNlcywgZXNwZWNpYWxseSBpbiB0ZWFjaGluZyBhbmQgYWNhZGVtaWEuLi5idXQgaW4gcHJhY3RpY2UgYW5kIGluIG1vc3QgYnVzaW5lc3Mgc2V0dGluZ3MsIG1vc3QgcGVvcGxlIGFyZSBtb3JlIGludGVyZXN0ZWQgaW4gdGhlIG1lYW4hIFRoaXMgZ29lcyBiYWNrIHRvIHdoeSBvdmVyc3BlY2lmaWNhdGlvbiBpbiBtb3N0IHJlYWwgd29ybGQgY2FzZXMgc2hvdWxkIHByb2JhYmx5IGJlIGZhdm9yZWQu</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTm90ZXMgZm9yIHRoZSBwcmVzZW50YXRpb24iCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCiMgSW50cm9kdWN0aW9uIAo=</div>
 
 
 
