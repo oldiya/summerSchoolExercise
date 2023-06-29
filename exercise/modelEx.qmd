@@ -1,6 +1,6 @@
 ---
-title: Forest Modeling Exercises
-subtitle: Process based and empirical modeling
+title: Forest Modeling Exercise
+subtitle: Process-based and empirical modeling group assignments
 format:
   titlepage-pdf:
     documentclass: scrbook
@@ -12,9 +12,9 @@ format:
     titlepage-logo: "images/logo3.jpg"
     titlepage-header: "The Publisher"
     titlepage-footer: |
-      Interdisciplinary Summer School\
-      Ljubljana 2023\
-      [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)\
+      Interdisciplinary Summer School
+      Ljubljana 2023
+      [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)
 author:
   - name: Olalla Díaz-Yáñez
     affiliations:
@@ -27,12 +27,13 @@ author:
       - name: merganicova@fld.czu.cz (CZU)
   - name: Mats Nieberg
     affiliations:
-      - name: mats.nieberg@pik-potsdam.de (PIK-Potsdam | EFI ()
+      - name: mats.nieberg@pik-potsdam.de (PIK-Potsdam | EFI)
 bibliography: bibliography.bib  
 ---
 
 ```{r not to show, echo=FALSE}
-   # html:
+  # To export to html for the web 
+  # html:
    #  toc: true
    #  toc-depth: 3
    #  toc-location: left
@@ -44,30 +45,1803 @@ This document contains the instructions of the modeling group assignments. It co
 
 This document describes all the exercises, but your group has been assigned to only one, including one specific modeling approach. Each group has two questions to be answered (one question per subgroup inside each group). Please get in touch with your group coach if you are unsure what section you should focus on. The table below summarizes and links to the different parts of this document:
 
-| Group | Subgroup Question  | Question                                                                                                    | Approach | Go to section |
-|--------|----------|------------------------------------|----------|--------|
-| 1     | A                  |                                                                                                             | iLand    |               |
-| 1     | B                  |                                                                                                             | iLand    |               |
-| 1     | C                  | Does a more diverse forest in structure and composition have more Bryophites species?                       | GLM      | @sec-q1       |
-| 1     | D                  | Is the number of Bryophites species affected by forest management type and the forest structural diversity? | GLM      | @sec-q2       |
-| 2     | A                  |                                                                                                             | iLand    |               |
-| 2     | B                  |                                                                                                             | iLand    |               |
-| 2     | C                  | Does a more diverse forest in structure and composition have more bird species?                             | GLM      | @sec-q3       |
-| 2     | D                  | Is the number of bird species affected by forest management type and the forest structural diversity?       | GLM      | @sec-q4       |
-| 3     | A                  |                                                                                                             | iLand    |               |
-| 3     | B                  |                                                                                                             | iLand    |               |
-| 3     | C                  | Is the presence of the Great spotted woodpecker affected by forest density?                                 | BRT      | @sec-q5       |
-| 3     | D                  | Is the presence of the Great spotted woodpecker affected by forest diversity?                               | BRT      | @sec-q6       |
-| 4     | A                  |                                                                                                             | iLand    |               |
-| 4     | B                  |                                                                                                             | iLand    |               |
-| 4     | C                  | Is the presence of the Eurasian treecreeper affected by forest density?                                     | BRT      | @sec-q7       |
-| 4     | D                  | Is the presence of the Eurasian treecreeper affected by forest management?                                  | BRT      | @sec-q8       |
+| Group | Subgroup Question | Question                                                                                                    | Approach | Go to    |
+|---------------|---------------|---------------|---------------|---------------|
+| 1     | A                 |                                                                                                             | iLand    | @sec-A_1 |
+| 1     | B                 |                                                                                                             | iLand    | @sec-B_1 |
+| 1     | C                 | Does a more diverse forest in structure and composition have more Bryophites species?                       | GLM      | @sec-C_1 |
+| 1     | D                 | Is the number of Bryophites species affected by forest management type and the forest structural diversity? | GLM      | @sec-D_1 |
+| 2     | A                 |                                                                                                             | iLand    | @sec-A_2 |
+| 2     | B                 |                                                                                                             | iLand    | @sec-B_2 |
+| 2     | C                 | Does a more diverse forest in structure and composition have more bird species?                             | GLM      | @sec-C_2 |
+| 2     | D                 | Is the number of bird species affected by forest management type and the forest structural diversity?       | GLM      | @sec-D_2 |
+| 3     | A                 |                                                                                                             | iLand    | @sec-A_3 |
+| 3     | B                 |                                                                                                             | iLand    | @sec-B_3 |
+| 3     | C                 | Is the presence of the Great spotted woodpecker affected by forest density?                                 | BRT      | @sec-C_3 |
+| 3     | D                 | Is the presence of the Great spotted woodpecker affected by forest diversity?                               | BRT      | @sec-D_3 |
+| 4     | A                 |                                                                                                             | iLand    | @sec-A_4 |
+| 4     | B                 |                                                                                                             | iLand    | @sec-B_4 |
+| 4     | C                 | Is the presence of the Eurasian treecreeper affected by forest density?                                     | BRT      | @sec-C_4 |
+| 4     | D                 | Is the presence of the Eurasian treecreeper affected by forest management?                                  | BRT      | @sec-D_4 |
+
+## Data and model
+
+We provide all data, model and scripts for the excercises. However if you will use the model iLand for your research please get in contact with the model developers at the Technical University Münich: Werner Rammer (werner.rammer\@tum.de) and Rupert Seidl (rupert.seidl\@tum.de). Regarding the biodiversity data used in the empirical modeling processed in the emprical modeling part, in case of further usage please contact Jeňýk Hofmeister at the Czech University of Life Sciences Prague (jenyk.hofmeister\@email.cz).
 
 # Process based
 
-# Empiricial modeling
+## iLand model
 
-In the empricial modelling we will cover two examples of creating two models based on observed data. We will use two approaches Generalized Linear Models (GLMs) and Boosted Regression trees (BRTs). Please take all the results with a grain of salt, we are making very generalized statements from a limited data set, and we are not getting into the details of how each of the models should be assessed; the goal here is that you learn how observed data can be used to create models that help you to understand the data and relationships better.
+### General
+
+iLand is an ecosystem model that simulates forest landscape dynamics, including growth and regeneration, disturbance dynamics, and management in a spatially explicit manner. The main entity in the model is a tree, for which the demographic processes are simulated. Processes at the stand and landscape scale constrain the dynamics of individual trees and thus allow for the scaling of tree-scale processes to large areas. The model explicitly simulates tree competition for resources such as light, water, and nutrients. A light use efficiency approach is used to simulate the production physiology. Carbon starvation is used as a process oriented indicator of tree stress, which can result from competition for resources as well as suboptimal environmental conditions for tree growth (e.g., drought).
+
+iLand's mechanistic representation of forest disturbances and vegetation dynamics, as well as the climatic sensitivity of these processes, makes it well suited for the research of disturbance dynamics under climate change. Additionally, flexible implementation of management operations, which include planting after harvests or natural disturbances, thinning, harvesting, and post-disturbance salvaging, allows for testing the effects of various disturbance management strategies.
+
+A detailed model documentation is availabe on iLand WIKI page: https://iland-model.org/iLand+Hub
+
+### Input and outputs of iLand
+
+iLand needs information in specific formats about environment (mainly climate and soil) and trees. Daily climate data is needed (https://iland-model.org/ClimateData) for minimum, maximum temperature, precipitation, vapor pressure deficit and radiation. Soil depth and soil texture (sand, silt, clay %) information are needed. The soil is represented as a one-layer bucket, no depth-dependent information is needed. The model needs species-specific parameters (https://iland-model.org/species+parameter) that are describing the behavior of each tree species (growth, mortality, competition etc.). Currently there are 31 species parametrizied for iLand, and the species specific parameters are stored in a database that is an input for the model. The parameters were previously calibrated for European conditions (species_param_europe.sqlite). iLand uses short codes for species derived from the latin names (e.g. Picea Abies - piab, Fagus Sylvatica - fasy, ..) Information on the initial forest is also required to start a simulation.
+
+As iLand is a landscape scale model, both climate, soil and tree information need to be set spatially. For larger areas environmental maps can be set using a 100x100m resolution grid, a so called resource grid with resource units, and tree information can be set by maximum 10x10m resolution grid on a stand grid using stand IDs. There are more options how to initialize a landscape in iLand depending on our spatial scales and available data (https://iland-model.org/initialization).
+
+In our case now we will use iLand in a stand-scale mode (called torus), where we simulate only one 100x100m pixel, 1 ha forest area. We will use single-tree initialization method, where we set the x-y coordinates of the trees inside the 100x100m area, tree species, dbh and height of each tree. From inventory we have data for the a circle with 13.82m radius. We generated trees for the 1ha area based on the plot-data. See details later.
+
+The output of the model is an sqlite database file. The output produced by the models is highly versatile and need to be set in advance of the simulation which output tables we would like to get.
+
+### How to work with the model
+
+Simulations are driven by one xml file, the project file. After starting iland.exe, we should call the project file, load the initial forest and then run the simulation for the required lenght of period. iLand comes with a graphical interface where you can visualise single trees and many other things: https://iland-model.org/iLand+viewer
+
+## Excercises
+
+Your group will work with the plot which you measured and worked with in the previous days (Plot1-Plot4). The 2 process based subgroups will do the same modeling experiment, just addressing different questions based on the results (see the 2 questions below).
+
+You will simulate the growth and development using the process-based model, iLand. The task is to simulate your study plot for 100 years under reference conditions and one/two simplified scenarios that you could define upon your ideas. You can define scenarios assuming different temperature, precipitation and CO2 concentration levels (see more details how to do it later below). The questions that you should address forming 2 sub-groups are the following:
+
+A)  How biodiversity indices are changing in time and across the simulated scenario(s)? (Calculate indices)
+
+B)  How the species distribution and total living biomass C content changing in time? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
+
+### Getting started
+
+Navigate to this folder and download the materials for the process-based modeling exercise: https://drive.google.com/drive/folders/1o2_K3ZN-SnPR44UzZoHj9lFZQu-vU3wg?usp=drive_link
+
+Go to the *iLand_simulations* folder. Here you will find several folders that are the part of the model, others are containing input data for the model and one folder is dedicated for the outputs. Additionally, you will find *iland.exe* and *.xml* files. The *.xml* file is called *project file*. This file is driving the settings of simulations, such as input/output file names, output variables and many other settings. This file is what you need to run in the model.
+
+The xml file structure follows a tree structure, e.g:
+
+```{r eval=FALSE, message = FALSE, warning=FALSE}
+<root>
+ <child>
+ <subchild>
+ ...
+ </subchild>
+ </child>
+</root> 
+```
+
+The iLand project file consists of five main sections:
+
+-   system: settings like file path, database locations, or logging
+-   model:main settings of the models: extent (world), site specific setting, used climate, model initialization and management
+-   modules: settings related to the disturbance modules of iLand
+-   output: definition of which outputs should be created by the model
+-   user: this section can be used for user-defined settings
+
+More details about the project file structure and meaning of each record can be found here: https://iland-model.org/project+file
+
+We prepared one project file for each group (for each simulation plot). You can right away run it, and then copy-paste and modify it to specify your own scenarios for alternative simulations. You can open a project file in any text editor, but we recommend to use Notepad++ for this (https://notepad-plus-plus.org/downloads/).
+
+### Explore input files
+
+The following input files are needed and prepared for you to run the model: This is all prepared, YOU DO NOT HAVE TO CHANGE ANYTHING:
+
+-   Species parameter file: database/species_param_europe.sqlite Containing the parameters for each species that are driving growth, mortality, establishment and other processes. https://iland-model.org/species+parameter
+
+Set in project file:
+
+
+```{r ex1, eval=FALSE, message = FALSE, warning=FALSE}
+
+ <path>
+ <home></home>
+ <database>database</database> <!-------- HERE 
+      <lip>lip</lip>
+      <temp>temp</temp>
+      <script>scripts</script>
+	  <init>init</init>
+	  <output>output</output>
+    </path>
+    …
+     <database>
+      <in>species_param_europe.sqlite</in>                  <!-------- HERE 
+      <out>Output_plot1_4deg_30percdrier.sqlite</out>        
+      <climate>E-OBSv27_Roznik_46.05_14.45_1961-1990.sqlite</climate>
+    </database>
+    
+```
+
+-   Climate file: database/E-OBSv27_Roznik_46.05_14.45_1961-1990.sqlite\
+    Daily climate data for the area based on the E-OBS dataset. https://iland-model.org/ClimateData https://surfobs.climate.copernicus.eu/dataaccess/access_eobs.php#datafiles We are using the same climate input for all plots. The E-OBS data is representative for a 0.1x0.1 degree resolution gridbox
+
+Set in project file:
+
+```{r ex2, eval=FALSE, message = FALSE, warning=FALSE}
+     <database>
+      <in>species_param_europe.sqlite</in>                  
+      <out>Output_plot1_4deg_30percdrier.sqlite</out>        
+      <climate>E-OBSv27_Roznik_46.05_14.45_1961-1990.sqlite</climate> <!---- HERE
+    </database>
+```
+
+-   Enviromental file: gis/Environment.txt\
+    The structure of this file is very flexible, more or less columns can be set. If we would have a landscape with larger area with different environments, we could set more lines into this file. For now we have only one simulation pixel with 1ha area. Here we set which climate table to use from the climate file (there could be more tables, but now we have only one), what is the soil texture, soil depth. The column names are referring to specific lines in the project file.
+
+For example: if we set here "model.site.pctSand", the model will use this sand % value instead of the value that we have in the project file under:
+
+```{r ex3, eval=FALSE, message = FALSE, warning=FALSE}
+  <model>   
+    …
+        <site>
+              <availableNitrogen>84</availableNitrogen> <!-- kg/ha/yr -->
+	 <soilDepth>38</soilDepth> <!-- in cm -->
+	 <pctSand>9</pctSand> 
+	 <pctSilt>53</pctSilt> 
+	 <pctClay>38</pctClay> 
+ ...
+ </site>
+ ...
+ </model>
+ 
+```
+
+Set in project file:
+
+```{r ex4, eval=FALSE, message = FALSE, warning=FALSE}
+
+	 <environmentGrid>gis/environment_grid.asc</environmentGrid>
+	 <environmentFile>gis/Environment.txt</environmentFile> <!---- HERE
+```
+
+-   Environment grid: gis/environment_grid.asc This would specify the map of different environments. Now we have only 1 pixel, with the id of 1. In the previous file we had also id column, this specifys we want to use that environment for our pixel.
+
+Set in project file:
+
+```{r ex5, eval=FALSE, message = FALSE, warning=FALSE}
+
+	 <environmentGrid>gis/environment_grid.asc</environmentGrid> <!---- HERE
+	 <environmentFile>gis/Environment.txt</environmentFile> 
+```
+
+-   Tree initialization file: init/Tree_init_plot_1.txt This is the list of the tree with x,y coordinates, species, dbh, height and optionally with age. (age=0 means, there is no data on age, model will generate) There are other options to set initial trees/landscape (e.g. using distributions, number of trees in a given dbh range, or using outputs of another simulation) More details: https://iland-model.org/initialize+trees
+
+```{r ex6, eval=FALSE, message = FALSE, warning=FALSE}
+	 <initialization>
+	 <type>single</type>
+	 <mode>unit</mode> 
+	 ...
+ <file>Tree_init_plot_1.txt</file> <!---- HERE
+	 <saplingFile></saplingFile>
+ ...
+ </initialization>
+```
+
+Here we initialize trees taller than 4 meters. Trees smaller than 4m are handled as sapling cohorts in separated input file. Now we do not put there saplings and we do not have a sapling file.
+
+NOTE: in the graphical interface you also wont see trees smaller than 4m, because they are not simulated as individuals rather in cohorts. But as regeneration will work, after a while as they grow above 4m, they become individual trees and we can see them also visually and they have own properties (dbh, height, age,...https://iland-model.org/tree+variables ). More details on saplings: https://iland-model.org/sapling+growth+and+competition
+
+Setting the output tables: In the output section you can set which tables you want to enable. Here you can find more info on the structure and variables of each table: https://iland-model.org/Outputs
+
+To answer the questions the most straight forward way is to look the *landscape* output and use the *total_carbon_kg* column (total carbon in living biomass (aboveground compartments and roots) of all living trees (including regeneration layer) (kg/ha) ). This output table aggregates on the level of landscape x species. Values are always aggregated per hectare. The output is created after the growth of the year. We pre-set the project file to have this output. Additionally we will work with the *tree* output, where individual trees are recorded with position.
+
+```{r ex7, eval=FALSE, message = FALSE, warning=FALSE}
+
+ <output>
+ 
+ <tree>
+ <enabled>true</enabled>
+ </tree>
+ 
+ ...
+ 
+ <landscape>
+ <enabled>true</enabled>
+ </landscape>
+
+ 
+ </output>
+ 
+```
+
+### Run the model
+
+-   Double click on iland.exe and wait until the graphical interface opens.
+-   Load the required project file on the left-hand-side under *iLand project file* by browsing on your computer after clicking on the folder icon next to the box.
+-   After you selected a project file, click on the "Create Model" on the top-left part of the window with an icon of a Globe.
+-   Wait until the simulation area shown in the middle.
+-   Try out some visualizations on the right hand-side \*Visualisation options". e.g individual trees + color by species. Here you can explore the initial stage of the 1 ha simulation area.
+-   To run the model click on Run Model icon on the top and give 100 years to simulate.
+-   On the bottom of the window you can follow how fast the model is running and see if it is finished.
+-   Stage of the last year remains in the simulation area, and you can go to the folder *output* to check your output file.
+
+### Working with the output:
+
+The output database has a *.sqlite* extension. You can explore outputs:
+
+-   Open and browse it in the *DB Browser* software that was on the software list. (https://sqlitebrowser.org/)
+-   Load the file into R, where you can make additional data analyses needed to answer the questions in the exercise. Here you can use the library *RSQLite* see below:
+
+```{r ex8, eval=FALSE, message = FALSE, warning=FALSE}
+
+library(RSQLite)
+
+file<-"../iLand_simulations/output/Output_plot1.sqlite"
+
+ sqlite.driver <- dbDriver("SQLite")
+ db1 <- dbConnect(sqlite.driver, dbname = file) # connect to the file
+ tabs <-dbListTables(db1) # explore the tables in the file
+ print(tabs)
+
+ landscape <- dbReadTable(db1,"landscape")
+
+ dbDisconnect(db1)
+ 
+ summary(landscape)
+ head(landscape)
+```
+
+There are different output tables in iLand and all have specific structure, column and spatial representation of the records. The landscape output gives information on the whole landscape, but here we will work with one 1 ha pixel that is our "whole" landscape for now. Here species specific information is also available for each year. More about the meaning of the columns in the landscape output you can find here: https://iland-model.org/Outputs#Landscape_aggregates_per_species Not always all outputs are produced, in the project file we can set which output tables we want to enable, and those will be created.
+
+### Run alternative scenarios
+
+The prepared simulation is using the 30years climate of 1961-1990, and repeating during the simulation. (The model copy paste the 30year time series after each other to fill up the simulation period) For CO2 concentration 400ppm is given. Your task is to run 2 extra alternative scenarios where you modify the output data. For example assuming 800ppm, and 4degree warming, or keep CO2 on 400ppm and decrease precipitation by 20%.
+
+All of these modification can be done in the project file directly, you do not need to modify input data files!
+
+For this, go to the climate section and modify the values there, and save as the project file as your alternative scenario.
+
+```{r ex9, eval=FALSE, message = FALSE, warning=FALSE}
+
+ <climate> 
+ <co2concentration>400</co2concentration> <!-------- HERE 
+ 	 <tableName>Roznik</tableName>
+ <batchYears>30</batchYears> 
+	 <temperatureShift>4</temperatureShift> <!-------- HERE 
+	 <precipitationShift>0.8</precipitationShift> <!-------- HERE 
+	 <randomSamplingEnabled>false</randomSamplingEnabled>
+		 <randomSamplingList></randomSamplingList> 
+ </climate>
+
+```
+
+Note that the same CO2 concentration will be used during the whole simulation period (there is a possibility to give annually changing CO2 concentration using an external file, but for now we won't use it for simplicity). The temperature shift is applied by the model on each day's temperature values. The precipitation shift is a scaler that the model applies on each day's precipitation amount. (0.8 gives 20% decrease)
+
+DO NOT FORGET TO CHANGE THE OUTPUT FILE NAME AS WELL for your alternative scenario, otherwise it will overwrite the previous output. You can do it in this section in the beginning of the project file:
+
+```{r ex10, eval=FALSE, message = FALSE, warning=FALSE}
+
+ <database>
+ <in>species_param_europe.sqlite</in> 
+ <out>Output_plot1_4deg_20percdrier.sqlite</out> <!-------- HERE 
+ <climate>E-OBSv27_Roznik_46.05_14.45_1961-1990.sqlite</climate>
+ </database>
+```
+
+Running the alternative scenario follows the same steps as before.
+
+### Question A - Group 1 {#sec-A_1}
+
+-   How biodiversity indices are changing in time and across the simulated scenario(s) on Plot 1?
+
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenarios with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simualate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
+
+Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+
+Read in the *tree* output table from two outputs you have for your plot:
+
+```{r ex11, eval=FALSE, message = FALSE, warning=FALSE}
+
+file1 <-"../iLand_simulations/output/Output_plot1.sqlite"
+file2 <-"../iLand_simulations/output/Output_plot1_4deg_20percdrier.sqlite"
+
+# Give some name for the three simulations.
+name1 <-"reference"
+name2 <-"4deg_20percdrier"
+
+# Read in data using the RSQLite package 
+#sqlite.driver  <- DBI::dbDriver("SQLite") #ODY CHANGED! did not work for me
+sqlite.driver  <- RSQLite::SQLite()
+db1  <- DBI::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+
+tables.in.the.file <- dbListTables(db1) # explore the tables in the file1
+print(tables.in.the.file)
+
+# We will work with "tree" table and tree-scale data:
+tree1 <- dbReadTable(db1,"tree")
+dbDisconnect(db1)  # disconnect to the file1
+
+# READ IN DATA FROM THE SECOND FILE: -----
+db2  <- dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+tree2 <- dbReadTable(db2,"tree")
+dbDisconnect(db2)
+
+```
+
+Merge the data from the two files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+
+```{r ex12, eval=TRUE, message = FALSE, warning=FALSE}
+
+tree <- rbind(tree1 %>% mutate(run = name1) , 
+tree2 %>% mutate(run = name2))
+
+head(tree)
+```
+
+To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
+
+```{r ex13, eval=TRUE, message = FALSE, warning=FALSE}
+tree0 <- tree %>% filter(year==0)
+g1 <- ggplot(tree0, aes(x = x, y = y, color = species)) +
+ geom_point(size=tree0$dbh/20, alpha = 0.7) +
+ ggtitle("Year 0")+
+ facet_wrap(~run)+theme_bw()
+
+
+tree100 <-tree %>% filter(year==100)
+g2 <-ggplot(tree100, aes(x=x, y=y, color=species))+
+ geom_point(size=tree100$dbh/20, alpha=0.7)+ 
+ ggtitle("Year 100")+
+ facet_wrap( ~run)+theme_bw()
+
+grid.arrange(g1,g2, ncol=1)
+```
+
+We can see that the species composition is somewhat changed and the forest become more dense. We can even identify the same trees at the same location.
+
+Visualize some changes in time, for example the mean diameter of the trees!
+
+```{r ex14, eval=TRUE, message = FALSE, warning=FALSE}
+sum.table<- tree %>% group_by(year, run) %>%
+ summarise(N=n(),
+ MD=mean(dbh,na.rm=TRUE), #mean diameter
+ BA=sum(basalArea)) #basal area
+
+ggplot(sum.table, aes(x=year, y=MD, color=run)) +
+ geom_line(lwd=2)+
+ ylab("Mean diameter [cm]")+theme_bw()
+```
+
+We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
+
+To study biodiversity aspects, we can calculate biodiversity indicators (Gini, Shannon and other spatial tree diversity indices). Let's use the *adiv* package: https://cran.r-project.org/web/packages/adiv/index.html First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
+
+```{r ex15, eval=TRUE, message = FALSE, warning=FALSE}
+
+library(adiv)
+
+# First we need to change the 
+tlong1<-tree1 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+head(tlong1)
+```
+
+Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
+
+```{r ex16, eval=TRUE, message = FALSE, warning=FALSE}
+
+div1<-data.frame(speciesdiv(tlong1)) %>% mutate(year=unique(tree1$year),
+ run=name1) 
+head(div1)
+```
+
+We make the same steps for the other simulation results (tree2).
+
+```{r ex17, eval=TRUE, message = FALSE, warning=FALSE}
+tlong2<-tree2 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+
+div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+ run=name2) 
+
+```
+
+We merge them all together and make a plot.
+
+```{r ex18, eval=TRUE, message = FALSE, warning=FALSE}
+
+tlong2<-tree2 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+
+div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+ run=name2) 
+div<-rbind(div1,div2)
+
+g1<-ggplot(div, aes(year, Shannon , color=run))+
+ geom_line(lwd=1.5) +
+ labs(x = "Year",y="Shannon index")+theme_bw()
+
+g2<-ggplot(div, aes(year, GiniSimpson , color=run))+
+ geom_line(lwd=1.5) +
+ labs(x = "Year",y="Gini-Simpson index")+theme_bw()
+grid.arrange(g1,g2)
+```
+
+We can calculate some additional biodiversity indices using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
+
+You can install it using devtools:
+
+```{r ex19, eval=FALSE, message = FALSE, warning=FALSE}
+devtools::install_gitlab('fchianucci/treespat')
+```
+
+Then, we are ready to use it! We can calculate:
+
+-   Diameter dominance: ADD HERE
+-   Diameter differentiation: ADD HERE
+-   Stand Complexity Index (SCI): ADD HERE
+-   Mingling: ADD HERE
+
+Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
+
+```{r ex20, eval=TRUE, message = FALSE, warning=FALSE}
+library(treespat)
+
+# diameter dominance
+# diameter differentiation:
+# Stand Complexity Index (SCI):
+# mingling
+ 
+ddom<-data.frame(DDOM(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DDOM", name="Diameter dominance", run=name1))
+head(ddom)
+
+diff<-data.frame(DIFF(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DIFF", name="Diameter differentiation", run=name1))
+head(diff)
+
+sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+ mutate(index="SCI", name="Stand Complexity Index", run=name1) )
+head(sci)
+
+#ming<-MING(tree1, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
+# max.k = 4, shape='square', .groups=c('year')) %>% 
+# mutate(index="MING", name="Mingling", run=name1)
+
+indices1<-rbind(ddom %>% rename(value=DBH.DOM),
+ diff %>% rename(value=DIFF),
+ sci[,-c(3,4)] %>% rename(value=mean_SCI) )#this has more columns we need the first two
+```
+
+We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
+
+```{r ex21, eval=TRUE, message = FALSE, warning=FALSE}
+ddom<-data.frame(DDOM(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DDOM", name="Diameter dominance", run=name2))
+
+
+diff<-data.frame(DIFF(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DIFF", name="Diameter differentiation", run=name2))
+
+sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+ mutate(index="SCI", name="Stand Complexity Index", run=name2))
+
+
+#ming<-MING(tree2, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
+# max.k = 4, shape='square', .groups=c('year')) %>% 
+# mutate(index="MING", name="Mingling", run=name2)
+
+indices2<-rbind(ddom %>% rename(value=DBH.DOM),
+ diff %>% rename(value=DIFF),
+ sci[,-c(3,4)] %>% rename(value=mean_SCI) )
+
+indices<-rbind(indices1,indices2)
+
+ggplot(indices, aes(x=year, y=value, color=run))+
+ geom_line(lwd=1)+
+ facet_wrap(~name, ncol=2, scales="free")+
+ theme_bw() 
+```
+
+*ADD interpretation*
+
+###Question B - Group 1 {#sec-B_1}
+
+-   How the species distribution and total living biomass C content changing in time on Plot 1? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
+
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenarios with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simualate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+
+Read in the *landscape* output table from two outputs you have for your plot:
+
+```{r ex22, eval=TRUE, message = FALSE, warning=FALSE}
+
+file1<-"../iLand_simulations/output/Output_plot1.sqlite"
+file2<-"../iLand_simulations/output/Output_plot1_4deg_20percdrier.sqlite"
+
+# Give some name for the three simulations.
+name1<-"reference"
+name2<-"4deg_20percdrier"
+
+# Read in data using the RSQLite package 
+sqlite.driver <- dbDriver("SQLite")
+
+# We will work with "landscape" table and tree-scale data:
+db1 <- dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+landscape1<- dbReadTable(db1,"landscape")
+dbDisconnect(db1) # disconnect to the file1
+
+db2 <- dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+landscape2<- dbReadTable(db2,"landscape")
+dbDisconnect(db2)
+
+```
+
+Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+
+```{r ex23, eval=TRUE, message = FALSE, warning=FALSE}
+
+landscape<-rbind(landscape1 %>% mutate(run=name1) , 
+ landscape2 %>% mutate(run=name2))
+
+head(landscape)
+```
+
+We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the begining. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
+
+```{r ex24, eval=TRUE, message = FALSE, warning=FALSE}
+
+cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
+ "bepe"="#fadfad","casa"="#7eeadf","coav"="#20c6b6","tipl"="#645394", 
+ "ulgl"="#311432","saca"="#D8BFD8","soar"="#DDA0DD","soau"="#BA55D3",
+ "pice"="#D27D2D","pini"="#a81c07","algl"="#2ECBE9","tico"="#128FC8", 
+ "potr"="#00468B","poni"="#5BAEB7","frex"="#fe9cb5","cabe"="#fe6181",
+ "acps"="#fe223e","lade"="#FFFE71","abal"="#FFD800", "pisy"="#A4DE02",
+ "fasy"="#76BA1B","piab"="#006600","quro"="#FF7F00", "qupe"="#FF9900", 
+ "qupu"="#CC9900")
+
+# We set here the order of the run categories for the table, to have the first
+#run first and then the second. (left-right of the plots)
+landscape$run<-factor( landscape$run, levels=c(name1,name2))
+
+# Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
+g1<-ggplot(landscape, aes(year, total_carbon_kg/1000 , fill=factor(species)))+
+ geom_area() +
+ scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Living C t/ha",fill = "Species")+
+ theme_bw()
+
+g2<-ggplot(landscape, aes(year, count_ha , fill=factor(species)))+
+ geom_area() +
+ scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Number of trees per ha",fill = "Species")+
+ theme_bw()
+
+grid.arrange(g1,g2, ncol=1)
+
+g3<-ggplot(landscape, aes(year, dbh_avg_cm , color=factor(species)))+
+ geom_line(lwd=1) +
+ scale_color_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Mean dbh",fill = "Species")+
+ theme_bw()
+print(g3)
+```
+
+We can see that the forest is growing, it accumulates more and more carbon. We do not have management intervention. Number of trees are increasing as the regeneration layer develops to adult trees (higher than 4m). The species-specific graphs for avg dbh indicates that some species do not have successful regeneration under the scenario. Beech start to dominate and other species do not have the drop in the avg dbh due to regeneration. Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
+
+```{r ex25, eval=TRUE, message = FALSE, warning=FALSE}
+livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run) %>% 
+ summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+print(livingC0)
+
+livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run) %>% 
+ summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+print(livingC100)
+```
+
+The initial conditions are same for the runs, but they are ending up at different C levels.
+
+Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
+
+```{r ex26, eval=TRUE, message = FALSE, warning=FALSE}
+species.livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run, species) %>% 
+ summarize(livingC=sum(total_carbon_kg/1000)) )
+print(species.livingC0)
+
+species.livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run, species) %>% 
+ summarize(livingC=sum(total_carbon_kg/1000)) )
+print(species.livingC100)
+```
+
+Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
+
+```{r ex27, eval=TRUE, message = FALSE, warning=FALSE}
+LC0<-left_join(species.livingC0, livingC0, by="run" )
+LC0<-data.frame(LC0 %>% mutate(spec.prop=livingC/sum.livingC, year=0))
+print(LC0)
+
+LC100<-left_join(species.livingC100, livingC100, by="run" )
+LC100<-data.frame(LC100 %>% mutate(spec.prop=livingC/sum.livingC, year=100))
+print(LC100)
+
+```
+
+Put the two tables together and visualize the results!
+
+```{r ex28, eval=TRUE, message = FALSE, warning=FALSE}
+LC<-rbind(LC0,LC100)
+
+LC$run<-factor( LC$run, levels=c(name1,name2))
+
+ggplot(LC, aes(fill=species, y=livingC , x=factor(year))) + 
+ geom_bar(position="stack", stat="identity")+
+ scale_fill_manual(values=cols.all)+
+ facet_wrap(~run)+
+ ylab("Living C absolute values")+
+ theme_bw()
+
+
+
+
+ggplot(LC, aes(fill=species, y=spec.prop, x=factor(year))) + 
+ geom_bar(position="stack", stat="identity")+
+ scale_fill_manual(values=cols.all)+
+ facet_wrap(~run)+
+ ylab("Species proportion")+
+ theme_bw()
+
+```
+
+### Question A - Group 2 {#sec-A_2}
+
+-   How biodiversity indices are changing in time and across the simulated scenario(s) on Plot 2?
+
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenarios with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simualate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
+
+Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+
+Read in the *tree* output table from two outputs you have for your plot:
+
+```{r ex29, eval=TRUE, message = FALSE, warning=FALSE}
+
+file1<-"../iLand_simulations/output/Output_plot2.sqlite"
+file2<-"../iLand_simulations/output/Output_plot2_4deg_20percdrier.sqlite"
+
+# Give some name for the three simulations.
+name1<-"reference"
+name2<-"4deg_20percdrier"
+
+# Read in data using the RSQLite package 
+sqlite.driver <- dbDriver("SQLite")
+
+db1 <- dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+
+tables.in.the.file<-dbListTables(db1) # explore the tables in the file1
+print(tables.in.the.file)
+
+# We will work with "tree" table and tree-scale data:
+tree1<- dbReadTable(db1,"tree")
+dbDisconnect(db1) # disconnect to the file1
+
+# READ IN DATA FROM THE SECOND FILE: -----
+db2 <- dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+tree2<- dbReadTable(db2,"tree")
+dbDisconnect(db2)
+
+```
+
+Merge the data from the two files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+
+```{r ex30, eval=TRUE, message = FALSE, warning=FALSE}
+
+tree<-rbind(tree1 %>% mutate(run=name1) , 
+ tree2 %>% mutate(run=name2))
+
+head(tree)
+```
+
+To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
+
+```{r ex31, eval=TRUE, message = FALSE, warning=FALSE}
+tree0<-tree %>% filter(year==0)
+g1<-ggplot(tree0, aes(x=x, y=y, color=species))+
+ geom_point(size=tree0$dbh/20, alpha=0.7)+
+ ggtitle("Year 0")+
+ facet_wrap(~run)+theme_bw()
+
+
+tree100<-tree %>% filter(year==100)
+g2<-ggplot(tree100, aes(x=x, y=y, color=species))+
+ geom_point(size=tree100$dbh/20, alpha=0.7)+ 
+ ggtitle("Year 100")+
+ facet_wrap(~run)+theme_bw()
+
+grid.arrange(g1,g2, ncol=1)
+```
+
+We can see that the species composition is somewhat changed and the forest become more dense. We can even identify the same trees at the same location.
+
+Visualize some changes in time, for example the mean diameter of the trees!
+
+```{r ex32, eval=TRUE, message = FALSE, warning=FALSE}
+sum.table<- tree %>% group_by(year, run) %>%
+ summarise(N=n(),
+ MD=mean(dbh,na.rm=TRUE), #mean diameter
+ BA=sum(basalArea)) #basal area
+
+ggplot(sum.table, aes(x=year, y=MD, color=run)) +
+ geom_line(lwd=2)+
+ ylab("Mean diameter [cm]")+theme_bw()
+```
+
+We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
+
+To study biodiversity aspects, we can calculate biodiversity indicators (Gini, Shannon and other spatial tree diversity indices). Let's use the *adiv* package: https://cran.r-project.org/web/packages/adiv/index.html First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
+
+```{r ex33, eval=TRUE, message = FALSE, warning=FALSE}
+
+library(adiv)
+
+# First we need to change the 
+tlong1<-tree1 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+head(tlong1)
+```
+
+Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
+
+```{r ex34, eval=TRUE, message = FALSE, warning=FALSE}
+
+div1<-data.frame(speciesdiv(tlong1)) %>% mutate(year=unique(tree1$year),
+ run=name1) 
+head(div1)
+```
+
+We make the same steps for the other simulation results (tree2).
+
+```{r ex35, eval=TRUE, message = FALSE, warning=FALSE}
+tlong2<-tree2 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+
+div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+ run=name2) 
+
+```
+
+We merge them all together and make a plot.
+
+```{r ex36, eval=TRUE, message = FALSE, warning=FALSE}
+
+tlong2<-tree2 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+
+div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+ run=name2) 
+div<-rbind(div1,div2)
+
+g1<-ggplot(div, aes(year, Shannon , color=run))+
+ geom_line(lwd=1.5) +
+ labs(x = "Year",y="Shannon index")+ theme_bw()
+
+g2<-ggplot(div, aes(year, GiniSimpson , color=run))+
+ geom_line(lwd=1.5) +
+ labs(x = "Year",y="Gini-Simpson index")+theme_bw()
+grid.arrange(g1,g2)
+```
+
+We can calculate some additional biodiversity indices using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
+
+You can install it using devtools:
+
+```{r ex37, eval=FALSE, message = FALSE, warning=FALSE}
+devtools::install_gitlab('fchianucci/treespat')
+```
+
+Then, we are ready to use it! We can calculate:
+
+-   Diameter dominance: ADD HERE
+-   Diameter differentiation: ADD HERE
+-   Stand Complexity Index (SCI): ADD HERE
+-   Mingling: ADD HERE
+
+Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
+
+```{r ex38, eval=TRUE, message = FALSE, warning=FALSE}
+library(treespat)
+
+# diameter dominance
+# diameter differentiation:
+# Stand Complexity Index (SCI):
+# mingling
+ 
+ddom<-data.frame(DDOM(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DDOM", name="Diameter dominance", run=name1))
+head(ddom)
+
+diff<-data.frame(DIFF(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DIFF", name="Diameter differentiation", run=name1))
+head(diff)
+
+sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+ mutate(index="SCI", name="Stand Complexity Index", run=name1) )
+head(sci)
+
+#ming<-MING(tree1, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
+# max.k = 4, shape='square', .groups=c('year')) %>% 
+# mutate(index="MING", name="Mingling", run=name1)
+
+indices1<-rbind(ddom %>% rename(value=DBH.DOM),
+ diff %>% rename(value=DIFF),
+ sci[,-c(3,4)] %>% rename(value=mean_SCI) )#this has more columns we need the first two
+```
+
+We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
+
+```{r ex39, eval=TRUE, message = FALSE, warning=FALSE}
+ddom<-data.frame(DDOM(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DDOM", name="Diameter dominance", run=name2))
+
+
+diff<-data.frame(DIFF(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DIFF", name="Diameter differentiation", run=name2))
+
+sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+ mutate(index="SCI", name="Stand Complexity Index", run=name2))
+
+
+#ming<-MING(tree2, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
+# max.k = 4, shape='square', .groups=c('year')) %>% 
+# mutate(index="MING", name="Mingling", run=name2)
+
+indices2<-rbind(ddom %>% rename(value=DBH.DOM),
+ diff %>% rename(value=DIFF),
+ sci[,-c(3,4)] %>% rename(value=mean_SCI) )
+
+indices<-rbind(indices1,indices2)
+
+ggplot(indices, aes(x=year, y=value, color=run))+
+ geom_line(lwd=1)+
+ facet_wrap(~name, ncol=2, scales="free")+
+ theme_bw() 
+```
+
+*ADD interpretation*
+
+### Question B - Group 2 {#sec-B_2}
+
+-   How the species distribution and total living biomass C content changing in time on Plot 2? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
+
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenarios with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simualate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+
+Read in the *landscape* output table from two outputs you have for your plot:
+
+```{r ex40, eval=TRUE, message = FALSE, warning=FALSE}
+
+file1<-"../iLand_simulations/output/Output_plot2.sqlite"
+file2<-"../iLand_simulations/output/Output_plot2_4deg_20percdrier.sqlite"
+
+# Give some name for the three simulations.
+name1<-"reference"
+name2<-"4deg_20percdrier"
+
+# Read in data using the RSQLite package 
+sqlite.driver <- dbDriver("SQLite")
+
+# We will work with "landscape" table and tree-scale data:
+db1 <- dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+landscape1<- dbReadTable(db1,"landscape")
+dbDisconnect(db1) # disconnect to the file1
+
+db2 <- dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+landscape2<- dbReadTable(db2,"landscape")
+dbDisconnect(db2)
+
+```
+
+Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+
+```{r ex41, eval=TRUE, message = FALSE, warning=FALSE}
+
+landscape<-rbind(landscape1 %>% mutate(run=name1) , 
+ landscape2 %>% mutate(run=name2))
+
+head(landscape)
+```
+
+We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the begining. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
+
+```{r ex42, eval=TRUE, message = FALSE, warning=FALSE}
+
+cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
+ "bepe"="#fadfad","casa"="#7eeadf","coav"="#20c6b6","tipl"="#645394", 
+ "ulgl"="#311432","saca"="#D8BFD8","soar"="#DDA0DD","soau"="#BA55D3",
+ "pice"="#D27D2D","pini"="#a81c07","algl"="#2ECBE9","tico"="#128FC8", 
+ "potr"="#00468B","poni"="#5BAEB7","frex"="#fe9cb5","cabe"="#fe6181",
+ "acps"="#fe223e","lade"="#FFFE71","abal"="#FFD800", "pisy"="#A4DE02",
+ "fasy"="#76BA1B","piab"="#006600","quro"="#FF7F00", "qupe"="#FF9900", 
+ "qupu"="#CC9900")
+
+# We set here the order of the run categories for the table, to have the first
+#run first and then the second. (left-right of the plots)
+landscape$run<-factor( landscape$run, levels=c(name1,name2))
+
+# Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
+g1<-ggplot(landscape, aes(year, total_carbon_kg/1000 , fill=factor(species)))+
+ geom_area() +
+ scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Living C t/ha",fill = "Species")+
+ theme_bw()
+
+g2<-ggplot(landscape, aes(year, count_ha , fill=factor(species)))+
+ geom_area() +
+ scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Number of trees per ha",fill = "Species")+
+ theme_bw()
+
+grid.arrange(g1,g2, ncol=1)
+
+g3<-ggplot(landscape, aes(year, dbh_avg_cm , color=factor(species)))+
+ geom_line(lwd=1) +
+ scale_color_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Mean dbh",fill = "Species")+
+ theme_bw()
+print(g3)
+```
+
+We can see that the forest is growing, it accumulates more and more carbon. We do not have management intervention. Number of trees are increasing as the regeneration layer develops to adult trees (higher than 4m). The species-specific graphs for avg dbh indicates that some species do not have successful regeneration under the scenario. Beech start to dominate and other species do not have the drop in the avg dbh due to regeneration. Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
+
+```{r ex43, eval=TRUE, message = FALSE, warning=FALSE}
+livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run) %>% 
+ summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+print(livingC0)
+
+livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run) %>% 
+ summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+print(livingC100)
+```
+
+The initial conditions are same for the runs, but they are ending up at different C levels.
+
+Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
+
+```{r ex44, eval=TRUE, message = FALSE, warning=FALSE}
+species.livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run, species) %>% 
+ summarize(livingC=sum(total_carbon_kg/1000)) )
+print(species.livingC0)
+
+species.livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run, species) %>% 
+ summarize(livingC=sum(total_carbon_kg/1000)) )
+print(species.livingC100)
+```
+
+Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
+
+```{r ex45, eval=TRUE, message = FALSE, warning=FALSE}
+LC0<-left_join(species.livingC0, livingC0, by="run" )
+LC0<-data.frame(LC0 %>% mutate(spec.prop=livingC/sum.livingC, year=0))
+print(LC0)
+
+LC100<-left_join(species.livingC100, livingC100, by="run" )
+LC100<-data.frame(LC100 %>% mutate(spec.prop=livingC/sum.livingC, year=100))
+print(LC100)
+
+```
+
+Put the two tables together and visualize the results!
+
+```{r ex46, eval=TRUE, message = FALSE, warning=FALSE}
+LC<-rbind(LC0,LC100)
+
+LC$run<-factor( LC$run, levels=c(name1,name2))
+
+ggplot(LC, aes(fill=species, y=livingC , x=factor(year))) + 
+ geom_bar(position="stack", stat="identity")+
+ scale_fill_manual(values=cols.all)+
+ facet_wrap(~run)+
+ ylab("Living C absolute values")+
+ theme_bw()
+
+
+
+
+ggplot(LC, aes(fill=species, y=spec.prop, x=factor(year))) + 
+ geom_bar(position="stack", stat="identity")+
+ scale_fill_manual(values=cols.all)+
+ facet_wrap(~run)+
+ ylab("Species proportion")+
+ theme_bw()
+
+```
+
+### Question A - Group 3 {#sec-A_3}
+
+-   How biodiversity indices are changing in time and across the simulated scenario(s) on Plot 3?
+
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenarios with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simualate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
+
+Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+
+Read in the *tree* output table from two outputs you have for your plot:
+
+```{r ex47, eval=TRUE, message = FALSE, warning=FALSE}
+
+file1<-"../iLand_simulations/output/Output_plot3.sqlite"
+file2<-"../iLand_simulations/output/Output_plot3_4deg_20percdrier.sqlite"
+
+# Give some name for the three simulations.
+name1<-"reference"
+name2<-"4deg_20percdrier"
+
+# Read in data using the RSQLite package 
+sqlite.driver <- dbDriver("SQLite")
+
+db1 <- dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+
+tables.in.the.file<-dbListTables(db1) # explore the tables in the file1
+print(tables.in.the.file)
+
+# We will work with "tree" table and tree-scale data:
+tree1<- dbReadTable(db1,"tree")
+dbDisconnect(db1) # disconnect to the file1
+
+# READ IN DATA FROM THE SECOND FILE: -----
+db2 <- dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+tree2<- dbReadTable(db2,"tree")
+dbDisconnect(db2)
+
+```
+
+Merge the data from the two files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+
+```{r ex48, eval=TRUE, message = FALSE, warning=FALSE}
+
+tree<-rbind(tree1 %>% mutate(run=name1) , 
+ tree2 %>% mutate(run=name2))
+
+head(tree)
+```
+
+To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
+
+```{r ex49, eval=TRUE, message = FALSE, warning=FALSE}
+tree0<-tree %>% filter(year==0)
+g1<-ggplot(tree0, aes(x=x, y=y, color=species))+
+ geom_point(size=tree0$dbh/20, alpha=0.7)+
+ ggtitle("Year 0")+
+ facet_wrap(~run)+theme_bw()
+
+
+tree100<-tree %>% filter(year==100)
+g2<-ggplot(tree100, aes(x=x, y=y, color=species))+
+ geom_point(size=tree100$dbh/20, alpha=0.7)+ 
+ ggtitle("Year 100")+
+ facet_wrap(~run)+theme_bw()
+
+grid.arrange(g1,g2, ncol=1)
+```
+
+We can see that the species composition is somewhat changed and the forest become more dense. We can even identify the same trees at the same location.
+
+Visualize some changes in time, for example the mean diameter of the trees!
+
+```{r ex50, eval=TRUE, message = FALSE, warning=FALSE}
+sum.table<- tree %>% group_by(year, run) %>%
+ summarise(N=n(),
+ MD=mean(dbh,na.rm=TRUE), #mean diameter
+ BA=sum(basalArea)) #basal area
+
+ggplot(sum.table, aes(x=year, y=MD, color=run)) +
+ geom_line(lwd=2)+
+ ylab("Mean diameter [cm]")+theme_bw()
+```
+
+We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
+
+To study biodiversity aspects, we can calculate biodiversity indicators (Gini, Shannon and other spatial tree diversity indices). Let's use the *adiv* package: https://cran.r-project.org/web/packages/adiv/index.html First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
+
+```{r ex51, eval=TRUE, message = FALSE, warning=FALSE}
+
+library(adiv)
+
+# First we need to change the 
+tlong1<-tree1 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+head(tlong1)
+```
+
+Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
+
+```{r ex52, eval=TRUE, message = FALSE, warning=FALSE}
+
+div1<-data.frame(speciesdiv(tlong1)) %>% mutate(year=unique(tree1$year),
+ run=name1) 
+head(div1)
+```
+
+We make the same steps for the other simulation results (tree2).
+
+```{r ex53, eval=TRUE, message = FALSE, warning=FALSE}
+tlong2<-tree2 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+
+div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+ run=name2) 
+
+```
+
+We merge them all together and make a plot.
+
+```{r ex54, eval=TRUE, message = FALSE, warning=FALSE}
+
+tlong2<-tree2 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+
+div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+ run=name2) 
+div<-rbind(div1,div2)
+
+g1<-ggplot(div, aes(year, Shannon , color=run))+
+ geom_line(lwd=1.5) +
+ labs(x = "Year",y="Shannon index")+theme_bw()
+
+g2<-ggplot(div, aes(year, GiniSimpson , color=run))+
+ geom_line(lwd=1.5) +
+ labs(x = "Year",y="Gini-Simpson index")+theme_bw()
+grid.arrange(g1,g2)
+```
+
+We can calculate some additional biodiversity indices using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
+
+You can install it using devtools:
+
+```{r ex55, eval=FALSE, message = FALSE, warning=FALSE}
+devtools::install_gitlab('fchianucci/treespat')
+```
+
+Then, we are ready to use it! We can calculate: Then, we are ready to use it! We can calculate:
+
+-   Diameter dominance: ADD HERE
+-   Diameter differentiation: ADD HERE
+-   Stand Complexity Index (SCI): ADD HERE
+-   Mingling: ADD HERE
+
+Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
+
+```{r ex56, eval=TRUE, message = FALSE, warning=FALSE}
+library(treespat)
+
+# diameter dominance
+# diameter differentiation:
+# Stand Complexity Index (SCI):
+# mingling
+ 
+ddom<-data.frame(DDOM(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DDOM", name="Diameter dominance", run=name1))
+head(ddom)
+
+diff<-data.frame(DIFF(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DIFF", name="Diameter differentiation", run=name1))
+head(diff)
+
+sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+ mutate(index="SCI", name="Stand Complexity Index", run=name1) )
+head(sci)
+
+#ming<-MING(tree1, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
+# max.k = 4, shape='square', .groups=c('year')) %>% 
+# mutate(index="MING", name="Mingling", run=name1)
+
+indices1<-rbind(ddom %>% rename(value=DBH.DOM),
+ diff %>% rename(value=DIFF),
+ sci[,-c(3,4)] %>% rename(value=mean_SCI) )#this has more columns we need the first two
+```
+
+We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
+
+```{r ex57, eval=TRUE, message = FALSE, warning=FALSE}
+ddom<-data.frame(DDOM(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DDOM", name="Diameter dominance", run=name2))
+
+
+diff<-data.frame(DIFF(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DIFF", name="Diameter differentiation", run=name2))
+
+sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+ mutate(index="SCI", name="Stand Complexity Index", run=name2))
+
+
+#ming<-MING(tree2, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
+# max.k = 4, shape='square', .groups=c('year')) %>% 
+# mutate(index="MING", name="Mingling", run=name2)
+
+indices2<-rbind(ddom %>% rename(value=DBH.DOM),
+ diff %>% rename(value=DIFF),
+ sci[,-c(3,4)] %>% rename(value=mean_SCI) )
+
+indices<-rbind(indices1,indices2)
+
+ggplot(indices, aes(x=year, y=value, color=run))+
+ geom_line(lwd=1)+
+ facet_wrap(~name, ncol=2, scales="free")+
+ theme_bw() 
+```
+
+*ADD interpretation*
+
+### Question B - Group 3 {#sec-B_3}
+
+-   How the species distribution and total living biomass C content changing in time on Plot 3? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
+
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenarios with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simualate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+
+Read in the *landscape* output table from two outputs you have for your plot:
+
+```{r ex58, eval=TRUE, message = FALSE, warning=FALSE}
+
+file1<-"../iLand_simulations/output/Output_plot3.sqlite"
+file2<-"../iLand_simulations/output/Output_plot3_4deg_20percdrier.sqlite"
+
+# Give some name for the three simulations.
+name1<-"reference"
+name2<-"4deg_20percdrier"
+
+# Read in data using the RSQLite package 
+sqlite.driver <- dbDriver("SQLite")
+
+# We will work with "landscape" table and tree-scale data:
+db1 <- dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+landscape1<- dbReadTable(db1,"landscape")
+dbDisconnect(db1) # disconnect to the file1
+
+db2 <- dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+landscape2<- dbReadTable(db2,"landscape")
+dbDisconnect(db2)
+
+```
+
+Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+
+```{r ex59, eval=TRUE, message = FALSE, warning=FALSE}
+
+landscape<-rbind(landscape1 %>% mutate(run=name1) , 
+ landscape2 %>% mutate(run=name2))
+
+head(landscape)
+```
+
+We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the begining. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
+
+```{r ex60, eval=TRUE, message = FALSE, warning=FALSE}
+
+cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
+ "bepe"="#fadfad","casa"="#7eeadf","coav"="#20c6b6","tipl"="#645394", 
+ "ulgl"="#311432","saca"="#D8BFD8","soar"="#DDA0DD","soau"="#BA55D3",
+ "pice"="#D27D2D","pini"="#a81c07","algl"="#2ECBE9","tico"="#128FC8", 
+ "potr"="#00468B","poni"="#5BAEB7","frex"="#fe9cb5","cabe"="#fe6181",
+ "acps"="#fe223e","lade"="#FFFE71","abal"="#FFD800", "pisy"="#A4DE02",
+ "fasy"="#76BA1B","piab"="#006600","quro"="#FF7F00", "qupe"="#FF9900", 
+ "qupu"="#CC9900")
+
+# We set here the order of the run categories for the table, to have the first
+#run first and then the second. (left-right of the plots)
+landscape$run<-factor( landscape$run, levels=c(name1,name2))
+
+# Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
+g1<-ggplot(landscape, aes(year, total_carbon_kg/1000 , fill=factor(species)))+
+ geom_area() +
+ scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Living C t/ha",fill = "Species")+
+ theme_bw()
+
+g2<-ggplot(landscape, aes(year, count_ha , fill=factor(species)))+
+ geom_area() +
+ scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Number of trees per ha",fill = "Species")+
+ theme_bw()
+
+grid.arrange(g1,g2, ncol=1)
+
+g3<-ggplot(landscape, aes(year, dbh_avg_cm , color=factor(species)))+
+ geom_line(lwd=1) +
+ scale_color_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Mean dbh",fill = "Species")+
+ theme_bw()
+print(g3)
+```
+
+We can see that the forest is growing, it accumulates more and more carbon. We do not have management intervention. Number of trees are increasing as the regeneration layer develops to adult trees (higher than 4m). The species-specific graphs for avg dbh indicates that some species do not have successful regeneration under the scenario. Beech start to dominate and other species do not have the drop in the avg dbh due to regeneration. Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
+
+```{r ex61, eval=TRUE, message = FALSE, warning=FALSE}
+livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run) %>% 
+ summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+print(livingC0)
+
+livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run) %>% 
+ summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+print(livingC100)
+```
+
+The initial conditions are same for the runs, but they are ending up at different C levels.
+
+Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
+
+```{r ex62, eval=TRUE, message = FALSE, warning=FALSE}
+species.livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run, species) %>% 
+ summarize(livingC=sum(total_carbon_kg/1000)) )
+print(species.livingC0)
+
+species.livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run, species) %>% 
+ summarize(livingC=sum(total_carbon_kg/1000)) )
+print(species.livingC100)
+```
+
+Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
+
+```{r ex63, eval=TRUE, message = FALSE, warning=FALSE}
+LC0<-left_join(species.livingC0, livingC0, by="run" )
+LC0<-data.frame(LC0 %>% mutate(spec.prop=livingC/sum.livingC, year=0))
+print(LC0)
+
+LC100<-left_join(species.livingC100, livingC100, by="run" )
+LC100<-data.frame(LC100 %>% mutate(spec.prop=livingC/sum.livingC, year=100))
+print(LC100)
+
+```
+
+Put the two tables together and visualize the results!
+
+```{r ex64, eval=TRUE, message = FALSE, warning=FALSE}
+LC<-rbind(LC0,LC100)
+
+LC$run<-factor( LC$run, levels=c(name1,name2))
+
+ggplot(LC, aes(fill=species, y=livingC , x=factor(year))) + 
+ geom_bar(position="stack", stat="identity")+
+ scale_fill_manual(values=cols.all)+
+ facet_wrap(~run)+
+ ylab("Living C absolute values")+
+ theme_bw()
+
+
+
+
+ggplot(LC, aes(fill=species, y=spec.prop, x=factor(year))) + 
+ geom_bar(position="stack", stat="identity")+
+ scale_fill_manual(values=cols.all)+
+ facet_wrap(~run)+
+ ylab("Species proportion")+
+ theme_bw()
+
+```
+
+### Question A - Group 4 {#sec-A_4}
+
+-   How biodiversity indices are changing in time and across the simulated scenario(s) on Plot 4?
+
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenarios with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simualate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
+
+Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+
+Read in the *tree* output table from two outputs you have for your plot:
+
+```{r ex65, eval=TRUE, message = FALSE, warning=FALSE}
+
+file1<-"../iLand_simulations/output/Output_plot4.sqlite"
+file2<-"../iLand_simulations/output/Output_plot4_4deg_20percdrier.sqlite"
+
+# Give some name for the three simulations.
+name1<-"reference"
+name2<-"4deg_20percdrier"
+
+# Read in data using the RSQLite package 
+sqlite.driver <- dbDriver("SQLite")
+
+db1 <- dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+
+tables.in.the.file<-dbListTables(db1) # explore the tables in the file1
+print(tables.in.the.file)
+
+# We will work with "tree" table and tree-scale data:
+tree1<- dbReadTable(db1,"tree")
+dbDisconnect(db1) # disconnect to the file1
+
+# READ IN DATA FROM THE SECOND FILE: -----
+db2 <- dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+tree2<- dbReadTable(db2,"tree")
+dbDisconnect(db2)
+
+```
+
+Merge the data from the two files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+
+```{r ex66, eval=TRUE, message = FALSE, warning=FALSE}
+
+tree<-rbind(tree1 %>% mutate(run=name1) , 
+ tree2 %>% mutate(run=name2))
+
+head(tree)
+```
+
+To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
+
+```{r ex67, eval=TRUE, message = FALSE, warning=FALSE}
+tree0<-tree %>% filter(year==0)
+g1<-ggplot(tree0, aes(x=x, y=y, color=species))+
+ geom_point(size=tree0$dbh/20, alpha=0.7)+
+ ggtitle("Year 0")+
+ facet_wrap(~run)+theme_bw()
+
+
+tree100<-tree %>% filter(year==100)
+g2<-ggplot(tree100, aes(x=x, y=y, color=species))+
+ geom_point(size=tree100$dbh/20, alpha=0.7)+ 
+ ggtitle("Year 100")+
+ facet_wrap(~run)+theme_bw()
+
+grid.arrange(g1,g2, ncol=1)
+```
+
+We can see that the species composition is somewhat changed and the forest become more dense. We can even identify the same trees at the same location.
+
+Visualize some changes in time, for example the mean diameter of the trees!
+
+```{r ex68, eval=TRUE, message = FALSE, warning=FALSE}
+sum.table<- tree %>% group_by(year, run) %>%
+ summarise(N=n(),
+ MD=mean(dbh,na.rm=TRUE), #mean diameter
+ BA=sum(basalArea)) #basal area
+
+ggplot(sum.table, aes(x=year, y=MD, color=run)) +
+ geom_line(lwd=2)+
+ ylab("Mean diameter [cm]")+theme_bw()
+```
+
+We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
+
+To study biodiversity aspects, we can calculate biodiversity indicators (Gini, Shannon and other spatial tree diversity indices). Let's use the *adiv* package: https://cran.r-project.org/web/packages/adiv/index.html First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
+
+```{r ex69, eval=TRUE, message = FALSE, warning=FALSE}
+
+library(adiv)
+
+# First we need to change the 
+tlong1<-tree1 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+head(tlong1)
+```
+
+Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
+
+```{r ex70, eval=TRUE, message = FALSE, warning=FALSE}
+
+div1<-data.frame(speciesdiv(tlong1)) %>% mutate(year=unique(tree1$year),
+ run=name1) 
+head(div1)
+```
+
+We make the same steps for the other simulation results (tree2).
+
+```{r ex71, eval=TRUE, message = FALSE, warning=FALSE}
+tlong2<-tree2 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+
+div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+ run=name2) 
+
+```
+
+We merge them all together and make a plot.
+
+```{r ex72, eval=TRUE, message = FALSE, warning=FALSE}
+
+tlong2<-tree2 %>%
+ group_by(year, species) %>% summarise(N=n()) %>%
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
+ ungroup() %>%
+ dplyr::select(-year) 
+
+div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+ run=name2) 
+div<-rbind(div1,div2)
+
+g1<-ggplot(div, aes(year, Shannon , color=run))+
+ geom_line(lwd=1.5) +
+ labs(x = "Year",y="Shannon index")+theme_bw()
+
+g2<-ggplot(div, aes(year, GiniSimpson , color=run))+
+ geom_line(lwd=1.5) +
+ labs(x = "Year",y="Gini-Simpson index")+theme_bw()
+grid.arrange(g1,g2)
+```
+
+We can calculate some additional biodiversity indices using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
+
+You can install it using devtools:
+
+```{r ex73, eval=FALSE, message = FALSE, warning=FALSE}
+devtools::install_gitlab('fchianucci/treespat')
+```
+
+Then, we are ready to use it! We can calculate:
+
+-   Diameter dominance: ADD HERE
+-   Diameter differentiation: ADD HERE
+-   Stand Complexity Index (SCI): ADD HERE
+-   Mingling: ADD HERE
+
+Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
+
+```{r ex74, eval=TRUE, message = FALSE, warning=FALSE}
+library(treespat)
+
+# diameter dominance
+# diameter differentiation:
+# Stand Complexity Index (SCI):
+# mingling
+ 
+ddom<-data.frame(DDOM(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DDOM", name="Diameter dominance", run=name1))
+head(ddom)
+
+diff<-data.frame(DIFF(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DIFF", name="Diameter differentiation", run=name1))
+head(diff)
+
+sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+ mutate(index="SCI", name="Stand Complexity Index", run=name1) )
+head(sci)
+
+#ming<-MING(tree1, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
+# max.k = 4, shape='square', .groups=c('year')) %>% 
+# mutate(index="MING", name="Mingling", run=name1)
+
+indices1<-rbind(ddom %>% rename(value=DBH.DOM),
+ diff %>% rename(value=DIFF),
+ sci[,-c(3,4)] %>% rename(value=mean_SCI) )#this has more columns we need the first two
+```
+
+We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
+
+```{r ex75, eval=TRUE, message = FALSE, warning=FALSE}
+ddom<-data.frame(DDOM(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DDOM", name="Diameter dominance", run=name2))
+
+
+diff<-data.frame(DIFF(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
+ max.k = 4, shape='square', .groups=c('year')) %>% 
+ mutate(index="DIFF", name="Diameter differentiation", run=name2))
+
+sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+ mutate(index="SCI", name="Stand Complexity Index", run=name2))
+
+
+#ming<-MING(tree2, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
+# max.k = 4, shape='square', .groups=c('year')) %>% 
+# mutate(index="MING", name="Mingling", run=name2)
+
+indices2<-rbind(ddom %>% rename(value=DBH.DOM),
+ diff %>% rename(value=DIFF),
+ sci[,-c(3,4)] %>% rename(value=mean_SCI) )
+
+indices<-rbind(indices1,indices2)
+
+ggplot(indices, aes(x=year, y=value, color=run))+
+ geom_line(lwd=1)+
+ facet_wrap(~name, ncol=2, scales="free")+
+ theme_bw() 
+```
+
+*ADD interpretation*
+
+### Question B - Group 4 {#sec-B_4}
+
+-   How the species distribution and total living biomass C content changing in time on Plot 4? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
+
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenarios with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simualate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+
+Read in the *landscape* output table from two outputs you have for your plot:
+
+```{r ex76, eval=TRUE, message = FALSE, warning=FALSE}
+
+file1<-"../iLand_simulations/output/Output_plot4.sqlite"
+file2<-"../iLand_simulations/output/Output_plot4_4deg_20percdrier.sqlite"
+
+# Give some name for the three simulations.
+name1<-"reference"
+name2<-"4deg_20percdrier"
+
+# Read in data using the RSQLite package 
+sqlite.driver <- dbDriver("SQLite")
+
+# We will work with "landscape" table and tree-scale data:
+db1 <- dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+landscape1<- dbReadTable(db1,"landscape")
+dbDisconnect(db1) # disconnect to the file1
+
+db2 <- dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+landscape2<- dbReadTable(db2,"landscape")
+dbDisconnect(db2)
+
+```
+
+Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+
+```{r ex77, eval=TRUE, message = FALSE, warning=FALSE}
+
+landscape<-rbind(landscape1 %>% mutate(run=name1) , 
+ landscape2 %>% mutate(run=name2))
+
+head(landscape)
+```
+
+We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the begining. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
+
+```{r ex78, eval=TRUE, message = FALSE, warning=FALSE}
+
+cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
+ "bepe"="#fadfad","casa"="#7eeadf","coav"="#20c6b6","tipl"="#645394", 
+ "ulgl"="#311432","saca"="#D8BFD8","soar"="#DDA0DD","soau"="#BA55D3",
+ "pice"="#D27D2D","pini"="#a81c07","algl"="#2ECBE9","tico"="#128FC8", 
+ "potr"="#00468B","poni"="#5BAEB7","frex"="#fe9cb5","cabe"="#fe6181",
+ "acps"="#fe223e","lade"="#FFFE71","abal"="#FFD800", "pisy"="#A4DE02",
+ "fasy"="#76BA1B","piab"="#006600","quro"="#FF7F00", "qupe"="#FF9900", 
+ "qupu"="#CC9900")
+
+# We set here the order of the run categories for the table, to have the first
+#run first and then the second. (left-right of the plots)
+landscape$run<-factor( landscape$run, levels=c(name1,name2))
+
+# Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
+g1<-ggplot(landscape, aes(year, total_carbon_kg/1000 , fill=factor(species)))+
+ geom_area() +
+ scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Living C t/ha",fill = "Species")+
+ theme_bw()
+
+g2<-ggplot(landscape, aes(year, count_ha , fill=factor(species)))+
+ geom_area() +
+ scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Number of trees per ha",fill = "Species")+
+ theme_bw()
+
+grid.arrange(g1,g2, ncol=1)
+
+g3<-ggplot(landscape, aes(year, dbh_avg_cm , color=factor(species)))+
+ geom_line(lwd=1) +
+ scale_color_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
+ facet_wrap(~run, nrow=1)+
+ labs(x = "Year",y="Mean dbh",fill = "Species")+
+ theme_bw()
+print(g3)
+```
+
+We can see that the forest is growing, it accumulates more and more carbon. We do not have management intervention. Number of trees are increasing as the regeneration layer develops to adult trees (higher than 4m). The species-specific graphs for avg dbh indicates that some species do not have successful regeneration under the scenario. Beech start to dominate and other species do not have the drop in the avg dbh due to regeneration. Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
+
+```{r ex79, eval=TRUE, message = FALSE, warning=FALSE}
+livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run) %>% 
+ summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+print(livingC0)
+
+livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run) %>% 
+ summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+print(livingC100)
+```
+
+The initial conditions are same for the runs, but they are ending up at different C levels.
+
+Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
+
+```{r ex80, eval=TRUE, message = FALSE, warning=FALSE}
+species.livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run, species) %>% 
+ summarize(livingC=sum(total_carbon_kg/1000)) )
+print(species.livingC0)
+
+species.livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run, species) %>% 
+ summarize(livingC=sum(total_carbon_kg/1000)) )
+print(species.livingC100)
+```
+
+Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
+
+```{r ex81, eval=TRUE, message = FALSE, warning=FALSE}
+LC0<-left_join(species.livingC0, livingC0, by="run" )
+LC0<-data.frame(LC0 %>% mutate(spec.prop=livingC/sum.livingC, year=0))
+print(LC0)
+
+LC100<-left_join(species.livingC100, livingC100, by="run" )
+LC100<-data.frame(LC100 %>% mutate(spec.prop=livingC/sum.livingC, year=100))
+print(LC100)
+
+```
+
+Put the two tables together and visualize the results!
+
+```{r ex82, eval=TRUE, message = FALSE, warning=FALSE}
+LC<-rbind(LC0,LC100)
+
+LC$run<-factor( LC$run, levels=c(name1,name2))
+
+ggplot(LC, aes(fill=species, y=livingC , x=factor(year))) + 
+ geom_bar(position="stack", stat="identity")+
+ scale_fill_manual(values=cols.all)+
+ facet_wrap(~run)+
+ ylab("Living C absolute values")+
+ theme_bw()
+
+
+
+
+ggplot(LC, aes(fill=species, y=spec.prop, x=factor(year))) + 
+ geom_bar(position="stack", stat="identity")+
+ scale_fill_manual(values=cols.all)+
+ facet_wrap(~run)+
+ ylab("Species proportion")+
+ theme_bw()
+
+```
+
+# Empirical modeling
+
+In the empirical modelling we will cover two examples of creating two models based on observed data. We will use two approaches Generalized Linear Models (GLMs) and Boosted Regression trees (BRTs). Please take all the results with a grain of salt, we are making very generalized statements from a limited data set, and we are not getting into the details of how each of the models should be assessed; the goal here is that you learn how observed data can be used to create models that help you to understand the data and relationships better.
 
 ## Data
 
@@ -75,7 +1849,7 @@ We will work with one dataset derived from the inventory developed to assess for
 
 The data was collected from square sampling plots (2500 m2 each) in six forested Czech Republic regions. These regions are representative of the main bio-regions and elevation range of forests, considering their importance in territorial representation, forestry, and ecology. The inventory sampled for biodiversity variables such as the presence/absence of different species of birds, Tracheophyta, bryophytes, fungi, lichens, and beetles.
 
-The dataset has been generously provided by XXXXXX to be used in the context of this exercise. It should not be used for other purposes or be further distributed. If you want to use this data or learn more about it, please get in touch with XXXX here: XXXX.
+The dataset has been generously provided by Jeňýk Hofmeister at the Czech University of Life Sciences Prague (jenyk.hofmeister\@email.cz) to be used in the context of this exercise. It should not be used for other purposes or be further distributed. If you want to use this data or learn more about it, please get in touch with Jeňýk Hofmeisterhere: jenyk.hofmeister\@email.cz.
 
 The data you can download for this exercise is an aggregated summary of the original data, some aspects have been modified from the observed data, so the results you will obtain will only partially match the observed reality. This data is very similar in structure and observed variables to the one you collected in this summer school. The idea is to move from data collection, analysis to this part, where you use the data to create a model.
 
@@ -234,7 +2008,7 @@ plot(y = observations$bryophitaNumObs,
      xlab = "Ginni index", ylab = "Number of observed bryophita" )
 ```
 
-### Question 1 {#sec-q1}
+### Question C - Group 1 {#sec-C_1}
 
 -   Does a more diverse forest in structure and composition have more Bryophytes species?
 
@@ -310,7 +2084,7 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have time to continuou in this exercise.
 
-### Question 2 {#sec-q2}
+### Question D - Group 1 {#sec-D_1}
 
 -   Is the number of Briophites species affected by forest management type and the forest structural diversity?
 
@@ -386,7 +2160,7 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have to continuou in this exercise.
 
-### Question 3 {#sec-q3}
+### Question C - Group 2 {#sec-C_2}
 
 -   Does a more diverse forest in structure and composition have more bird species?
 
@@ -462,7 +2236,7 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have time to continuou in this exercise.
 
-### Question 4 {#sec-q4}
+### Question D - Group 2 {#sec-D_2}
 
 -   Is the number of bird species affected by forest management type and the forest structural diversity?
 
@@ -538,7 +2312,7 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have to continuou in this exercise.
 
-### Question 5 {#sec-q5}
+### Question C - Group 3 {#sec-C_3}
 
 -   Is the presence of the Great spotted woodpecker affected by forest density?
 
@@ -700,7 +2474,7 @@ dismo::gbm.perspec(modelBRT, 3, 6)
 
 Here we can see that both increasing bird diversity and forest density provides the highest probabilities for finding the Great spotted woodpecker.
 
-## Question 6 {#sec-q6}
+### Question D - Group 3 {#sec-D_3}
 
 -   Is the presence of the Great spotted woodpecker affected by forest diversity?
 
@@ -862,7 +2636,7 @@ dismo::gbm.perspec(modelBRT, 3, 5)
 
 Here we can not see a very clear combined behavior between forest diversity and forest structural diversity in respect to the probabilities for finding the Great spotted woodpecker.
 
-### Question 7 {#sec-q7}
+### Question C - Group 4 {#sec-C_4}
 
 -   Is the presence of the Eurasian treecreeper affected by forest density?
 
@@ -1023,7 +2797,7 @@ dismo::gbm.perspec(modelBRT, 3, 5)
 
 It seems that the highes chances to see a Eurasian treecreeper is in dense forests with highest tree diversity.
 
-### Question 8 {#sec-q8}
+### Question D - Group 4 {#sec-D_4}
 
 -   Is the presence of the Eurasian treecreeper affected by forest management?
 
