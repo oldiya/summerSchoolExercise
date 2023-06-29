@@ -39,6 +39,22 @@ bibliography: bibliography.bib
    #  toc-location: left
 ```
 
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+library(fields)
+library(RSQLite)
+library(tidyverse)
+library(gridExtra)   
+
+library(cowplot)
+library(openxlsx)
+library(truncnorm)
+library(adiv)
+```
+
 # Overview {#sec-overview}
 
 This document contains the instructions of the modeling group assignments. It contains a section for the process model approach and a different section for the empirical modelling.
@@ -48,7 +64,7 @@ This document describes all the exercises, but your group has been assigned to o
 | Group | Subgroup Question | Question                                                                                                    | Approach | Go to    |
 |---------------|---------------|---------------|---------------|---------------|
 | 1     | A                 |                                                                                                             | iLand    | @sec-A_1 |
-| 1     | B                 |                                                                                                             | iLand    | @sec-B_1 |
+| 1     | B                 |                                                                                                             | iLand    | @sec-A_2 |
 | 1     | C                 | Does a more diverse forest in structure and composition have more Bryophites species?                       | GLM      | @sec-C_1 |
 | 1     | D                 | Is the number of Bryophites species affected by forest management type and the forest structural diversity? | GLM      | @sec-D_1 |
 | 2     | A                 |                                                                                                             | iLand    | @sec-A_2 |
@@ -141,7 +157,6 @@ The following input files are needed and prepared for you to run the model: This
 -   Species parameter file: database/species_param_europe.sqlite Containing the parameters for each species that are driving growth, mortality, establishment and other processes. https://iland-model.org/species+parameter
 
 Set in project file:
-
 
 ```{r ex1, eval=FALSE, message = FALSE, warning=FALSE}
 
@@ -341,31 +356,31 @@ Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start 
 
 Read in the *tree* output table from two outputs you have for your plot:
 
-```{r ex11, eval=FALSE, message = FALSE, warning=FALSE}
+```{r ex11, eval=TRUE, message = FALSE, warning=FALSE}
 
-file1 <-"../iLand_simulations/output/Output_plot1.sqlite"
-file2 <-"../iLand_simulations/output/Output_plot1_4deg_20percdrier.sqlite"
+file1 <- here::here("model/iLand_simulations/output/Output_plot1.sqlite")
+file2 <- here::here("model/iLand_simulations/output/Output_plot1_4deg_20percdrier.sqlite")
 
 # Give some name for the three simulations.
-name1 <-"reference"
-name2 <-"4deg_20percdrier"
+name1 <- "reference"
+name2 <- "4deg_20percdrier"
 
 # Read in data using the RSQLite package 
 #sqlite.driver  <- DBI::dbDriver("SQLite") #ODY CHANGED! did not work for me
 sqlite.driver  <- RSQLite::SQLite()
 db1  <- DBI::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
 
-tables.in.the.file <- dbListTables(db1) # explore the tables in the file1
+tables.in.the.file <- DBI::dbListTables(db1) # explore the tables in the file1
 print(tables.in.the.file)
 
 # We will work with "tree" table and tree-scale data:
-tree1 <- dbReadTable(db1,"tree")
-dbDisconnect(db1)  # disconnect to the file1
+tree1 <- DBI::dbReadTable(db1, "tree")
+DBI::dbDisconnect(db1)  # disconnect to the file1
 
 # READ IN DATA FROM THE SECOND FILE: -----
-db2  <- dbConnect(sqlite.driver, dbname = file2) # connect to the file2
-tree2 <- dbReadTable(db2,"tree")
-dbDisconnect(db2)
+db2  <- DBI::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+tree2 <- DBI::dbReadTable(db2, "tree")
+DBI::dbDisconnect(db2)
 
 ```
 
@@ -373,8 +388,8 @@ Merge the data from the two files together and make a column which tells which c
 
 ```{r ex12, eval=TRUE, message = FALSE, warning=FALSE}
 
-tree <- rbind(tree1 %>% mutate(run = name1) , 
-tree2 %>% mutate(run = name2))
+tree <- rbind(tree1 |> dplyr::mutate(run = name1) , 
+              tree2 |> dplyr::mutate(run = name2))
 
 head(tree)
 ```
@@ -382,20 +397,20 @@ head(tree)
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
 ```{r ex13, eval=TRUE, message = FALSE, warning=FALSE}
-tree0 <- tree %>% filter(year==0)
-g1 <- ggplot(tree0, aes(x = x, y = y, color = species)) +
- geom_point(size=tree0$dbh/20, alpha = 0.7) +
- ggtitle("Year 0")+
- facet_wrap(~run)+theme_bw()
+tree0 <- tree |> dplyr::filter(year == 0)
+g1 <- ggplot2::ggplot(tree0, ggplot2::aes(x = x, y = y, color = species)) +
+ ggplot2::geom_point(size = tree0$dbh / 20, alpha = 0.7) +
+ ggplot2::ggtitle("Year 0") +
+ ggplot2::facet_wrap(~run) + ggplot2::theme_bw()
 
 
-tree100 <-tree %>% filter(year==100)
-g2 <-ggplot(tree100, aes(x=x, y=y, color=species))+
- geom_point(size=tree100$dbh/20, alpha=0.7)+ 
- ggtitle("Year 100")+
- facet_wrap( ~run)+theme_bw()
+tree100 <- tree |> dplyr::filter(year == 100)
+g2 <- ggplot2::ggplot(tree100, ggplot2::aes(x = x, y = y, color = species)) +
+ ggplot2::geom_point(size = tree100$dbh / 20, alpha = 0.7) + 
+ ggplot2::ggtitle("Year 100") +
+ ggplot2::facet_wrap( ~run) + ggplot2::theme_bw()
 
-grid.arrange(g1,g2, ncol=1)
+gridExtra::grid.arrange(g1, g2, ncol = 1)
 ```
 
 We can see that the species composition is somewhat changed and the forest become more dense. We can even identify the same trees at the same location.
@@ -403,14 +418,14 @@ We can see that the species composition is somewhat changed and the forest becom
 Visualize some changes in time, for example the mean diameter of the trees!
 
 ```{r ex14, eval=TRUE, message = FALSE, warning=FALSE}
-sum.table<- tree %>% group_by(year, run) %>%
- summarise(N=n(),
- MD=mean(dbh,na.rm=TRUE), #mean diameter
- BA=sum(basalArea)) #basal area
+sum.table <- tree |> dplyr::group_by(year, run) |>
+ dplyr::summarise(N = dplyr::n(),
+ MD = mean(dbh, na.rm = TRUE), #mean diameter
+ BA = sum(basalArea)) #basal area
 
-ggplot(sum.table, aes(x=year, y=MD, color=run)) +
- geom_line(lwd=2)+
- ylab("Mean diameter [cm]")+theme_bw()
+ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
+ ggplot2::geom_line(lwd = 2) +
+ ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
 ```
 
 We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
@@ -419,51 +434,51 @@ To study biodiversity aspects, we can calculate biodiversity indicators (Gini, S
 
 ```{r ex15, eval=TRUE, message = FALSE, warning=FALSE}
 
-library(adiv)
-
 # First we need to change the 
-tlong1<-tree1 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+tlong1 <- tree1 |>
+ dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
+ tidyr::pivot_wider(id_cols = 'year', names_from ='species',
+                    values_from = 'N', values_fill = 0) |>
+ dplyr::ungroup() |>
  dplyr::select(-year) 
-head(tlong1)
+
+ head(tlong1)
 ```
 
 Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
 
 ```{r ex16, eval=TRUE, message = FALSE, warning=FALSE}
 
-div1<-data.frame(speciesdiv(tlong1)) %>% mutate(year=unique(tree1$year),
- run=name1) 
+div1 <- data.frame(speciesdiv(tlong1)) |> mutate(year = unique(tree1$year),
+ run = name1) 
 head(div1)
 ```
 
 We make the same steps for the other simulation results (tree2).
 
 ```{r ex17, eval=TRUE, message = FALSE, warning=FALSE}
-tlong2<-tree2 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+tlong2 <- tree2 |>
+ group_by(year, species) |> summarise(N=n()) |>
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) |>
+ ungroup() |>
  dplyr::select(-year) 
 
-div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+div2<-data.frame(speciesdiv(tlong2)) |> mutate(year=unique(tree2$year),
  run=name2) 
 
 ```
 
 We merge them all together and make a plot.
 
-```{r ex18, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex18, eval=FALSE, message = FALSE, warning=FALSE}
 
-tlong2<-tree2 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+tlong2<-tree2 |>
+ group_by(year, species) |> summarise(N=n()) |>
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) |>
+ ungroup() |>
  dplyr::select(-year) 
 
-div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+div2<-data.frame(speciesdiv(tlong2)) |> mutate(year=unique(tree2$year),
  run=name2) 
 div<-rbind(div1,div2)
 
@@ -494,7 +509,7 @@ Then, we are ready to use it! We can calculate:
 
 Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
 
-```{r ex20, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex20, eval=FALSE, message = FALSE, warning=FALSE}
 library(treespat)
 
 # diameter dominance
@@ -503,51 +518,51 @@ library(treespat)
 # mingling
  
 ddom<-data.frame(DDOM(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DDOM", name="Diameter dominance", run=name1))
 head(ddom)
 
 diff<-data.frame(DIFF(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DIFF", name="Diameter differentiation", run=name1))
 head(diff)
 
-sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) |> 
  mutate(index="SCI", name="Stand Complexity Index", run=name1) )
 head(sci)
 
 #ming<-MING(tree1, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
-# max.k = 4, shape='square', .groups=c('year')) %>% 
+# max.k = 4, shape='square', .groups=c('year')) |> 
 # mutate(index="MING", name="Mingling", run=name1)
 
-indices1<-rbind(ddom %>% rename(value=DBH.DOM),
- diff %>% rename(value=DIFF),
- sci[,-c(3,4)] %>% rename(value=mean_SCI) )#this has more columns we need the first two
+indices1<-rbind(ddom |> rename(value=DBH.DOM),
+ diff |> rename(value=DIFF),
+ sci[,-c(3,4)] |> rename(value=mean_SCI) )#this has more columns we need the first two
 ```
 
 We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
 
-```{r ex21, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex21, eval=FALSE, message = FALSE, warning=FALSE}
 ddom<-data.frame(DDOM(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DDOM", name="Diameter dominance", run=name2))
 
 
 diff<-data.frame(DIFF(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DIFF", name="Diameter differentiation", run=name2))
 
-sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) |> 
  mutate(index="SCI", name="Stand Complexity Index", run=name2))
 
 
 #ming<-MING(tree2, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
-# max.k = 4, shape='square', .groups=c('year')) %>% 
+# max.k = 4, shape='square', .groups=c('year')) |> 
 # mutate(index="MING", name="Mingling", run=name2)
 
-indices2<-rbind(ddom %>% rename(value=DBH.DOM),
- diff %>% rename(value=DIFF),
- sci[,-c(3,4)] %>% rename(value=mean_SCI) )
+indices2<-rbind(ddom |> rename(value=DBH.DOM),
+ diff |> rename(value=DIFF),
+ sci[,-c(3,4)] |> rename(value=mean_SCI) )
 
 indices<-rbind(indices1,indices2)
 
@@ -567,7 +582,7 @@ Run the model as it is described in the previous chapters to have at least 2 sim
 
 Read in the *landscape* output table from two outputs you have for your plot:
 
-```{r ex22, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex22, eval=FALSE, message = FALSE, warning=FALSE}
 
 file1<-"../iLand_simulations/output/Output_plot1.sqlite"
 file2<-"../iLand_simulations/output/Output_plot1_4deg_20percdrier.sqlite"
@@ -592,17 +607,17 @@ dbDisconnect(db2)
 
 Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
-```{r ex23, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex23, eval=FALSE, message = FALSE, warning=FALSE}
 
-landscape<-rbind(landscape1 %>% mutate(run=name1) , 
- landscape2 %>% mutate(run=name2))
+landscape<-rbind(landscape1 |> mutate(run=name1) , 
+ landscape2 |> mutate(run=name2))
 
 head(landscape)
 ```
 
 We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the begining. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
 
-```{r ex24, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex24, eval=FALSE, message = FALSE, warning=FALSE}
 
 cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
  "bepe"="#fadfad","casa"="#7eeadf","coav"="#20c6b6","tipl"="#645394", 
@@ -645,12 +660,12 @@ print(g3)
 
 We can see that the forest is growing, it accumulates more and more carbon. We do not have management intervention. Number of trees are increasing as the regeneration layer develops to adult trees (higher than 4m). The species-specific graphs for avg dbh indicates that some species do not have successful regeneration under the scenario. Beech start to dominate and other species do not have the drop in the avg dbh due to regeneration. Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
-```{r ex25, eval=TRUE, message = FALSE, warning=FALSE}
-livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run) %>% 
+```{r ex25, eval=FALSE, message = FALSE, warning=FALSE}
+livingC0<-data.frame(landscape |> filter(year==0) |> group_by(run) |> 
  summarize(sum.livingC=sum(total_carbon_kg/1000)) )
 print(livingC0)
 
-livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run) %>% 
+livingC100<-data.frame(landscape |> filter(year==100) |> group_by(run) |> 
  summarize(sum.livingC=sum(total_carbon_kg/1000)) )
 print(livingC100)
 ```
@@ -659,32 +674,32 @@ The initial conditions are same for the runs, but they are ending up at differen
 
 Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
 
-```{r ex26, eval=TRUE, message = FALSE, warning=FALSE}
-species.livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run, species) %>% 
+```{r ex26, eval=FALSE, message = FALSE, warning=FALSE}
+species.livingC0<-data.frame(landscape |> filter(year==0) |> group_by(run, species) |> 
  summarize(livingC=sum(total_carbon_kg/1000)) )
 print(species.livingC0)
 
-species.livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run, species) %>% 
+species.livingC100<-data.frame(landscape |> filter(year==100) |> group_by(run, species) |> 
  summarize(livingC=sum(total_carbon_kg/1000)) )
 print(species.livingC100)
 ```
 
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
-```{r ex27, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex27, eval=FALSE, message = FALSE, warning=FALSE}
 LC0<-left_join(species.livingC0, livingC0, by="run" )
-LC0<-data.frame(LC0 %>% mutate(spec.prop=livingC/sum.livingC, year=0))
+LC0<-data.frame(LC0 |> mutate(spec.prop=livingC/sum.livingC, year=0))
 print(LC0)
 
 LC100<-left_join(species.livingC100, livingC100, by="run" )
-LC100<-data.frame(LC100 %>% mutate(spec.prop=livingC/sum.livingC, year=100))
+LC100<-data.frame(LC100 |> mutate(spec.prop=livingC/sum.livingC, year=100))
 print(LC100)
 
 ```
 
 Put the two tables together and visualize the results!
 
-```{r ex28, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex28, eval=FALSE, message = FALSE, warning=FALSE}
 LC<-rbind(LC0,LC100)
 
 LC$run<-factor( LC$run, levels=c(name1,name2))
@@ -718,7 +733,7 @@ Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start 
 
 Read in the *tree* output table from two outputs you have for your plot:
 
-```{r ex29, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex29, eval=FALSE, message = FALSE, warning=FALSE}
 
 file1<-"../iLand_simulations/output/Output_plot2.sqlite"
 file2<-"../iLand_simulations/output/Output_plot2_4deg_20percdrier.sqlite"
@@ -748,25 +763,25 @@ dbDisconnect(db2)
 
 Merge the data from the two files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
-```{r ex30, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex30, eval=FALSE, message = FALSE, warning=FALSE}
 
-tree<-rbind(tree1 %>% mutate(run=name1) , 
- tree2 %>% mutate(run=name2))
+tree<-rbind(tree1 |> mutate(run=name1) , 
+ tree2 |> mutate(run=name2))
 
 head(tree)
 ```
 
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
-```{r ex31, eval=TRUE, message = FALSE, warning=FALSE}
-tree0<-tree %>% filter(year==0)
+```{r ex31, eval=FALSE, message = FALSE, warning=FALSE}
+tree0<-tree |> filter(year==0)
 g1<-ggplot(tree0, aes(x=x, y=y, color=species))+
  geom_point(size=tree0$dbh/20, alpha=0.7)+
  ggtitle("Year 0")+
  facet_wrap(~run)+theme_bw()
 
 
-tree100<-tree %>% filter(year==100)
+tree100<-tree |> filter(year==100)
 g2<-ggplot(tree100, aes(x=x, y=y, color=species))+
  geom_point(size=tree100$dbh/20, alpha=0.7)+ 
  ggtitle("Year 100")+
@@ -779,8 +794,8 @@ We can see that the species composition is somewhat changed and the forest becom
 
 Visualize some changes in time, for example the mean diameter of the trees!
 
-```{r ex32, eval=TRUE, message = FALSE, warning=FALSE}
-sum.table<- tree %>% group_by(year, run) %>%
+```{r ex32, eval=FALSE, message = FALSE, warning=FALSE}
+sum.table<- tree |> group_by(year, run) |>
  summarise(N=n(),
  MD=mean(dbh,na.rm=TRUE), #mean diameter
  BA=sum(basalArea)) #basal area
@@ -794,53 +809,53 @@ We can see that there is an initial increase in mean dbh, then a drop after 20/2
 
 To study biodiversity aspects, we can calculate biodiversity indicators (Gini, Shannon and other spatial tree diversity indices). Let's use the *adiv* package: https://cran.r-project.org/web/packages/adiv/index.html First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
 
-```{r ex33, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex33, eval=FALSE, message = FALSE, warning=FALSE}
 
 library(adiv)
 
 # First we need to change the 
-tlong1<-tree1 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+tlong1<-tree1 |>
+ group_by(year, species) |> summarise(N=n()) |>
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) |>
+ ungroup() |>
  dplyr::select(-year) 
 head(tlong1)
 ```
 
 Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
 
-```{r ex34, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex34, eval=FALSE, message = FALSE, warning=FALSE}
 
-div1<-data.frame(speciesdiv(tlong1)) %>% mutate(year=unique(tree1$year),
+div1<-data.frame(speciesdiv(tlong1)) |> mutate(year=unique(tree1$year),
  run=name1) 
 head(div1)
 ```
 
 We make the same steps for the other simulation results (tree2).
 
-```{r ex35, eval=TRUE, message = FALSE, warning=FALSE}
-tlong2<-tree2 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+```{r ex35, eval=FALSE, message = FALSE, warning=FALSE}
+tlong2<-tree2 |>
+ group_by(year, species) |> summarise(N=n()) |>
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) |>
+ ungroup() |>
  dplyr::select(-year) 
 
-div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+div2<-data.frame(speciesdiv(tlong2)) |> mutate(year=unique(tree2$year),
  run=name2) 
 
 ```
 
 We merge them all together and make a plot.
 
-```{r ex36, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex36, eval=FALSE, message = FALSE, warning=FALSE}
 
-tlong2<-tree2 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+tlong2<-tree2 |>
+ group_by(year, species) |> summarise(N=n()) |>
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) |>
+ ungroup() |>
  dplyr::select(-year) 
 
-div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+div2<-data.frame(speciesdiv(tlong2)) |> mutate(year=unique(tree2$year),
  run=name2) 
 div<-rbind(div1,div2)
 
@@ -871,7 +886,7 @@ Then, we are ready to use it! We can calculate:
 
 Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
 
-```{r ex38, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex38, eval=FALSE, message = FALSE, warning=FALSE}
 library(treespat)
 
 # diameter dominance
@@ -880,51 +895,51 @@ library(treespat)
 # mingling
  
 ddom<-data.frame(DDOM(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DDOM", name="Diameter dominance", run=name1))
 head(ddom)
 
 diff<-data.frame(DIFF(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DIFF", name="Diameter differentiation", run=name1))
 head(diff)
 
-sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) |> 
  mutate(index="SCI", name="Stand Complexity Index", run=name1) )
 head(sci)
 
 #ming<-MING(tree1, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
-# max.k = 4, shape='square', .groups=c('year')) %>% 
+# max.k = 4, shape='square', .groups=c('year')) |> 
 # mutate(index="MING", name="Mingling", run=name1)
 
-indices1<-rbind(ddom %>% rename(value=DBH.DOM),
- diff %>% rename(value=DIFF),
- sci[,-c(3,4)] %>% rename(value=mean_SCI) )#this has more columns we need the first two
+indices1<-rbind(ddom |> rename(value=DBH.DOM),
+ diff |> rename(value=DIFF),
+ sci[,-c(3,4)] |> rename(value=mean_SCI) )#this has more columns we need the first two
 ```
 
 We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
 
-```{r ex39, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex39, eval=FALSE, message = FALSE, warning=FALSE}
 ddom<-data.frame(DDOM(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DDOM", name="Diameter dominance", run=name2))
 
 
 diff<-data.frame(DIFF(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DIFF", name="Diameter differentiation", run=name2))
 
-sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) |> 
  mutate(index="SCI", name="Stand Complexity Index", run=name2))
 
 
 #ming<-MING(tree2, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
-# max.k = 4, shape='square', .groups=c('year')) %>% 
+# max.k = 4, shape='square', .groups=c('year')) |> 
 # mutate(index="MING", name="Mingling", run=name2)
 
-indices2<-rbind(ddom %>% rename(value=DBH.DOM),
- diff %>% rename(value=DIFF),
- sci[,-c(3,4)] %>% rename(value=mean_SCI) )
+indices2<-rbind(ddom |> rename(value=DBH.DOM),
+ diff |> rename(value=DIFF),
+ sci[,-c(3,4)] |> rename(value=mean_SCI) )
 
 indices<-rbind(indices1,indices2)
 
@@ -944,7 +959,7 @@ Run the model as it is described in the previous chapters to have at least 2 sim
 
 Read in the *landscape* output table from two outputs you have for your plot:
 
-```{r ex40, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex40, eval=FALSE, message = FALSE, warning=FALSE}
 
 file1<-"../iLand_simulations/output/Output_plot2.sqlite"
 file2<-"../iLand_simulations/output/Output_plot2_4deg_20percdrier.sqlite"
@@ -969,17 +984,17 @@ dbDisconnect(db2)
 
 Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
-```{r ex41, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex41, eval=FALSE, message = FALSE, warning=FALSE}
 
-landscape<-rbind(landscape1 %>% mutate(run=name1) , 
- landscape2 %>% mutate(run=name2))
+landscape<-rbind(landscape1 |> mutate(run=name1) , 
+ landscape2 |> mutate(run=name2))
 
 head(landscape)
 ```
 
 We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the begining. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
 
-```{r ex42, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex42, eval=FALSE, message = FALSE, warning=FALSE}
 
 cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
  "bepe"="#fadfad","casa"="#7eeadf","coav"="#20c6b6","tipl"="#645394", 
@@ -1022,12 +1037,12 @@ print(g3)
 
 We can see that the forest is growing, it accumulates more and more carbon. We do not have management intervention. Number of trees are increasing as the regeneration layer develops to adult trees (higher than 4m). The species-specific graphs for avg dbh indicates that some species do not have successful regeneration under the scenario. Beech start to dominate and other species do not have the drop in the avg dbh due to regeneration. Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
-```{r ex43, eval=TRUE, message = FALSE, warning=FALSE}
-livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run) %>% 
+```{r ex43, eval=FALSE, message = FALSE, warning=FALSE}
+livingC0<-data.frame(landscape |> filter(year==0) |> group_by(run) |> 
  summarize(sum.livingC=sum(total_carbon_kg/1000)) )
 print(livingC0)
 
-livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run) %>% 
+livingC100<-data.frame(landscape |> filter(year==100) |> group_by(run) |> 
  summarize(sum.livingC=sum(total_carbon_kg/1000)) )
 print(livingC100)
 ```
@@ -1036,32 +1051,32 @@ The initial conditions are same for the runs, but they are ending up at differen
 
 Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
 
-```{r ex44, eval=TRUE, message = FALSE, warning=FALSE}
-species.livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run, species) %>% 
+```{r ex44, eval=FALSE, message = FALSE, warning=FALSE}
+species.livingC0<-data.frame(landscape |> filter(year==0) |> group_by(run, species) |> 
  summarize(livingC=sum(total_carbon_kg/1000)) )
 print(species.livingC0)
 
-species.livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run, species) %>% 
+species.livingC100<-data.frame(landscape |> filter(year==100) |> group_by(run, species) |> 
  summarize(livingC=sum(total_carbon_kg/1000)) )
 print(species.livingC100)
 ```
 
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
-```{r ex45, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex45, eval=FALSE, message = FALSE, warning=FALSE}
 LC0<-left_join(species.livingC0, livingC0, by="run" )
-LC0<-data.frame(LC0 %>% mutate(spec.prop=livingC/sum.livingC, year=0))
+LC0<-data.frame(LC0 |> mutate(spec.prop=livingC/sum.livingC, year=0))
 print(LC0)
 
 LC100<-left_join(species.livingC100, livingC100, by="run" )
-LC100<-data.frame(LC100 %>% mutate(spec.prop=livingC/sum.livingC, year=100))
+LC100<-data.frame(LC100 |> mutate(spec.prop=livingC/sum.livingC, year=100))
 print(LC100)
 
 ```
 
 Put the two tables together and visualize the results!
 
-```{r ex46, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex46, eval=FALSE, message = FALSE, warning=FALSE}
 LC<-rbind(LC0,LC100)
 
 LC$run<-factor( LC$run, levels=c(name1,name2))
@@ -1095,7 +1110,7 @@ Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start 
 
 Read in the *tree* output table from two outputs you have for your plot:
 
-```{r ex47, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex47, eval=FALSE, message = FALSE, warning=FALSE}
 
 file1<-"../iLand_simulations/output/Output_plot3.sqlite"
 file2<-"../iLand_simulations/output/Output_plot3_4deg_20percdrier.sqlite"
@@ -1125,25 +1140,25 @@ dbDisconnect(db2)
 
 Merge the data from the two files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
-```{r ex48, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex48, eval=FALSE, message = FALSE, warning=FALSE}
 
-tree<-rbind(tree1 %>% mutate(run=name1) , 
- tree2 %>% mutate(run=name2))
+tree<-rbind(tree1 |> mutate(run=name1) , 
+ tree2 |> mutate(run=name2))
 
 head(tree)
 ```
 
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
-```{r ex49, eval=TRUE, message = FALSE, warning=FALSE}
-tree0<-tree %>% filter(year==0)
+```{r ex49, eval=FALSE, message = FALSE, warning=FALSE}
+tree0<-tree |> filter(year==0)
 g1<-ggplot(tree0, aes(x=x, y=y, color=species))+
  geom_point(size=tree0$dbh/20, alpha=0.7)+
  ggtitle("Year 0")+
  facet_wrap(~run)+theme_bw()
 
 
-tree100<-tree %>% filter(year==100)
+tree100<-tree |> filter(year==100)
 g2<-ggplot(tree100, aes(x=x, y=y, color=species))+
  geom_point(size=tree100$dbh/20, alpha=0.7)+ 
  ggtitle("Year 100")+
@@ -1156,8 +1171,8 @@ We can see that the species composition is somewhat changed and the forest becom
 
 Visualize some changes in time, for example the mean diameter of the trees!
 
-```{r ex50, eval=TRUE, message = FALSE, warning=FALSE}
-sum.table<- tree %>% group_by(year, run) %>%
+```{r ex50, eval=FALSE, message = FALSE, warning=FALSE}
+sum.table<- tree |> group_by(year, run) |>
  summarise(N=n(),
  MD=mean(dbh,na.rm=TRUE), #mean diameter
  BA=sum(basalArea)) #basal area
@@ -1171,53 +1186,53 @@ We can see that there is an initial increase in mean dbh, then a drop after 20/2
 
 To study biodiversity aspects, we can calculate biodiversity indicators (Gini, Shannon and other spatial tree diversity indices). Let's use the *adiv* package: https://cran.r-project.org/web/packages/adiv/index.html First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
 
-```{r ex51, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex51, eval=FALSE, message = FALSE, warning=FALSE}
 
 library(adiv)
 
 # First we need to change the 
-tlong1<-tree1 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+tlong1<-tree1 |>
+ group_by(year, species) |> summarise(N=n()) |>
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) |>
+ ungroup() |>
  dplyr::select(-year) 
 head(tlong1)
 ```
 
 Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
 
-```{r ex52, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex52, eval=FALSE, message = FALSE, warning=FALSE}
 
-div1<-data.frame(speciesdiv(tlong1)) %>% mutate(year=unique(tree1$year),
+div1<-data.frame(speciesdiv(tlong1)) |> mutate(year=unique(tree1$year),
  run=name1) 
 head(div1)
 ```
 
 We make the same steps for the other simulation results (tree2).
 
-```{r ex53, eval=TRUE, message = FALSE, warning=FALSE}
-tlong2<-tree2 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+```{r ex53, eval=FALSE, message = FALSE, warning=FALSE}
+tlong2<-tree2 |>
+ group_by(year, species) |> summarise(N=n()) |>
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) |>
+ ungroup() |>
  dplyr::select(-year) 
 
-div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+div2<-data.frame(speciesdiv(tlong2)) |> mutate(year=unique(tree2$year),
  run=name2) 
 
 ```
 
 We merge them all together and make a plot.
 
-```{r ex54, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex54, eval=FALSE, message = FALSE, warning=FALSE}
 
-tlong2<-tree2 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+tlong2<-tree2 |>
+ group_by(year, species) |> summarise(N=n()) |>
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) |>
+ ungroup() |>
  dplyr::select(-year) 
 
-div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+div2<-data.frame(speciesdiv(tlong2)) |> mutate(year=unique(tree2$year),
  run=name2) 
 div<-rbind(div1,div2)
 
@@ -1248,7 +1263,7 @@ Then, we are ready to use it! We can calculate: Then, we are ready to use it! We
 
 Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
 
-```{r ex56, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex56, eval=FALSE, message = FALSE, warning=FALSE}
 library(treespat)
 
 # diameter dominance
@@ -1257,51 +1272,51 @@ library(treespat)
 # mingling
  
 ddom<-data.frame(DDOM(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DDOM", name="Diameter dominance", run=name1))
 head(ddom)
 
 diff<-data.frame(DIFF(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DIFF", name="Diameter differentiation", run=name1))
 head(diff)
 
-sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) |> 
  mutate(index="SCI", name="Stand Complexity Index", run=name1) )
 head(sci)
 
 #ming<-MING(tree1, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
-# max.k = 4, shape='square', .groups=c('year')) %>% 
+# max.k = 4, shape='square', .groups=c('year')) |> 
 # mutate(index="MING", name="Mingling", run=name1)
 
-indices1<-rbind(ddom %>% rename(value=DBH.DOM),
- diff %>% rename(value=DIFF),
- sci[,-c(3,4)] %>% rename(value=mean_SCI) )#this has more columns we need the first two
+indices1<-rbind(ddom |> rename(value=DBH.DOM),
+ diff |> rename(value=DIFF),
+ sci[,-c(3,4)] |> rename(value=mean_SCI) )#this has more columns we need the first two
 ```
 
 We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
 
-```{r ex57, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex57, eval=FALSE, message = FALSE, warning=FALSE}
 ddom<-data.frame(DDOM(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DDOM", name="Diameter dominance", run=name2))
 
 
 diff<-data.frame(DIFF(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DIFF", name="Diameter differentiation", run=name2))
 
-sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) |> 
  mutate(index="SCI", name="Stand Complexity Index", run=name2))
 
 
 #ming<-MING(tree2, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
-# max.k = 4, shape='square', .groups=c('year')) %>% 
+# max.k = 4, shape='square', .groups=c('year')) |> 
 # mutate(index="MING", name="Mingling", run=name2)
 
-indices2<-rbind(ddom %>% rename(value=DBH.DOM),
- diff %>% rename(value=DIFF),
- sci[,-c(3,4)] %>% rename(value=mean_SCI) )
+indices2<-rbind(ddom |> rename(value=DBH.DOM),
+ diff |> rename(value=DIFF),
+ sci[,-c(3,4)] |> rename(value=mean_SCI) )
 
 indices<-rbind(indices1,indices2)
 
@@ -1321,7 +1336,7 @@ Run the model as it is described in the previous chapters to have at least 2 sim
 
 Read in the *landscape* output table from two outputs you have for your plot:
 
-```{r ex58, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex58, eval=FALSE, message = FALSE, warning=FALSE}
 
 file1<-"../iLand_simulations/output/Output_plot3.sqlite"
 file2<-"../iLand_simulations/output/Output_plot3_4deg_20percdrier.sqlite"
@@ -1346,17 +1361,17 @@ dbDisconnect(db2)
 
 Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
-```{r ex59, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex59, eval=FALSE, message = FALSE, warning=FALSE}
 
-landscape<-rbind(landscape1 %>% mutate(run=name1) , 
- landscape2 %>% mutate(run=name2))
+landscape<-rbind(landscape1 |> mutate(run=name1) , 
+ landscape2 |> mutate(run=name2))
 
 head(landscape)
 ```
 
 We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the begining. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
 
-```{r ex60, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex60, eval=FALSE, message = FALSE, warning=FALSE}
 
 cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
  "bepe"="#fadfad","casa"="#7eeadf","coav"="#20c6b6","tipl"="#645394", 
@@ -1399,12 +1414,12 @@ print(g3)
 
 We can see that the forest is growing, it accumulates more and more carbon. We do not have management intervention. Number of trees are increasing as the regeneration layer develops to adult trees (higher than 4m). The species-specific graphs for avg dbh indicates that some species do not have successful regeneration under the scenario. Beech start to dominate and other species do not have the drop in the avg dbh due to regeneration. Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
-```{r ex61, eval=TRUE, message = FALSE, warning=FALSE}
-livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run) %>% 
+```{r ex61, eval=FALSE, message = FALSE, warning=FALSE}
+livingC0<-data.frame(landscape |> filter(year==0) |> group_by(run) |> 
  summarize(sum.livingC=sum(total_carbon_kg/1000)) )
 print(livingC0)
 
-livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run) %>% 
+livingC100<-data.frame(landscape |> filter(year==100) |> group_by(run) |> 
  summarize(sum.livingC=sum(total_carbon_kg/1000)) )
 print(livingC100)
 ```
@@ -1413,32 +1428,32 @@ The initial conditions are same for the runs, but they are ending up at differen
 
 Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
 
-```{r ex62, eval=TRUE, message = FALSE, warning=FALSE}
-species.livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run, species) %>% 
+```{r ex62, eval=FALSE, message = FALSE, warning=FALSE}
+species.livingC0<-data.frame(landscape |> filter(year==0) |> group_by(run, species) |> 
  summarize(livingC=sum(total_carbon_kg/1000)) )
 print(species.livingC0)
 
-species.livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run, species) %>% 
+species.livingC100<-data.frame(landscape |> filter(year==100) |> group_by(run, species) |> 
  summarize(livingC=sum(total_carbon_kg/1000)) )
 print(species.livingC100)
 ```
 
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
-```{r ex63, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex63, eval=FALSE, message = FALSE, warning=FALSE}
 LC0<-left_join(species.livingC0, livingC0, by="run" )
-LC0<-data.frame(LC0 %>% mutate(spec.prop=livingC/sum.livingC, year=0))
+LC0<-data.frame(LC0 |> mutate(spec.prop=livingC/sum.livingC, year=0))
 print(LC0)
 
 LC100<-left_join(species.livingC100, livingC100, by="run" )
-LC100<-data.frame(LC100 %>% mutate(spec.prop=livingC/sum.livingC, year=100))
+LC100<-data.frame(LC100 |> mutate(spec.prop=livingC/sum.livingC, year=100))
 print(LC100)
 
 ```
 
 Put the two tables together and visualize the results!
 
-```{r ex64, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex64, eval=FALSE, message = FALSE, warning=FALSE}
 LC<-rbind(LC0,LC100)
 
 LC$run<-factor( LC$run, levels=c(name1,name2))
@@ -1472,7 +1487,7 @@ Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start 
 
 Read in the *tree* output table from two outputs you have for your plot:
 
-```{r ex65, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex65, eval=FALSE, message = FALSE, warning=FALSE}
 
 file1<-"../iLand_simulations/output/Output_plot4.sqlite"
 file2<-"../iLand_simulations/output/Output_plot4_4deg_20percdrier.sqlite"
@@ -1502,25 +1517,25 @@ dbDisconnect(db2)
 
 Merge the data from the two files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
-```{r ex66, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex66, eval=FALSE, message = FALSE, warning=FALSE}
 
-tree<-rbind(tree1 %>% mutate(run=name1) , 
- tree2 %>% mutate(run=name2))
+tree<-rbind(tree1 |> mutate(run=name1) , 
+ tree2 |> mutate(run=name2))
 
 head(tree)
 ```
 
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
-```{r ex67, eval=TRUE, message = FALSE, warning=FALSE}
-tree0<-tree %>% filter(year==0)
+```{r ex67, eval=FALSE, message = FALSE, warning=FALSE}
+tree0<-tree |> filter(year==0)
 g1<-ggplot(tree0, aes(x=x, y=y, color=species))+
  geom_point(size=tree0$dbh/20, alpha=0.7)+
  ggtitle("Year 0")+
  facet_wrap(~run)+theme_bw()
 
 
-tree100<-tree %>% filter(year==100)
+tree100<-tree |> filter(year==100)
 g2<-ggplot(tree100, aes(x=x, y=y, color=species))+
  geom_point(size=tree100$dbh/20, alpha=0.7)+ 
  ggtitle("Year 100")+
@@ -1533,8 +1548,8 @@ We can see that the species composition is somewhat changed and the forest becom
 
 Visualize some changes in time, for example the mean diameter of the trees!
 
-```{r ex68, eval=TRUE, message = FALSE, warning=FALSE}
-sum.table<- tree %>% group_by(year, run) %>%
+```{r ex68, eval=FALSE, message = FALSE, warning=FALSE}
+sum.table<- tree |> group_by(year, run) |>
  summarise(N=n(),
  MD=mean(dbh,na.rm=TRUE), #mean diameter
  BA=sum(basalArea)) #basal area
@@ -1548,53 +1563,53 @@ We can see that there is an initial increase in mean dbh, then a drop after 20/2
 
 To study biodiversity aspects, we can calculate biodiversity indicators (Gini, Shannon and other spatial tree diversity indices). Let's use the *adiv* package: https://cran.r-project.org/web/packages/adiv/index.html First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
 
-```{r ex69, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex69, eval=FALSE, message = FALSE, warning=FALSE}
 
 library(adiv)
 
 # First we need to change the 
-tlong1<-tree1 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+tlong1<-tree1 |>
+ group_by(year, species) |> summarise(N=n()) |>
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) |>
+ ungroup() |>
  dplyr::select(-year) 
 head(tlong1)
 ```
 
 Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
 
-```{r ex70, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex70, eval=FALSE, message = FALSE, warning=FALSE}
 
-div1<-data.frame(speciesdiv(tlong1)) %>% mutate(year=unique(tree1$year),
+div1<-data.frame(speciesdiv(tlong1)) |> mutate(year=unique(tree1$year),
  run=name1) 
 head(div1)
 ```
 
 We make the same steps for the other simulation results (tree2).
 
-```{r ex71, eval=TRUE, message = FALSE, warning=FALSE}
-tlong2<-tree2 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+```{r ex71, eval=FALSE, message = FALSE, warning=FALSE}
+tlong2<-tree2 |>
+ group_by(year, species) |> summarise(N=n()) |>
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) |>
+ ungroup() |>
  dplyr::select(-year) 
 
-div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+div2<-data.frame(speciesdiv(tlong2)) |> mutate(year=unique(tree2$year),
  run=name2) 
 
 ```
 
 We merge them all together and make a plot.
 
-```{r ex72, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex72, eval=FALSE, message = FALSE, warning=FALSE}
 
-tlong2<-tree2 %>%
- group_by(year, species) %>% summarise(N=n()) %>%
- pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) %>%
- ungroup() %>%
+tlong2<-tree2 |>
+ group_by(year, species) |> summarise(N=n()) |>
+ pivot_wider(id_cols='year', names_from='species',values_from='N', values_fill = 0) |>
+ ungroup() |>
  dplyr::select(-year) 
 
-div2<-data.frame(speciesdiv(tlong2)) %>% mutate(year=unique(tree2$year),
+div2<-data.frame(speciesdiv(tlong2)) |> mutate(year=unique(tree2$year),
  run=name2) 
 div<-rbind(div1,div2)
 
@@ -1625,7 +1640,7 @@ Then, we are ready to use it! We can calculate:
 
 Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
 
-```{r ex74, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex74, eval=FALSE, message = FALSE, warning=FALSE}
 library(treespat)
 
 # diameter dominance
@@ -1634,51 +1649,51 @@ library(treespat)
 # mingling
  
 ddom<-data.frame(DDOM(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DDOM", name="Diameter dominance", run=name1))
 head(ddom)
 
 diff<-data.frame(DIFF(tree1, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DIFF", name="Diameter differentiation", run=name1))
 head(diff)
 
-sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+sci<-data.frame(SCI(tree1, .x = x, .y = y, .mark = dbh, .groups=c('year')) |> 
  mutate(index="SCI", name="Stand Complexity Index", run=name1) )
 head(sci)
 
 #ming<-MING(tree1, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
-# max.k = 4, shape='square', .groups=c('year')) %>% 
+# max.k = 4, shape='square', .groups=c('year')) |> 
 # mutate(index="MING", name="Mingling", run=name1)
 
-indices1<-rbind(ddom %>% rename(value=DBH.DOM),
- diff %>% rename(value=DIFF),
- sci[,-c(3,4)] %>% rename(value=mean_SCI) )#this has more columns we need the first two
+indices1<-rbind(ddom |> rename(value=DBH.DOM),
+ diff |> rename(value=DIFF),
+ sci[,-c(3,4)] |> rename(value=mean_SCI) )#this has more columns we need the first two
 ```
 
 We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
 
-```{r ex75, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex75, eval=FALSE, message = FALSE, warning=FALSE}
 ddom<-data.frame(DDOM(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100, 
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DDOM", name="Diameter dominance", run=name2))
 
 
 diff<-data.frame(DIFF(tree2, .x = x, .y = y,.mark = dbh, xmax = 100, ymax = 100,
- max.k = 4, shape='square', .groups=c('year')) %>% 
+ max.k = 4, shape='square', .groups=c('year')) |> 
  mutate(index="DIFF", name="Diameter differentiation", run=name2))
 
-sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) %>% 
+sci<-data.frame(SCI(tree2, .x = x, .y = y, .mark = dbh, .groups=c('year')) |> 
  mutate(index="SCI", name="Stand Complexity Index", run=name2))
 
 
 #ming<-MING(tree2, .x = x, .y = y, .species = species, xmax = 100, ymax = 100,
-# max.k = 4, shape='square', .groups=c('year')) %>% 
+# max.k = 4, shape='square', .groups=c('year')) |> 
 # mutate(index="MING", name="Mingling", run=name2)
 
-indices2<-rbind(ddom %>% rename(value=DBH.DOM),
- diff %>% rename(value=DIFF),
- sci[,-c(3,4)] %>% rename(value=mean_SCI) )
+indices2<-rbind(ddom |> rename(value=DBH.DOM),
+ diff |> rename(value=DIFF),
+ sci[,-c(3,4)] |> rename(value=mean_SCI) )
 
 indices<-rbind(indices1,indices2)
 
@@ -1698,7 +1713,7 @@ Run the model as it is described in the previous chapters to have at least 2 sim
 
 Read in the *landscape* output table from two outputs you have for your plot:
 
-```{r ex76, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex76, eval=FALSE, message = FALSE, warning=FALSE}
 
 file1<-"../iLand_simulations/output/Output_plot4.sqlite"
 file2<-"../iLand_simulations/output/Output_plot4_4deg_20percdrier.sqlite"
@@ -1723,17 +1738,17 @@ dbDisconnect(db2)
 
 Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
-```{r ex77, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex77, eval=FALSE, message = FALSE, warning=FALSE}
 
-landscape<-rbind(landscape1 %>% mutate(run=name1) , 
- landscape2 %>% mutate(run=name2))
+landscape<-rbind(landscape1 |> mutate(run=name1) , 
+ landscape2 |> mutate(run=name2))
 
 head(landscape)
 ```
 
 We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the begining. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
 
-```{r ex78, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex78, eval=FALSE, message = FALSE, warning=FALSE}
 
 cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
  "bepe"="#fadfad","casa"="#7eeadf","coav"="#20c6b6","tipl"="#645394", 
@@ -1776,12 +1791,12 @@ print(g3)
 
 We can see that the forest is growing, it accumulates more and more carbon. We do not have management intervention. Number of trees are increasing as the regeneration layer develops to adult trees (higher than 4m). The species-specific graphs for avg dbh indicates that some species do not have successful regeneration under the scenario. Beech start to dominate and other species do not have the drop in the avg dbh due to regeneration. Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
-```{r ex79, eval=TRUE, message = FALSE, warning=FALSE}
-livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run) %>% 
+```{r ex79, eval=FALSE, message = FALSE, warning=FALSE}
+livingC0<-data.frame(landscape |> filter(year==0) |> group_by(run) |> 
  summarize(sum.livingC=sum(total_carbon_kg/1000)) )
 print(livingC0)
 
-livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run) %>% 
+livingC100<-data.frame(landscape |> filter(year==100) |> group_by(run) |> 
  summarize(sum.livingC=sum(total_carbon_kg/1000)) )
 print(livingC100)
 ```
@@ -1790,32 +1805,32 @@ The initial conditions are same for the runs, but they are ending up at differen
 
 Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
 
-```{r ex80, eval=TRUE, message = FALSE, warning=FALSE}
-species.livingC0<-data.frame(landscape %>% filter(year==0) %>% group_by(run, species) %>% 
+```{r ex80, eval=FALSE, message = FALSE, warning=FALSE}
+species.livingC0<-data.frame(landscape |> filter(year==0) |> group_by(run, species) |> 
  summarize(livingC=sum(total_carbon_kg/1000)) )
 print(species.livingC0)
 
-species.livingC100<-data.frame(landscape %>% filter(year==100) %>% group_by(run, species) %>% 
+species.livingC100<-data.frame(landscape |> filter(year==100) |> group_by(run, species) |> 
  summarize(livingC=sum(total_carbon_kg/1000)) )
 print(species.livingC100)
 ```
 
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
-```{r ex81, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex81, eval=FALSE, message = FALSE, warning=FALSE}
 LC0<-left_join(species.livingC0, livingC0, by="run" )
-LC0<-data.frame(LC0 %>% mutate(spec.prop=livingC/sum.livingC, year=0))
+LC0<-data.frame(LC0 |> mutate(spec.prop=livingC/sum.livingC, year=0))
 print(LC0)
 
 LC100<-left_join(species.livingC100, livingC100, by="run" )
-LC100<-data.frame(LC100 %>% mutate(spec.prop=livingC/sum.livingC, year=100))
+LC100<-data.frame(LC100 |> mutate(spec.prop=livingC/sum.livingC, year=100))
 print(LC100)
 
 ```
 
 Put the two tables together and visualize the results!
 
-```{r ex82, eval=TRUE, message = FALSE, warning=FALSE}
+```{r ex82, eval=FALSE, message = FALSE, warning=FALSE}
 LC<-rbind(LC0,LC100)
 
 LC$run<-factor( LC$run, levels=c(name1,name2))
