@@ -1,6 +1,6 @@
 ---
 title: Forest Modeling Exercise
-subtitle: Process-based and empirical modeling group assignments
+subtitle: Process-based and empirical modeling exercises
 format:
   titlepage-pdf:
     documentclass: scrbook
@@ -9,14 +9,14 @@ format:
     toc: true
     titlepage: "bg-image"
     titlepage-bg-image: "images/logo3.jpg"
-    titlepage-logo: "images/logo_proclias.jpg"
+    titlepage-logo: "images/logos_proclias_cost.jpg"
     titlepage-header: ""
     titlepage-footer: |
-      Interdisciplinary Summer School
+      Interdisciplinary Summer School\
       Ljubljana 2023\
       [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)
-    titlepage-theme: 
-      bg-image-size: 10cm
+    titlepage-theme:
+      bg-image-size: 8cm
 author:
   - name: Olalla Díaz-Yáñez
     affiliations:
@@ -38,7 +38,10 @@ bibliography: bibliography.bib
   # html:
    #  toc: true
    #  toc-depth: 3
-   #  toc-location: left
+#    #  toc-location: left
+#    
+
+
 ```
 
 ```{r setup, include=FALSE}
@@ -59,9 +62,12 @@ library(adiv)
 
 # Overview {#sec-overview}
 
-This document contains the instructions of the modeling group assignments. It contains a section for the process model approach and a different section for the empirical modelling.
+This document contains the instructions and solutions of the modeling group assignments. First, you will find the section for the process model approach (@sec-pb) and after that the section for the empirical modelling (@sec-em). This document is very long because it describes all the exercises and solutions step by step.
 
-This document describes all the exercises, but your group has been assigned to only one, including one specific modeling approach. Each group has two questions to be answered (one question per subgroup inside each group). Please get in touch with your group coach if you are unsure what section you should focus on. The table below summarizes and links to the different parts of this document:
+You will work per groups in the four groups established at the beginning of the week. Each of the four groups will be divided internally in four subgroups (A-D). Each subgroup (A-D) inside each group (1-4) will address one question that will have to be answered using one approach. In the table below you can find a link to the section to each question e.g. group 1 subgroup A will answer the questions "**How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 1?**" using the approach based on the model iLand and will have the full instructions and solution in @sec-A_1. 
+
+Please, always ask your coach if you do not know what is the section where you should be working in. 
+
 
 | Group | Subgroup Question | Question                                                                                                    | Approach | Go to    |
 |---------------|---------------|---------------|---------------|---------------|
@@ -86,7 +92,7 @@ This document describes all the exercises, but your group has been assigned to o
 
 We provide all data, model and scripts for the excercises. However if you will use the model iLand for your research in the future please get in contact with the model developers at the Technical University Münich: Werner Rammer (werner.rammer\@tum.de) and Rupert Seidl (rupert.seidl\@tum.de). Regarding the biodiversity data used in the empirical modeling processed in the emprical modeling part, in case of further usage please contact Jeňýk Hofmeister at the Czech University of Life Sciences Prague (jenyk.hofmeister\@email.cz).
 
-# Process based
+# Process based {#sec-pb}
 
 ## iLand model
 
@@ -280,7 +286,7 @@ To answer the questions the most straight forward way is to look the *landscape*
 -   Load the required project file on the left-hand-side under *iLand project file* by browsing on your computer after clicking on the folder icon next to the box.
 -   After you selected a project file, click on the "Create Model" on the top-left part of the window with an icon of a Globe.
 -   Wait until the simulation area shown in the middle.
--   Try out some visualizations on the right hand-side \*Visualization options". e.g individual trees + color by species. Here you can explore the initial stage of the 1 ha simulation area.
+-   Try out some visualizations on the right hand-side "Visualization options". e.g individual trees + color by species. Here you can explore the initial stage of the 1 ha simulation area.
 -   To run the model click on Run Model icon on the top and give 100 years to simulate.
 -   On the bottom of the window you can follow how fast the model is running and see if it is finished.
 -   Stage of the last year remains in the simulation area, and you can go to the folder *output* to check your output file.
@@ -295,19 +301,22 @@ The output database has a *.sqlite* extension. You can explore outputs:
 
 ```{r ex8, eval=FALSE, message = FALSE, warning=FALSE}
 
-file <- here::here("model/iLand_simulations/output/Output_plot1.sqlite")
 
- sqlite.driver <- DBI::dbDriver("SQLite")
- db1 <- DBI::dbConnect(sqlite.driver, dbname = file) # connect to the file
- tabs <-DBI::dbListTables(db1) # explore the tables in the file
- print(tabs)
+file <-
+    here::here("model/iLand_simulations/output/Output_plot1.sqlite")
 
- landscape <- DBI::dbReadTable(db1,"landscape")
+sqlite.driver <- RSQLite::dbDriver("SQLite")
+db1 <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file) # connect to the file
+tabs <- RSQLite::dbListTables(db1) # explore the tables in the file
+print(tabs)
 
- DBI::dbDisconnect(db1)
- 
- summary(landscape)
- head(landscape)
+landscape <- RSQLite::dbReadTable(db1, "landscape")
+
+RSQLite::dbDisconnect(db1)
+
+summary(landscape)
+head(landscape)
 ```
 
 There are different output tables in iLand and all have specific structure, column and spatial representation of the records. The landscape output gives information on the whole landscape, but here we will work with one 1 ha pixel that is our "whole" landscape for now. Here species specific information is also available for each year. More about the meaning of the columns in the landscape output you can find here: https://iland-model.org/Outputs#Landscape_aggregates_per_species Not always all outputs are produced, in the project file we can set which output tables we want to enable, and those will be created.
@@ -361,7 +370,8 @@ Read in the *tree* output table from two outputs you have for your plot:
 
 ```{r ex11, eval=TRUE, message = FALSE, warning=FALSE}
 path1 <- "model/iLand_simulations/output/Output_plot1.sqlite"
-path2 <- "model/iLand_simulations/output/Output_plot1_4deg_20percdrier.sqlite"
+path2 <-
+    "model/iLand_simulations/output/Output_plot1_4deg_20percdrier.sqlite"
 
 file1 <- here::here(path1)
 file2 <- here::here(path2)
@@ -370,21 +380,24 @@ file2 <- here::here(path2)
 name1 <- "reference"
 name2 <- "4deg_20percdrier"
 
-# Read in data using the DBI package 
-sqlite.driver  <- DBI::dbDriver("SQLite")
-db1  <- DBI::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+# Read in data using the RSQLite package
+sqlite.driver  <- RSQLite::dbDriver("SQLite")
+db1  <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
 
-tables.in.the.file <- DBI::dbListTables(db1) # explore the tables in the file1
+tables.in.the.file <-
+    RSQLite::dbListTables(db1) # explore the tables in the file1
 print(tables.in.the.file)
 
 # We will work with "tree" table and tree-scale data:
-tree1 <- DBI::dbReadTable(db1, "tree")
-DBI::dbDisconnect(db1)  # disconnect to the file1
+tree1 <- RSQLite::dbReadTable(db1, "tree")
+RSQLite::dbDisconnect(db1)  # disconnect to the file1
 
 # READ IN DATA FROM THE SECOND FILE: -----
-db2  <- DBI::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
-tree2 <- DBI::dbReadTable(db2, "tree")
-DBI::dbDisconnect(db2)
+db2  <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+tree2 <- RSQLite::dbReadTable(db2, "tree")
+RSQLite::dbDisconnect(db2)
 
 ```
 
@@ -392,7 +405,7 @@ Merge the data from the two files together and make a column which tells which c
 
 ```{r ex12, eval=TRUE, message = FALSE, warning=FALSE}
 
-tree <- rbind(tree1 |> dplyr::mutate(run = name1) , 
+tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
               tree2 |> dplyr::mutate(run = name2))
 
 head(tree)
@@ -402,17 +415,19 @@ To explore a bit the simulation, plot the tree locations at the beginning and th
 
 ```{r ex13, eval=TRUE, message = FALSE, warning=FALSE}
 tree0 <- tree |> dplyr::filter(year == 0)
-g1 <- ggplot2::ggplot(tree0, ggplot2::aes(x = x, y = y, color = species)) +
- ggplot2::geom_point(size = tree0$dbh / 20, alpha = 0.7) +
- ggplot2::ggtitle("Year 0") +
- ggplot2::facet_wrap(~run) + ggplot2::theme_bw()
+g1 <-
+    ggplot2::ggplot(tree0, ggplot2::aes(x = x, y = y, color = species)) +
+    ggplot2::geom_point(size = tree0$dbh / 20, alpha = 0.7) +
+    ggplot2::ggtitle("Year 0") +
+    ggplot2::facet_wrap( ~ run) + ggplot2::theme_bw()
 
 
 tree100 <- tree |> dplyr::filter(year == 100)
-g2 <- ggplot2::ggplot(tree100, ggplot2::aes(x = x, y = y, color = species)) +
- ggplot2::geom_point(size = tree100$dbh / 20, alpha = 0.7) + 
- ggplot2::ggtitle("Year 100") +
- ggplot2::facet_wrap( ~run) + ggplot2::theme_bw()
+g2 <-
+    ggplot2::ggplot(tree100, ggplot2::aes(x = x, y = y, color = species)) +
+    ggplot2::geom_point(size = tree100$dbh / 20, alpha = 0.7) +
+    ggplot2::ggtitle("Year 100") +
+    ggplot2::facet_wrap(~ run) + ggplot2::theme_bw()
 
 gridExtra::grid.arrange(g1, g2, ncol = 1)
 ```
@@ -424,13 +439,17 @@ Visualize some changes in time, for example the mean diameter of the trees!
 
 ```{r ex14, eval=TRUE, message = FALSE, warning=FALSE}
 sum.table <- tree |> dplyr::group_by(year, run) |>
- dplyr::summarise(N = dplyr::n(),
-                  MD = mean(dbh, na.rm = TRUE), #mean diameter
-                  BA = sum(basalArea)) #basal area
+    dplyr::summarise(
+        N = dplyr::n(),
+        MD = mean(dbh, na.rm = TRUE),
+        #mean diameter
+        BA = sum(basalArea)
+    ) #basal area
 
-ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
- ggplot2::geom_line(lwd = 2) +
- ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
+ggplot2::ggplot(sum.table, ggplot2::aes(x = year, 
+                                        y = MD, color = run)) +
+    ggplot2::geom_line(lwd = 2) +
+    ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
 ```
 
 We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
@@ -442,21 +461,25 @@ You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
 
 # First we need to change the 
 tlong1 <- tree1 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
- tidyr::pivot_wider(id_cols = 'year', names_from ='species',
-                    values_from = 'N', values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
- head(tlong1)
+head(tlong1)
 ```
 
 Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
 
 ```{r ex16, eval=TRUE, message = FALSE, warning=FALSE}
 
-div1 <- data.frame( adiv::speciesdiv(tlong1)) |> 
-  dplyr::mutate(year = unique(tree1$year),run = name1) 
+div1 <- data.frame(adiv::speciesdiv(tlong1)) |>
+    dplyr::mutate(year = unique(tree1$year), run = name1)
 head(div1)
 ```
 
@@ -464,14 +487,18 @@ We make the same steps for the other simulation results (tree2).
 
 ```{r ex17, eval=TRUE, message = FALSE, warning=FALSE}
 tlong2 <- tree2 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N=n()) |>
- tidyr::pivot_wider(id_cols='year', names_from='species',values_from='N', 
-                    values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |> 
-  dplyr::mutate(year=unique(tree2$year), run=name2) 
+div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
+    dplyr::mutate(year = unique(tree2$year), run = name2) 
 
 ```
 
@@ -479,24 +506,27 @@ We merge them all together and make a plot based on Shannon index.
 
 ```{r ex18, eval=TRUE, message = FALSE, warning=FALSE}
 
-tlong2<-tree2 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N=n()) |>
- tidyr::pivot_wider(id_cols='year', names_from='species',values_from='N',
-                    values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+tlong2 <- tree2 |>
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |> 
-  dplyr::mutate(year=unique(tree2$year), run=name2) 
+div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
+    dplyr::mutate(year = unique(tree2$year), run = name2)
 
-div <- rbind(div1,div2)
+div <- rbind(div1, div2)
 
-ggplot2::ggplot(div, aes(year, Shannon , color=run))+
- ggplot2::geom_line(lwd=1.5) +
- ggplot2::ggtitle("Species diversity") +
- ggplot2::labs(x = "Year",y="Shannon index")+
- ggplot2::theme_bw()
-
+ggplot2::ggplot(div, aes(year, Shannon , color = run)) +
+    ggplot2::geom_line(lwd = 1.5) +
+    ggplot2::ggtitle("Species diversity") +
+    ggplot2::labs(x = "Year", y = "Shannon index") +
+    ggplot2::theme_bw()
 
 ```
 We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the 4deg_20percdrier is more substantial than under the reference scenario. 
@@ -534,18 +564,42 @@ The max.k parameter is telling how many neighboring trees we want to account for
 
 # diameter differentiation:
 # mingling
- 
-diff <- data.frame(treespat::DIFF(tree1, .x = x, .y = y,.mark = dbh, xmax = 100,
-                  ymax = 100, max.k = 4, shape='square', .groups=c('year')) |> 
-         dplyr::mutate(index="DIFF", name="Diameter differentiation", run=name1))
+diff <-
+    data.frame(
+        treespat::DIFF(
+            tree1,
+            .x = x,
+            .y = y,
+            .mark = dbh,
+            xmax = 100,
+            ymax = 100,
+            max.k = 4,
+            shape = 'square',
+            .groups = c('year')
+        ) |>
+            dplyr::mutate(index = "DIFF", name = "Diameter differentiation", run =
+                              name1)
+    )
 head(diff)
 
-ming <- data.frame(treespat::MING(tree1, .x = x, .y = y, .species = species,
-        xmax = 100, ymax = 100, max.k = 4, shape='square', .groups=c('year')) |> 
-        dplyr::mutate(index="MING", name="Mingling", run=name1))
+ming <-
+    data.frame(
+        treespat::MING(
+            tree1,
+            .x = x,
+            .y = y,
+            .species = species,
+            xmax = 100,
+            ymax = 100,
+            max.k = 4,
+            shape = 'square',
+            .groups = c('year')
+        ) |>
+            dplyr::mutate(index = "MING", name = "Mingling", run = name1)
+    )
 
-indices1<-rbind(diff |> dplyr::rename(value=DIFF),
- ming |> dplyr::rename(value=MINGLING ) )
+indices1 <- rbind(diff |> dplyr::rename(value = DIFF),
+                  ming |> dplyr::rename(value = MINGLING))
 ```
 
 We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
@@ -584,27 +638,31 @@ Run the model as it is described in the previous chapters to have at least 2 sim
 Read in the *landscape* output table from two outputs you have for your plot:
 
 ```{r ex22, eval=TRUE, message = FALSE, warning=FALSE}
+path1 <- "model/iLand_simulations/output/Output_plot1.sqlite"
+path2 <-
+    "model/iLand_simulations/output/Output_plot1_4deg_20percdrier.sqlite"
 
-
-file1 <- here::here("model/iLand_simulations/output/Output_plot1.sqlite")
-file2 <- here::here("model/iLand_simulations/output/Output_plot1_4deg_20percdrier.sqlite")
+file1 <- here::here(path1)
+file2 <- here::here(path2)
 
 
 # Give some name for the three simulations.
-name1<-"reference"
-name2<-"4deg_20percdrier"
+name1 <- "reference"
+name2 <- "4deg_20percdrier"
 
-# Read in data using the DBI package 
-sqlite.driver <- DBI::dbDriver("SQLite")
+# Read in data using the RSQLite package
+sqlite.driver <- RSQLite::dbDriver("SQLite")
 
 # We will work with "landscape" table and tree-scale data:
-db1 <- DBI::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
-landscape1<- DBI::dbReadTable(db1,"landscape")
-DBI::dbDisconnect(db1) # disconnect to the file1
+db1 <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+landscape1 <- RSQLite::dbReadTable(db1, "landscape")
+RSQLite::dbDisconnect(db1) # disconnect to the file1
 
-db2 <- DBI::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
-landscape2<- DBI::dbReadTable(db2,"landscape")
-DBI::dbDisconnect(db2)
+db2 <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+landscape2 <- RSQLite::dbReadTable(db2, "landscape")
+RSQLite::dbDisconnect(db2)
 
 ```
 
@@ -612,8 +670,8 @@ Merge the data from the three files together and make a column which tells which
 
 ```{r ex23, eval=TRUE, message = FALSE, warning=FALSE}
 
-landscape<-rbind(landscape1 |> dplyr::mutate(run=name1) , 
- landscape2 |> dplyr::mutate(run=name2))
+landscape <- rbind(landscape1 |> dplyr::mutate(run = name1),
+                   landscape2 |> dplyr::mutate(run = name2))
 
 head(landscape)
 ```
@@ -633,31 +691,37 @@ cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
 
 # We set here the order of the run categories for the table, to have the first
 #run first and then the second. (left-right of the plots)
-landscape$run<-factor( landscape$run, levels=c(name1,name2))
+landscape$run <- factor(landscape$run, levels = c(name1, name2))
 
 # Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
-g1<-ggplot2::ggplot(landscape, aes(year, total_carbon_kg/1000 , fill=factor(species)))+
- ggplot2::geom_area() +
- ggplot2::scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Living C t/ha",fill = "Species")+
- ggplot2::theme_bw()
+g1 <- ggplot2::ggplot(landscape, aes(year, total_carbon_kg / 1000 ,
+                                     fill = factor(species))) +
+    ggplot2::geom_area() +
+    ggplot2::scale_fill_manual(values = cols.all, guide = guide_legend(reverse = TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Living C t/ha", fill = "Species") +
+    ggplot2::theme_bw()
 
-g2<-ggplot2::ggplot(landscape, aes(year, count_ha , fill=factor(species)))+
- ggplot2::geom_area() +
- ggplot2::scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Number of trees per ha",fill = "Species")+
- ggplot2::theme_bw()
+g2 <-
+    ggplot2::ggplot(landscape, aes(year, count_ha , fill = factor(species))) +
+    ggplot2::geom_area() +
+    ggplot2::scale_fill_manual(values = cols.all,
+                               guide = guide_legend(reverse = TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Number of trees per ha", fill = "Species") +
+    ggplot2::theme_bw()
 
-gridExtra::grid.arrange(g1,g2, ncol=1)
+gridExtra::grid.arrange(g1, g2, ncol = 1)
 
-g3<-ggplot2::ggplot(landscape, aes(year, dbh_avg_cm , color=factor(species)))+
- ggplot2::geom_line(lwd=1) +
- ggplot2::scale_color_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Mean dbh",fill = "Species")+
- ggplot2::theme_bw()
+g3 <- ggplot2::ggplot(landscape,
+                      aes(year, dbh_avg_cm , color = factor(species))) +
+    ggplot2::geom_line(lwd = 1) +
+    ggplot2::scale_color_manual(values = cols.all,
+                                guide = guide_legend(reverse = TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Mean dbh", fill = "Species") +
+    ggplot2::theme_bw()
+
 print(g3)
 ```
 
@@ -672,12 +736,20 @@ Mean dbh of individual species reflected the development of the number of trees.
  Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
 ```{r ex25, eval=TRUE, message = FALSE, warning=FALSE}
-livingC0 <- data.frame(landscape |> dplyr::filter(year==0) |> dplyr::group_by(run) |> 
- dplyr::summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+livingC0 <-
+    data.frame(
+        landscape |> dplyr::filter(year == 0) |> 
+            dplyr::group_by(run) |>
+            dplyr::summarize(sum.livingC = sum(total_carbon_kg / 1000))
+    )
 print(livingC0)
 
-livingC100 <- data.frame(landscape |> dplyr::filter(year==100) |> dplyr::group_by(run) |> 
- dplyr::summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+livingC100 <-
+    data.frame(
+        landscape |> dplyr::filter(year == 100) |> 
+            dplyr::group_by(run) |>
+            dplyr::summarize(sum.livingC = sum(total_carbon_kg / 1000))
+    )
 print(livingC100)
 ```
 
@@ -686,24 +758,36 @@ The initial conditions are same for the runs, but they are ending up at differen
 Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
 
 ```{r ex26, eval=TRUE, message = FALSE, warning=FALSE}
-species.livingC0 <- data.frame(landscape |> dplyr::filter(year==0) |> dplyr::group_by(run, species) |> 
- dplyr::summarize(livingC=sum(total_carbon_kg/1000)) )
+species.livingC0 <-
+    data.frame(
+        landscape |> dplyr::filter(year == 0) |> 
+            dplyr::group_by(run, species) |>
+            dplyr::summarize(livingC = sum(total_carbon_kg / 1000))
+    )
 print(species.livingC0)
 
-species.livingC100 <- data.frame(landscape |> dplyr::filter(year==100) |> dplyr::group_by(run, species) |> 
- dplyr::summarize(livingC=sum(total_carbon_kg/1000)) )
+species.livingC100 <-
+    data.frame(
+        landscape |> dplyr::filter(year == 100) |> 
+            dplyr::group_by(run, species) |>
+            dplyr::summarize(livingC = sum(total_carbon_kg / 1000))
+    )
 print(species.livingC100)
 ```
 
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
 ```{r ex27, eval=TRUE, message = FALSE, warning=FALSE}
-LC0 <- dplyr::left_join(species.livingC0, livingC0, by="run" )
-LC0 <- data.frame(LC0 |> dplyr::mutate(spec.prop=livingC/sum.livingC, year=0))
+LC0 <- dplyr::left_join(species.livingC0, livingC0, by = "run")
+LC0 <-
+    data.frame(LC0 |> dplyr::mutate(spec.prop = livingC / sum.livingC, year =
+                                        0))
 print(LC0)
 
-LC100 <- dplyr::left_join(species.livingC100, livingC100, by="run" )
-LC100 <- data.frame(LC100 |> dplyr::mutate(spec.prop=livingC/sum.livingC, year=100))
+LC100 <- dplyr::left_join(species.livingC100, livingC100, by = "run")
+LC100 <-
+    data.frame(LC100 |> dplyr::mutate(spec.prop = livingC / sum.livingC, year =
+                                          100))
 print(LC100)
 
 ```
@@ -711,24 +795,24 @@ print(LC100)
 Put the two tables together and visualize the results!
 
 ```{r ex28, eval=TRUE, message = FALSE, warning=FALSE}
-LC <- rbind(LC0,LC100)
+LC <- rbind(LC0, LC100)
 
-LC$run <- factor(LC$run, levels=c(name1,name2))
+LC$run <- factor(LC$run, levels = c(name1, name2))
 
-ggplot2::ggplot(LC, aes(fill=species, y=livingC , x=factor(year))) + 
- ggplot2::geom_bar(position="stack", stat="identity")+
- ggplot2::scale_fill_manual(values=cols.all)+
- ggplot2::facet_wrap(~run)+
- ggplot2::ylab("Living C absolute values")+
- ggplot2::theme_bw()
+ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
+    ggplot2::geom_bar(position = "stack", stat = "identity") +
+    ggplot2::scale_fill_manual(values = cols.all) +
+    ggplot2::facet_wrap( ~ run) +
+    ggplot2::ylab("Living C absolute values") +
+    ggplot2::theme_bw()
 
 
-ggplot2::ggplot(LC, aes(fill=species, y=spec.prop, x=factor(year))) + 
- ggplot2::geom_bar(position="stack", stat="identity")+
- ggplot2::scale_fill_manual(values=cols.all)+
- ggplot2::facet_wrap(~run)+
- ggplot2::ylab("Species proportion based on carbon")+
- ggplot2::theme_bw()
+ggplot2::ggplot(LC, aes(fill = species, y = spec.prop, x = factor(year))) +
+    ggplot2::geom_bar(position = "stack", stat = "identity") +
+    ggplot2::scale_fill_manual(values = cols.all) +
+    ggplot2::facet_wrap( ~ run) +
+    ggplot2::ylab("Species proportion based on carbon") +
+    ggplot2::theme_bw()
 
 ```
 
@@ -747,31 +831,36 @@ Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start 
 Read in the *tree* output table from two outputs you have for your plot:
 
 ```{r ex29, eval=TRUE, message = FALSE, warning=FALSE}
+path1 <- "model/iLand_simulations/output/Output_plot2.sqlite"
+path2 <-
+    "model/iLand_simulations/output/Output_plot2_4deg_20percdrier.sqlite"
 
-
-file1 <- here::here("model/iLand_simulations/output/Output_plot2.sqlite")
-file2 <- here::here("model/iLand_simulations/output/Output_plot2_4deg_20percdrier.sqlite")
+file1 <- here::here(path1)
+file2 <- here::here(path2)
 
 # Give some name for the three simulations.
 name1 <- "reference"
 name2 <- "4deg_20percdrier"
 
-# Read in data using the DBI package 
-sqlite.driver  <- DBI::dbDriver("SQLite")
-db1  <- DBI::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+# Read in data using the RSQLite package
+sqlite.driver  <- RSQLite::dbDriver("SQLite")
+db1  <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
 
 
-tables.in.the.file <- DBI::dbListTables(db1) # explore the tables in the file1
+tables.in.the.file <-
+    RSQLite::dbListTables(db1) # explore the tables in the file1
 print(tables.in.the.file)
 
 # We will work with "tree" table and tree-scale data:
-tree1 <- DBI::dbReadTable(db1, "tree")
-DBI::dbDisconnect(db1)  # disconnect to the file1
+tree1 <- RSQLite::dbReadTable(db1, "tree")
+RSQLite::dbDisconnect(db1)  # disconnect to the file1
 
 # READ IN DATA FROM THE SECOND FILE: -----
-db2  <- DBI::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
-tree2 <- DBI::dbReadTable(db2, "tree")
-DBI::dbDisconnect(db2)
+db2  <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+tree2 <- RSQLite::dbReadTable(db2, "tree")
+RSQLite::dbDisconnect(db2)
 
 ```
 
@@ -779,7 +868,7 @@ Merge the data from the two files together and make a column which tells which c
 
 ```{r ex30, eval=TRUE, message = FALSE, warning=FALSE}
 
-tree <- rbind(tree1 |> dplyr::mutate(run = name1) , 
+tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
               tree2 |> dplyr::mutate(run = name2))
 
 head(tree)
@@ -789,17 +878,19 @@ To explore a bit the simulation, plot the tree locations at the beginning and th
 
 ```{r ex31, eval=TRUE, message = FALSE, warning=FALSE}
 tree0 <- tree |> dplyr::filter(year == 0)
-g1 <- ggplot2::ggplot(tree0, ggplot2::aes(x = x, y = y, color = species)) +
- ggplot2::geom_point(size = tree0$dbh / 20, alpha = 0.7) +
- ggplot2::ggtitle("Year 0") +
- ggplot2::facet_wrap(~run) + ggplot2::theme_bw()
+g1 <-
+    ggplot2::ggplot(tree0, ggplot2::aes(x = x, y = y, color = species)) +
+    ggplot2::geom_point(size = tree0$dbh / 20, alpha = 0.7) +
+    ggplot2::ggtitle("Year 0") +
+    ggplot2::facet_wrap( ~ run) + ggplot2::theme_bw()
 
 
 tree100 <- tree |> dplyr::filter(year == 100)
-g2 <- ggplot2::ggplot(tree100, ggplot2::aes(x = x, y = y, color = species)) +
- ggplot2::geom_point(size = tree100$dbh / 20, alpha = 0.7) + 
- ggplot2::ggtitle("Year 100") +
- ggplot2::facet_wrap( ~run) + ggplot2::theme_bw()
+g2 <-
+    ggplot2::ggplot(tree100, ggplot2::aes(x = x, y = y, color = species)) +
+    ggplot2::geom_point(size = tree100$dbh / 20, alpha = 0.7) +
+    ggplot2::ggtitle("Year 100") +
+    ggplot2::facet_wrap(~ run) + ggplot2::theme_bw()
 
 gridExtra::grid.arrange(g1, g2, ncol = 1)
 ```
@@ -810,13 +901,16 @@ Visualize some changes in time, for example the mean diameter of the trees!
 
 ```{r ex32, eval=TRUE, message = FALSE, warning=FALSE}
 sum.table <- tree |> dplyr::group_by(year, run) |>
- dplyr::summarise(N = dplyr::n(),
-                  MD = mean(dbh, na.rm = TRUE), #mean diameter
-                  BA = sum(basalArea)) #basal area
+    dplyr::summarise(
+        N = dplyr::n(),
+        MD = mean(dbh, na.rm = TRUE),
+        #mean diameter
+        BA = sum(basalArea)
+    ) #basal area
 
 ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
- ggplot2::geom_line(lwd = 2) +
- ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
+    ggplot2::geom_line(lwd = 2) +
+    ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
 ```
 
 We can see that there is an initial increase in mean dbh, then a drop after 20/25 years under reference conditions. Under the climate change scenario, the mean dbh is growing for longer time and has the drop after 60 years. The dbh in the last year are very similar however the development of the simulations were different. The drop is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
@@ -828,21 +922,25 @@ You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
 
 # First we need to change the 
 tlong1 <- tree1 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
- tidyr::pivot_wider(id_cols = 'year', names_from ='species',
-                    values_from = 'N', values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
- head(tlong1)
+head(tlong1)
 ```
 
 Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
 
 ```{r ex34, eval=TRUE, message = FALSE, warning=FALSE}
 
-div1 <- data.frame( adiv::speciesdiv(tlong1)) |> 
-  dplyr::mutate(year = unique(tree1$year),run = name1) 
+div1 <- data.frame(adiv::speciesdiv(tlong1)) |>
+    dplyr::mutate(year = unique(tree1$year), run = name1)
 head(div1)
 ```
 
@@ -850,14 +948,18 @@ We make the same steps for the other simulation results (tree2).
 
 ```{r ex35, eval=TRUE, message = FALSE, warning=FALSE}
 tlong2 <- tree2 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N=n()) |>
- tidyr::pivot_wider(id_cols='year', names_from='species',values_from='N', 
-                    values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |> 
-  dplyr::mutate(year=unique(tree2$year), run=name2) 
+div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
+    dplyr::mutate(year = unique(tree2$year), run = name2) 
 
 ```
 
@@ -865,24 +967,27 @@ We merge them all together and make a plot based on Shannon index.
 
 ```{r ex36, eval=TRUE, message = FALSE, warning=FALSE}
 
-tlong2<-tree2 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N=n()) |>
- tidyr::pivot_wider(id_cols='year', names_from='species',values_from='N',
-                    values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+tlong2 <- tree2 |>
+    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |> 
-  dplyr::mutate(year=unique(tree2$year), run=name2) 
+div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
+    dplyr::mutate(year = unique(tree2$year), run = name2)
 
-div <- rbind(div1,div2)
+div <- rbind(div1, div2)
 
-ggplot2::ggplot(div, aes(year, Shannon , color=run))+
- ggplot2::geom_line(lwd=1.5) +
- ggplot2::ggtitle("Species diversity") +
- ggplot2::labs(x = "Year",y="Shannon index")+
- ggplot2::theme_bw()
-
+ggplot2::ggplot(div, aes(year, Shannon , color = run)) +
+    ggplot2::geom_line(lwd = 1.5) +
+    ggplot2::ggtitle("Species diversity") +
+    ggplot2::labs(x = "Year", y = "Shannon index") +
+    ggplot2::theme_bw()
 
 ```
 We see that the values of Shannon index are first increasing and then tend to decrease, while the reduction under the 4deg_20percdrier is starting later than under the reference scenario. 
@@ -940,22 +1045,24 @@ We calculated each index as separate variable and then merged them into indices1
 ```{r ex39, eval=TRUE, message = FALSE, warning=FALSE}
 
 diff <- data.frame(treespat::DIFF(tree2, .x = x, .y = y,.mark = dbh, 
-      xmax = 100, ymax = 100, max.k = 4, shape='square', .groups=c('year')) |> 
-      dplyr::mutate(index="DIFF", name="Diameter differentiation", run=name2))
+                                  xmax = 100, ymax = 100, max.k = 4, 
+                                  shape = 'square', .groups = c('year')) |> 
+      dplyr::mutate(index = "DIFF", 
+                    name = "Diameter differentiation", run = name2))
 
 ming <- data.frame(treespat::MING(tree2, .x = x, .y = y, .species = species, 
-       xmax = 100, ymax = 100, max.k = 4, shape='square', .groups=c('year')) |> 
-        dplyr::mutate(index="MING", name="Mingling", run=name2))
+       xmax = 100, ymax = 100, max.k = 4, shape = 'square', .groups = c('year')) |> 
+        dplyr::mutate(index = "MING", name = "Mingling", run = name2))
 
-indices2 <- rbind(diff |> dplyr::rename(value=DIFF),
-                  ming |> dplyr::rename(value=MINGLING ) )
+indices2 <- rbind(diff |> dplyr::rename(value = DIFF),
+                  ming |> dplyr::rename(value = MINGLING ) )
 
-indices <- rbind(indices1,indices2)
+indices <- rbind(indices1, indices2)
 
-ggplot2::ggplot(indices, aes(x=year, y=value, color=run))+
- ggplot2::geom_line(lwd=1)+
- ggplot2::facet_wrap(~name, ncol=2, scales="free")+
- ggplot2::theme_bw() 
+ggplot2::ggplot(indices, aes(x = year, y = value, color = run)) +
+    ggplot2::geom_line(lwd = 1) +
+    ggplot2::facet_wrap( ~ name, ncol = 2, scales = "free") +
+    ggplot2::theme_bw() 
 ```
 
 The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first circa 10 years, after which it steeply increases due to the occurrence of ingrowth and then the values are stabilized. The increase is not that steep for the climate change sceanario that is in accordance with the mean dbh graph. The values for the reference climate scenario are higher than for the climate change scenario indicating slower growth under drier and warmer conditions and/or the differences in tree species composition (proportion of tree species).
@@ -971,27 +1078,30 @@ Run the model as it is described in the previous chapters to have at least 2 sim
 Read in the *landscape* output table from two outputs you have for your plot:
 
 ```{r ex40, eval=TRUE, message = FALSE, warning=FALSE}
+path1 <- "model/iLand_simulations/output/Output_plot2.sqlite"
+path2 <-
+    "model/iLand_simulations/output/Output_plot2_4deg_20percdrier.sqlite"
 
-
-file1 <- here::here("model/iLand_simulations/output/Output_plot2.sqlite")
-file2 <- here::here("model/iLand_simulations/output/Output_plot2_4deg_20percdrier.sqlite")
-
+file1 <- here::here(path1)
+file2 <- here::here(path2)
 
 # Give some name for the three simulations.
-name1<-"reference"
-name2<-"4deg_20percdrier"
+name1 <- "reference"
+name2 <- "4deg_20percdrier"
 
-# Read in data using the DBI package 
-sqlite.driver <- DBI::dbDriver("SQLite")
+# Read in data using the RSQLite package
+sqlite.driver <- RSQLite::dbDriver("SQLite")
 
 # We will work with "landscape" table and tree-scale data:
-db1 <- DBI::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
-landscape1<- DBI::dbReadTable(db1,"landscape")
-DBI::dbDisconnect(db1) # disconnect to the file1
+db1 <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+landscape1 <- RSQLite::dbReadTable(db1, "landscape")
+RSQLite::dbDisconnect(db1) # disconnect to the file1
 
-db2 <- DBI::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
-landscape2<- DBI::dbReadTable(db2,"landscape")
-DBI::dbDisconnect(db2)
+db2 <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+landscape2 <- RSQLite::dbReadTable(db2, "landscape")
+RSQLite::dbDisconnect(db2)
 
 ```
 
@@ -999,8 +1109,8 @@ Merge the data from the three files together and make a column which tells which
 
 ```{r ex41, eval=TRUE, message = FALSE, warning=FALSE}
 
-landscape<-rbind(landscape1 |> dplyr::mutate(run=name1) , 
- landscape2 |> dplyr::mutate(run=name2))
+landscape <- rbind(landscape1 |> dplyr::mutate(run = name1) ,
+                   landscape2 |> dplyr::mutate(run = name2))
 
 head(landscape)
 ```
@@ -1020,31 +1130,37 @@ cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
 
 # We set here the order of the run categories for the table, to have the first
 #run first and then the second. (left-right of the plots)
-landscape$run<-factor( landscape$run, levels=c(name1,name2))
+landscape$run <- factor(landscape$run, levels = c(name1, name2))
 
 # Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
-g1<-ggplot2::ggplot(landscape, aes(year, total_carbon_kg/1000 , fill=factor(species)))+
- ggplot2::geom_area() +
- ggplot2::scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Living C t/ha",fill = "Species")+
- ggplot2::theme_bw()
+g1 <-
+    ggplot2::ggplot(landscape, aes(year, total_carbon_kg / 1000 , fill = factor(species))) +
+    ggplot2::geom_area() +
+    ggplot2::scale_fill_manual(values = cols.all, guide = guide_legend(reverse =
+                                                                           TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Living C t/ha", fill = "Species") +
+    ggplot2::theme_bw()
 
-g2<-ggplot2::ggplot(landscape, aes(year, count_ha , fill=factor(species)))+
- ggplot2::geom_area() +
- ggplot2::scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Number of trees per ha",fill = "Species")+
- ggplot2::theme_bw()
+g2 <-
+    ggplot2::ggplot(landscape, aes(year, count_ha , fill = factor(species))) +
+    ggplot2::geom_area() +
+    ggplot2::scale_fill_manual(values = cols.all, guide = guide_legend(reverse =
+                                                                           TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Number of trees per ha", fill = "Species") +
+    ggplot2::theme_bw()
 
-gridExtra::grid.arrange(g1,g2, ncol=1)
+gridExtra::grid.arrange(g1, g2, ncol = 1)
 
-g3<-ggplot2::ggplot(landscape, aes(year, dbh_avg_cm , color=factor(species)))+
- ggplot2::geom_line(lwd=1) +
- ggplot2::scale_color_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Mean dbh",fill = "Species")+
- ggplot2::theme_bw()
+g3 <-
+    ggplot2::ggplot(landscape, aes(year, dbh_avg_cm , color = factor(species))) +
+    ggplot2::geom_line(lwd = 1) +
+    ggplot2::scale_color_manual(values = cols.all, guide = guide_legend(reverse =
+                                                                            TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Mean dbh", fill = "Species") +
+    ggplot2::theme_bw()
 print(g3)
 ```
 
@@ -1057,14 +1173,18 @@ Mean dbh of chestnut is zero at the end of the simulation period under the refer
 Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
 ```{r ex43, eval=TRUE, message = FALSE, warning=FALSE}
-livingC0 <- data.frame(landscape |> dplyr::filter(year==0) |> 
-                         dplyr::group_by(run) |> 
- dplyr::summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+livingC0 <- data.frame(
+    landscape |> dplyr::filter(year == 0) |>
+        dplyr::group_by(run) |>
+        dplyr::summarize(sum.livingC = sum(total_carbon_kg / 1000))
+)
 print(livingC0)
 
-livingC100 <- data.frame(landscape |> dplyr::filter(year==100) |> 
-                           dplyr::group_by(run) |> 
- dplyr::summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+livingC100 <- data.frame(
+    landscape |> dplyr::filter(year == 100) |>
+        dplyr::group_by(run) |>
+        dplyr::summarize(sum.livingC = sum(total_carbon_kg / 1000))
+)
 print(livingC100)
 ```
 
@@ -1073,26 +1193,36 @@ The initial conditions are same for the runs, but they are ending up at differen
 Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
 
 ```{r ex44, eval=TRUE, message = FALSE, warning=FALSE}
-species.livingC0 <- data.frame(landscape |> dplyr::filter(year==0) |> 
-                                 dplyr::group_by(run, species) |> 
- dplyr::summarize(livingC=sum(total_carbon_kg/1000)) )
+species.livingC0 <-
+    data.frame(
+        landscape |> dplyr::filter(year == 0) |>
+            dplyr::group_by(run, species) |>
+            dplyr::summarize(livingC = sum(total_carbon_kg / 1000))
+    )
 print(species.livingC0)
 
-species.livingC100 <- data.frame(landscape |> dplyr::filter(year==100) |> 
-                                   dplyr::group_by(run, species) |> 
- dplyr::summarize(livingC=sum(total_carbon_kg/1000)) )
+species.livingC100 <-
+    data.frame(
+        landscape |> dplyr::filter(year == 100) |>
+            dplyr::group_by(run, species) |>
+            dplyr::summarize(livingC = sum(total_carbon_kg / 1000))
+    )
 print(species.livingC100)
 ```
 
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
 ```{r ex45, eval=TRUE, message = FALSE, warning=FALSE}
-LC0 <- dplyr::left_join(species.livingC0, livingC0, by="run" )
-LC0 <- data.frame(LC0 |> dplyr::mutate(spec.prop=livingC/sum.livingC, year=0))
+LC0 <- dplyr::left_join(species.livingC0, livingC0, by = "run")
+LC0 <-
+    data.frame(LC0 |> dplyr::mutate(spec.prop = livingC / sum.livingC, year =
+                                        0))
 print(LC0)
 
-LC100 <- dplyr::left_join(species.livingC100, livingC100, by="run" )
-LC100 <- data.frame(LC100 |> dplyr::mutate(spec.prop=livingC/sum.livingC, year=100))
+LC100 <- dplyr::left_join(species.livingC100, livingC100, by = "run")
+LC100 <-
+    data.frame(LC100 |> dplyr::mutate(spec.prop = livingC / sum.livingC, year =
+                                          100))
 print(LC100)
 
 ```
@@ -1100,24 +1230,24 @@ print(LC100)
 Put the two tables together and visualize the results!
 
 ```{r ex46, eval=TRUE, message = FALSE, warning=FALSE}
-LC <- rbind(LC0,LC100)
+LC <- rbind(LC0, LC100)
 
-LC$run <- factor(LC$run, levels=c(name1,name2))
+LC$run <- factor(LC$run, levels = c(name1, name2))
 
-ggplot2::ggplot(LC, aes(fill=species, y=livingC , x=factor(year))) + 
- ggplot2::geom_bar(position="stack", stat="identity")+
- ggplot2::scale_fill_manual(values=cols.all)+
- ggplot2::facet_wrap(~run)+
- ggplot2::ylab("Living C absolute values")+
- ggplot2::theme_bw()
+ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
+    ggplot2::geom_bar(position = "stack", stat = "identity") +
+    ggplot2::scale_fill_manual(values = cols.all) +
+    ggplot2::facet_wrap( ~ run) +
+    ggplot2::ylab("Living C absolute values") +
+    ggplot2::theme_bw()
 
 
-ggplot2::ggplot(LC, aes(fill=species, y=spec.prop, x=factor(year))) + 
- ggplot2::geom_bar(position="stack", stat="identity")+
- ggplot2::scale_fill_manual(values=cols.all)+
- ggplot2::facet_wrap(~run)+
- ggplot2::ylab("Species proportion based on carbon")+
- ggplot2::theme_bw()
+ggplot2::ggplot(LC, aes(fill = species, y = spec.prop, x = factor(year))) +
+    ggplot2::geom_bar(position = "stack", stat = "identity") +
+    ggplot2::scale_fill_manual(values = cols.all) +
+    ggplot2::facet_wrap( ~ run) +
+    ggplot2::ylab("Species proportion based on carbon") +
+    ggplot2::theme_bw()
 
 ```
 
@@ -1135,31 +1265,36 @@ Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start 
 Read in the *tree* output table from two outputs you have for your plot:
 
 ```{r ex47, eval=TRUE, message = FALSE, warning=FALSE}
+path1 <- "model/iLand_simulations/output/Output_plot3.sqlite"
+path2 <-
+    "model/iLand_simulations/output/Output_plot3_4deg_20percdrier.sqlite"
 
-
-file1 <- here::here("model/iLand_simulations/output/Output_plot3.sqlite")
-file2 <- here::here("model/iLand_simulations/output/Output_plot3_4deg_20percdrier.sqlite")
+file1 <- here::here(path1)
+file2 <- here::here(path2)
 
 # Give some name for the three simulations.
 name1 <- "reference"
 name2 <- "4deg_20percdrier"
 
-# Read in data using the DBI package 
-sqlite.driver  <- DBI::dbDriver("SQLite")
-db1  <- DBI::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+# Read in data using the RSQLite package
+sqlite.driver  <- RSQLite::dbDriver("SQLite")
+db1  <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
 
 
-tables.in.the.file <- DBI::dbListTables(db1) # explore the tables in the file1
+tables.in.the.file <-
+    RSQLite::dbListTables(db1) # explore the tables in the file1
 print(tables.in.the.file)
 
 # We will work with "tree" table and tree-scale data:
-tree1 <- DBI::dbReadTable(db1, "tree")
-DBI::dbDisconnect(db1)  # disconnect to the file1
+tree1 <- RSQLite::dbReadTable(db1, "tree")
+RSQLite::dbDisconnect(db1)  # disconnect to the file1
 
 # READ IN DATA FROM THE SECOND FILE: -----
-db2  <- DBI::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
-tree2 <- DBI::dbReadTable(db2, "tree")
-DBI::dbDisconnect(db2)
+db2  <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+tree2 <- RSQLite::dbReadTable(db2, "tree")
+RSQLite::dbDisconnect(db2)
 
 ```
 
@@ -1177,17 +1312,19 @@ To explore a bit the simulation, plot the tree locations at the beginning and th
 
 ```{r ex49, eval=TRUE, message = FALSE, warning=FALSE}
 tree0 <- tree |> dplyr::filter(year == 0)
-g1 <- ggplot2::ggplot(tree0, ggplot2::aes(x = x, y = y, color = species)) +
- ggplot2::geom_point(size = tree0$dbh / 20, alpha = 0.7) +
- ggplot2::ggtitle("Year 0") +
- ggplot2::facet_wrap(~run) + ggplot2::theme_bw()
+g1 <-
+    ggplot2::ggplot(tree0, ggplot2::aes(x = x, y = y, color = species)) +
+    ggplot2::geom_point(size = tree0$dbh / 20, alpha = 0.7) +
+    ggplot2::ggtitle("Year 0") +
+    ggplot2::facet_wrap( ~ run) + ggplot2::theme_bw()
 
 
 tree100 <- tree |> dplyr::filter(year == 100)
-g2 <- ggplot2::ggplot(tree100, ggplot2::aes(x = x, y = y, color = species)) +
- ggplot2::geom_point(size = tree100$dbh / 20, alpha = 0.7) + 
- ggplot2::ggtitle("Year 100") +
- ggplot2::facet_wrap( ~run) + ggplot2::theme_bw()
+g2 <-
+    ggplot2::ggplot(tree100, ggplot2::aes(x = x, y = y, color = species)) +
+    ggplot2::geom_point(size = tree100$dbh / 20, alpha = 0.7) +
+    ggplot2::ggtitle("Year 100") +
+    ggplot2::facet_wrap(~ run) + ggplot2::theme_bw()
 
 gridExtra::grid.arrange(g1, g2, ncol = 1)
 ```
@@ -1198,13 +1335,16 @@ Visualize some changes in time, for example the mean diameter of the trees!
 
 ```{r ex50, eval=TRUE, message = FALSE, warning=FALSE}
 sum.table <- tree |> dplyr::group_by(year, run) |>
- dplyr::summarise(N = dplyr::n(),
-                  MD = mean(dbh, na.rm = TRUE), #mean diameter
-                  BA = sum(basalArea)) #basal area
+    dplyr::summarise(
+        N = dplyr::n(),
+        MD = mean(dbh, na.rm = TRUE),
+        #mean diameter
+        BA = sum(basalArea)
+    ) #basal area
 
 ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
- ggplot2::geom_line(lwd = 2) +
- ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
+    ggplot2::geom_line(lwd = 2) +
+    ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
 ```
 
 We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
@@ -1216,21 +1356,25 @@ You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
 
 # First we need to change the 
 tlong1 <- tree1 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
- tidyr::pivot_wider(id_cols = 'year', names_from ='species',
-                    values_from = 'N', values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
- head(tlong1)
+head(tlong1)
 ```
 
 Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
 
 ```{r ex52, eval=TRUE, message = FALSE, warning=FALSE}
 
-div1 <- data.frame( adiv::speciesdiv(tlong1)) |> 
-  dplyr::mutate(year = unique(tree1$year),run = name1) 
+div1 <- data.frame(adiv::speciesdiv(tlong1)) |>
+    dplyr::mutate(year = unique(tree1$year), run = name1)
 head(div1)
 ```
 
@@ -1238,14 +1382,18 @@ We make the same steps for the other simulation results (tree2).
 
 ```{r ex53, eval=TRUE, message = FALSE, warning=FALSE}
 tlong2 <- tree2 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N=n()) |>
- tidyr::pivot_wider(id_cols='year', names_from='species',values_from='N', 
-                    values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |> 
-  dplyr::mutate(year=unique(tree2$year), run=name2) 
+div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
+    dplyr::mutate(year = unique(tree2$year), run = name2) 
 
 ```
 
@@ -1253,24 +1401,27 @@ We merge them all together and make a plot based on Shannon index.
 
 ```{r ex54, eval=TRUE, message = FALSE, warning=FALSE}
 
-tlong2<-tree2 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N=n()) |>
- tidyr::pivot_wider(id_cols='year', names_from='species',values_from='N',
-                    values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+tlong2 <- tree2 |>
+    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |> 
-  dplyr::mutate(year=unique(tree2$year), run=name2) 
+div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
+    dplyr::mutate(year = unique(tree2$year), run = name2)
 
-div <- rbind(div1,div2)
+div <- rbind(div1, div2)
 
-ggplot2::ggplot(div, aes(year, Shannon , color=run))+
- ggplot2::geom_line(lwd=1.5) +
- ggplot2::ggtitle("Species diversity") +
- ggplot2::labs(x = "Year",y="Shannon index")+
- ggplot2::theme_bw()
-
+ggplot2::ggplot(div, aes(year, Shannon , color = run)) +
+    ggplot2::geom_line(lwd = 1.5) +
+    ggplot2::ggtitle("Species diversity") +
+    ggplot2::labs(x = "Year", y = "Shannon index") +
+    ggplot2::theme_bw()
 
 ```
 We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the 4deg_20percdrier is more substantial than under the reference scenario. 
@@ -1327,22 +1478,27 @@ We calculated each index as separate variable and then merged them into indices1
 ```{r ex57, eval=TRUE, message = FALSE, warning=FALSE}
 
 diff <- data.frame(treespat::DIFF(tree2, .x = x, .y = y,.mark = dbh, 
-      xmax = 100, ymax = 100, max.k = 4, shape='square', .groups=c('year')) |> 
-      dplyr::mutate(index="DIFF", name="Diameter differentiation", run=name2))
+                                  xmax = 100, ymax = 100, max.k = 4, 
+                                  shape = 'square', .groups = c('year')) |> 
+      dplyr::mutate(index = "DIFF", name = "Diameter differentiation",
+                    run = name2))
 
-ming <- data.frame(treespat::MING(tree2, .x = x, .y = y, .species = species, 
-       xmax = 100, ymax = 100, max.k = 4, shape='square', .groups=c('year')) |> 
-        dplyr::mutate(index="MING", name="Mingling", run=name2))
+ming <- data.frame(treespat::MING(tree2, .x = x, .y = y, 
+                                  .species = species, 
+                                  xmax = 100, ymax = 100, max.k = 4, 
+                                  shape = 'square', .groups=c('year')) |> 
+                       dplyr::mutate(index = "MING", name = "Mingling", 
+                                     run = name2))
 
-indices2 <- rbind(diff |> dplyr::rename(value=DIFF),
-                  ming |> dplyr::rename(value=MINGLING ) )
+indices2 <- rbind(diff |> dplyr::rename(value = DIFF),
+                  ming |> dplyr::rename(value = MINGLING))
 
-indices <- rbind(indices1,indices2)
+indices <- rbind(indices1, indices2)
 
-ggplot2::ggplot(indices, aes(x=year, y=value, color=run))+
- ggplot2::geom_line(lwd=1)+
- ggplot2::facet_wrap(~name, ncol=2, scales="free")+
- ggplot2::theme_bw() 
+ggplot2::ggplot(indices, aes(x = year, y = value, color = run)) +
+    ggplot2::geom_line(lwd = 1) +
+    ggplot2::facet_wrap( ~ name, ncol = 2, scales = "free") +
+    ggplot2::theme_bw() 
 ```
 
 
@@ -1359,27 +1515,30 @@ Run the model as it is described in the previous chapters to have at least 2 sim
 Read in the *landscape* output table from two outputs you have for your plot:
 
 ```{r ex58, eval=TRUE, message = FALSE, warning=FALSE}
+path1 <- "model/iLand_simulations/output/Output_plot3.sqlite"
+path2 <-
+    "model/iLand_simulations/output/Output_plot3_4deg_20percdrier.sqlite"
 
-
-file1 <- here::here("model/iLand_simulations/output/Output_plot3.sqlite")
-file2 <- here::here("model/iLand_simulations/output/Output_plot3_4deg_20percdrier.sqlite")
-
+file1 <- here::here(path1)
+file2 <- here::here(path2)
 
 # Give some name for the three simulations.
-name1<-"reference"
-name2<-"4deg_20percdrier"
+name1 <- "reference"
+name2 <- "4deg_20percdrier"
 
-# Read in data using the DBI package 
-sqlite.driver <- DBI::dbDriver("SQLite")
+# Read in data using the RSQLite package
+sqlite.driver <- RSQLite::dbDriver("SQLite")
 
 # We will work with "landscape" table and tree-scale data:
-db1 <- DBI::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
-landscape1<- DBI::dbReadTable(db1,"landscape")
-DBI::dbDisconnect(db1) # disconnect to the file1
+db1 <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+landscape1 <- RSQLite::dbReadTable(db1, "landscape")
+RSQLite::dbDisconnect(db1) # disconnect to the file1
 
-db2 <- DBI::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
-landscape2<- DBI::dbReadTable(db2,"landscape")
-DBI::dbDisconnect(db2)
+db2 <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+landscape2 <- RSQLite::dbReadTable(db2, "landscape")
+RSQLite::dbDisconnect(db2)
 
 ```
 
@@ -1387,8 +1546,8 @@ Merge the data from the three files together and make a column which tells which
 
 ```{r ex59, eval=TRUE, message = FALSE, warning=FALSE}
 
-landscape<-rbind(landscape1 |> dplyr::mutate(run=name1) , 
- landscape2 |> dplyr::mutate(run=name2))
+landscape <- rbind(landscape1 |> dplyr::mutate(run = name1) ,
+                   landscape2 |> dplyr::mutate(run = name2))
 
 head(landscape)
 ```
@@ -1408,31 +1567,40 @@ cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
 
 # We set here the order of the run categories for the table, to have the first
 #run first and then the second. (left-right of the plots)
-landscape$run<-factor( landscape$run, levels=c(name1,name2))
+landscape$run <- factor(landscape$run, levels = c(name1, name2))
 
 # Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
-g1<-ggplot2::ggplot(landscape, aes(year, total_carbon_kg/1000 , fill=factor(species)))+
- ggplot2::geom_area() +
- ggplot2::scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Living C t/ha",fill = "Species")+
- ggplot2::theme_bw()
+g1 <-
+    ggplot2::ggplot(landscape, aes(year, total_carbon_kg / 1000 , 
+                                   fill = factor(species))) +
+    ggplot2::geom_area() +
+    ggplot2::scale_fill_manual(values = cols.all,
+                               guide = guide_legend(reverse = TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Living C t/ha", fill = "Species") +
+    ggplot2::theme_bw()
 
-g2<-ggplot2::ggplot(landscape, aes(year, count_ha , fill=factor(species)))+
- ggplot2::geom_area() +
- ggplot2::scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Number of trees per ha",fill = "Species")+
- ggplot2::theme_bw()
+g2 <-
+    ggplot2::ggplot(landscape, aes(year, count_ha , fill = factor(species))) +
+    ggplot2::geom_area() +
+    ggplot2::scale_fill_manual(values = cols.all, 
+                               guide = guide_legend(reverse = TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Number of trees per ha", 
+                  fill = "Species") +
+    ggplot2::theme_bw()
 
-gridExtra::grid.arrange(g1,g2, ncol=1)
+gridExtra::grid.arrange(g1, g2, ncol = 1)
 
-g3<-ggplot2::ggplot(landscape, aes(year, dbh_avg_cm , color=factor(species)))+
- ggplot2::geom_line(lwd=1) +
- ggplot2::scale_color_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Mean dbh",fill = "Species")+
- ggplot2::theme_bw()
+g3 <-
+    ggplot2::ggplot(landscape, aes(year, dbh_avg_cm , 
+                                   color = factor(species))) +
+    ggplot2::geom_line(lwd = 1) +
+    ggplot2::scale_color_manual(values = cols.all, 
+                                guide = guide_legend(reverse = TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Mean dbh", fill = "Species") +
+    ggplot2::theme_bw()
 print(g3)
 ```
 
@@ -1447,14 +1615,18 @@ Mean dbh of individual species reflected the development of the number of trees.
 Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
 ```{r ex61, eval=TRUE, message = FALSE, warning=FALSE}
-livingC0 <- data.frame(landscape |> dplyr::filter(year==0) |> 
-                         dplyr::group_by(run) |> 
- dplyr::summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+livingC0 <- data.frame(
+    landscape |> dplyr::filter(year == 0) |>
+        dplyr::group_by(run) |>
+        dplyr::summarize(sum.livingC = sum(total_carbon_kg / 1000))
+)
 print(livingC0)
 
-livingC100 <- data.frame(landscape |> dplyr::filter(year==100) |> 
-                           dplyr::group_by(run) |> 
- dplyr::summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+livingC100 <- data.frame(
+    landscape |> dplyr::filter(year == 100) |>
+        dplyr::group_by(run) |>
+        dplyr::summarize(sum.livingC = sum(total_carbon_kg / 1000))
+)
 print(livingC100)
 ```
 
@@ -1463,26 +1635,37 @@ The initial conditions are same for the runs, but they are ending up at differen
 Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
 
 ```{r ex62, eval=TRUE, message = FALSE, warning=FALSE}
-species.livingC0 <- data.frame(landscape |> dplyr::filter(year==0) |>
-                                 dplyr::group_by(run, species) |> 
- dplyr::summarize(livingC=sum(total_carbon_kg/1000)) )
+species.livingC0 <-
+    data.frame(
+        landscape |> dplyr::filter(year == 0) |>
+            dplyr::group_by(run, species) |>
+            dplyr::summarize(livingC = sum(total_carbon_kg / 1000))
+    )
 print(species.livingC0)
 
-species.livingC100 <- data.frame(landscape |> dplyr::filter(year==100) |> 
-                                   dplyr::group_by(run, species) |> 
- dplyr::summarize(livingC=sum(total_carbon_kg/1000)) )
+species.livingC100 <-
+    data.frame(
+        landscape |> dplyr::filter(year == 100) |>
+            dplyr::group_by(run, species) |>
+            dplyr::summarize(livingC = sum(total_carbon_kg / 1000))
+    )
 print(species.livingC100)
 ```
 
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
 ```{r ex63, eval=TRUE, message = FALSE, warning=FALSE}
-LC0 <- dplyr::left_join(species.livingC0, livingC0, by="run" )
-LC0 <- data.frame(LC0 |> dplyr::mutate(spec.prop=livingC/sum.livingC, year=0))
+LC0 <- dplyr::left_join(species.livingC0, livingC0, by = "run")
+LC0 <-
+    data.frame(LC0 |> dplyr::mutate(spec.prop = livingC / sum.livingC,
+                                    year = 0))
 print(LC0)
 
-LC100 <- dplyr::left_join(species.livingC100, livingC100, by="run" )
-LC100 <- data.frame(LC100 |> dplyr::mutate(spec.prop=livingC/sum.livingC, year=100))
+LC100 <-
+    dplyr::left_join(species.livingC100, livingC100, by = "run")
+LC100 <-
+    data.frame(LC100 |> dplyr::mutate(spec.prop = livingC / sum.livingC,
+                                      year = 100))
 print(LC100)
 
 ```
@@ -1490,24 +1673,24 @@ print(LC100)
 Put the two tables together and visualize the results!
 
 ```{r ex64, eval=TRUE, message = FALSE, warning=FALSE}
-LC <- rbind(LC0,LC100)
+LC <- rbind(LC0, LC100)
 
-LC$run <- factor(LC$run, levels=c(name1,name2))
+LC$run <- factor(LC$run, levels = c(name1, name2))
 
-ggplot2::ggplot(LC, aes(fill=species, y=livingC , x=factor(year))) + 
- ggplot2::geom_bar(position="stack", stat="identity")+
- ggplot2::scale_fill_manual(values=cols.all)+
- ggplot2::facet_wrap(~run)+
- ggplot2::ylab("Living C absolute values")+
- ggplot2::theme_bw()
+ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
+    ggplot2::geom_bar(position = "stack", stat = "identity") +
+    ggplot2::scale_fill_manual(values = cols.all) +
+    ggplot2::facet_wrap( ~ run) +
+    ggplot2::ylab("Living C absolute values") +
+    ggplot2::theme_bw()
 
 
-ggplot2::ggplot(LC, aes(fill=species, y=spec.prop, x=factor(year))) + 
- ggplot2::geom_bar(position="stack", stat="identity")+
- ggplot2::scale_fill_manual(values=cols.all)+
- ggplot2::facet_wrap(~run)+
- ggplot2::ylab("Species proportion based on carbon")+
- ggplot2::theme_bw()
+ggplot2::ggplot(LC, aes(fill = species, y = spec.prop, x = factor(year))) +
+    ggplot2::geom_bar(position = "stack", stat = "identity") +
+    ggplot2::scale_fill_manual(values = cols.all) +
+    ggplot2::facet_wrap( ~ run) +
+    ggplot2::ylab("Species proportion based on carbon") +
+    ggplot2::theme_bw()
 
 ```
 
@@ -1525,31 +1708,36 @@ Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start 
 Read in the *tree* output table from two outputs you have for your plot:
 
 ```{r ex65, eval=TRUE, message = FALSE, warning=FALSE}
+path1 <- "model/iLand_simulations/output/Output_plot4.sqlite"
+path2 <-
+    "model/iLand_simulations/output/Output_plot4_4deg_20percdrier.sqlite"
 
-
-file1 <- here::here("model/iLand_simulations/output/Output_plot4.sqlite")
-file2 <- here::here("model/iLand_simulations/output/Output_plot4_4deg_20percdrier.sqlite")
+file1 <- here::here(path1)
+file2 <- here::here(path2)
 
 # Give some name for the three simulations.
 name1 <- "reference"
 name2 <- "4deg_20percdrier"
 
-# Read in data using the DBI package 
-sqlite.driver  <- DBI::dbDriver("SQLite")
-db1  <- DBI::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+# Read in data using the RSQLite package
+sqlite.driver  <- RSQLite::dbDriver("SQLite")
+db1  <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
 
 
-tables.in.the.file <- DBI::dbListTables(db1) # explore the tables in the file1
+tables.in.the.file <-
+    RSQLite::dbListTables(db1) # explore the tables in the file1
 print(tables.in.the.file)
 
 # We will work with "tree" table and tree-scale data:
-tree1 <- DBI::dbReadTable(db1, "tree")
-DBI::dbDisconnect(db1)  # disconnect to the file1
+tree1 <- RSQLite::dbReadTable(db1, "tree")
+RSQLite::dbDisconnect(db1)  # disconnect to the file1
 
 # READ IN DATA FROM THE SECOND FILE: -----
-db2  <- DBI::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
-tree2 <- DBI::dbReadTable(db2, "tree")
-DBI::dbDisconnect(db2)
+db2  <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+tree2 <- RSQLite::dbReadTable(db2, "tree")
+RSQLite::dbDisconnect(db2)
 
 ```
 
@@ -1557,7 +1745,7 @@ Merge the data from the two files together and make a column which tells which c
 
 ```{r ex66, eval=TRUE, message = FALSE, warning=FALSE}
 
-tree <- rbind(tree1 |> dplyr::mutate(run = name1) , 
+tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
               tree2 |> dplyr::mutate(run = name2))
 
 head(tree)
@@ -1567,17 +1755,19 @@ To explore a bit the simulation, plot the tree locations at the beginning and th
 
 ```{r ex67, eval=TRUE, message = FALSE, warning=FALSE}
 tree0 <- tree |> dplyr::filter(year == 0)
-g1 <- ggplot2::ggplot(tree0, ggplot2::aes(x = x, y = y, color = species)) +
- ggplot2::geom_point(size = tree0$dbh / 20, alpha = 0.7) +
- ggplot2::ggtitle("Year 0") +
- ggplot2::facet_wrap(~run) + ggplot2::theme_bw()
+g1 <-
+    ggplot2::ggplot(tree0, ggplot2::aes(x = x, y = y, color = species)) +
+    ggplot2::geom_point(size = tree0$dbh / 20, alpha = 0.7) +
+    ggplot2::ggtitle("Year 0") +
+    ggplot2::facet_wrap( ~ run) + ggplot2::theme_bw()
 
 
 tree100 <- tree |> dplyr::filter(year == 100)
-g2 <- ggplot2::ggplot(tree100, ggplot2::aes(x = x, y = y, color = species)) +
- ggplot2::geom_point(size = tree100$dbh / 20, alpha = 0.7) + 
- ggplot2::ggtitle("Year 100") +
- ggplot2::facet_wrap( ~run) + ggplot2::theme_bw()
+g2 <-
+    ggplot2::ggplot(tree100, ggplot2::aes(x = x, y = y, color = species)) +
+    ggplot2::geom_point(size = tree100$dbh / 20, alpha = 0.7) +
+    ggplot2::ggtitle("Year 100") +
+    ggplot2::facet_wrap(~ run) + ggplot2::theme_bw()
 
 gridExtra::grid.arrange(g1, g2, ncol = 1)
 ```
@@ -1588,13 +1778,15 @@ Visualize some changes in time, for example the mean diameter of the trees!
 
 ```{r ex68, eval=TRUE, message = FALSE, warning=FALSE}
 sum.table <- tree |> dplyr::group_by(year, run) |>
- dplyr::summarise(N = dplyr::n(),
-                  MD = mean(dbh, na.rm = TRUE), #mean diameter
-                  BA = sum(basalArea)) #basal area
+    dplyr::summarise(
+        N = dplyr::n(),
+        MD = mean(dbh, na.rm = TRUE), #mean diameter
+        BA = sum(basalArea)#basal area
+    ) 
 
 ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
- ggplot2::geom_line(lwd = 2) +
- ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
+    ggplot2::geom_line(lwd = 2) +
+    ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
 ```
 
 We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
@@ -1606,21 +1798,25 @@ You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
 
 # First we need to change the 
 tlong1 <- tree1 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
- tidyr::pivot_wider(id_cols = 'year', names_from ='species',
-                    values_from = 'N', values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
- head(tlong1)
+head(tlong1)
 ```
 
 Then we apply the "speciesdiv" function and we add back the year and run columns to have the information.
 
 ```{r ex70, eval=TRUE, message = FALSE, warning=FALSE}
 
-div1 <- data.frame( adiv::speciesdiv(tlong1)) |> 
-  dplyr::mutate(year = unique(tree1$year),run = name1) 
+div1 <- data.frame(adiv::speciesdiv(tlong1)) |>
+    dplyr::mutate(year = unique(tree1$year), run = name1)
 head(div1)
 ```
 
@@ -1628,14 +1824,18 @@ We make the same steps for the other simulation results (tree2).
 
 ```{r ex71, eval=TRUE, message = FALSE, warning=FALSE}
 tlong2 <- tree2 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N=n()) |>
- tidyr::pivot_wider(id_cols='year', names_from='species',values_from='N', 
-                    values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |> 
-  dplyr::mutate(year=unique(tree2$year), run=name2) 
+div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
+    dplyr::mutate(year = unique(tree2$year), run = name2) 
 
 ```
 
@@ -1643,24 +1843,27 @@ We merge them all together and make a plot based on Shannon index.
 
 ```{r ex72, eval=TRUE, message = FALSE, warning=FALSE}
 
-tlong2<-tree2 |>
- dplyr::group_by(year, species) |> dplyr::summarise(N=n()) |>
- tidyr::pivot_wider(id_cols='year', names_from='species',values_from='N',
-                    values_fill = 0) |>
- dplyr::ungroup() |>
- dplyr::select(-year) 
+tlong2 <- tree2 |>
+    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    tidyr::pivot_wider(
+        id_cols = 'year',
+        names_from = 'species',
+        values_from = 'N',
+        values_fill = 0
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(-year)
 
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |> 
-  dplyr::mutate(year=unique(tree2$year), run=name2) 
+div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
+    dplyr::mutate(year = unique(tree2$year), run = name2)
 
-div <- rbind(div1,div2)
+div <- rbind(div1, div2)
 
-ggplot2::ggplot(div, aes(year, Shannon , color=run))+
- ggplot2::geom_line(lwd=1.5) +
- ggplot2::ggtitle("Species diversity") +
- ggplot2::labs(x = "Year",y="Shannon index")+
- ggplot2::theme_bw()
-
+ggplot2::ggplot(div, aes(year, Shannon , color = run)) +
+    ggplot2::geom_line(lwd = 1.5) +
+    ggplot2::ggtitle("Species diversity") +
+    ggplot2::labs(x = "Year", y = "Shannon index") +
+    ggplot2::theme_bw()
 
 ```
 We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the 4deg_20percdrier is more substantial than under the reference scenario. 
@@ -1695,8 +1898,6 @@ Calculate the indices based on the reference run, then based on the scenario. Fo
 The max.k parameter is telling how many neighboring trees we want to account for.
 
 ```{r ex74, eval=TRUE, message = FALSE, warning=FALSE}
-
-
 # diameter differentiation:
 # mingling
  
@@ -1718,22 +1919,25 @@ We calculated each index as separate variable and then merged them into indices1
 ```{r ex75, eval=TRUE, message = FALSE, warning=FALSE}
 
 diff <- data.frame(treespat::DIFF(tree2, .x = x, .y = y,.mark = dbh, 
-      xmax = 100, ymax = 100, max.k = 4, shape='square', .groups=c('year')) |> 
-      dplyr::mutate(index="DIFF", name="Diameter differentiation", run=name2))
+      xmax = 100, ymax = 100, max.k = 4, shape = 'square',
+      .groups = c('year')) |> 
+      dplyr::mutate(index = "DIFF", name = "Diameter differentiation",
+                    run = name2))
 
 ming <- data.frame(treespat::MING(tree2, .x = x, .y = y, .species = species, 
-       xmax = 100, ymax = 100, max.k = 4, shape='square', .groups=c('year')) |> 
-        dplyr::mutate(index="MING", name="Mingling", run=name2))
+       xmax = 100, ymax = 100, max.k = 4, shape = 'square', 
+       .groups = c('year')) |> 
+        dplyr::mutate(index = "MING", name = "Mingling", run = name2))
 
-indices2 <- rbind(diff |> dplyr::rename(value=DIFF),
-                  ming |> dplyr::rename(value=MINGLING ) )
+indices2 <- rbind(diff |> dplyr::rename(value = DIFF),
+                  ming |> dplyr::rename(value = MINGLING))
 
-indices <- rbind(indices1,indices2)
+indices <- rbind(indices1, indices2)
 
-ggplot2::ggplot(indices, aes(x=year, y=value, color=run))+
- ggplot2::geom_line(lwd=1)+
- ggplot2::facet_wrap(~name, ncol=2, scales="free")+
- ggplot2::theme_bw() 
+ggplot2::ggplot(indices, aes(x = year, y = value, color = run)) +
+    ggplot2::geom_line(lwd = 1) +
+    ggplot2::facet_wrap( ~ name, ncol = 2, scales = "free") +
+    ggplot2::theme_bw() 
 ```
 
 
@@ -1750,27 +1954,30 @@ Run the model as it is described in the previous chapters to have at least 2 sim
 Read in the *landscape* output table from two outputs you have for your plot:
 
 ```{r ex76, eval=TRUE, message = FALSE, warning=FALSE}
+path1 <- "model/iLand_simulations/output/Output_plot4.sqlite"
+path2 <-
+    "model/iLand_simulations/output/Output_plot4_4deg_20percdrier.sqlite"
 
-
-file1 <- here::here("model/iLand_simulations/output/Output_plot4.sqlite")
-file2 <- here::here("model/iLand_simulations/output/Output_plot4_4deg_20percdrier.sqlite")
-
+file1 <- here::here(path1)
+file2 <- here::here(path2)
 
 # Give some name for the three simulations.
-name1<-"reference"
-name2<-"4deg_20percdrier"
+name1 <- "reference"
+name2 <- "4deg_20percdrier"
 
-# Read in data using the DBI package 
-sqlite.driver <- DBI::dbDriver("SQLite")
+# Read in data using the RSQLite package
+sqlite.driver <- RSQLite::dbDriver("SQLite")
 
 # We will work with "landscape" table and tree-scale data:
-db1 <- DBI::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
-landscape1<- DBI::dbReadTable(db1,"landscape")
-DBI::dbDisconnect(db1) # disconnect to the file1
+db1 <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file1) # connect to the file1
+landscape1 <- RSQLite::dbReadTable(db1, "landscape")
+RSQLite::dbDisconnect(db1) # disconnect to the file1
 
-db2 <- DBI::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
-landscape2<- DBI::dbReadTable(db2,"landscape")
-DBI::dbDisconnect(db2)
+db2 <-
+    RSQLite::dbConnect(sqlite.driver, dbname = file2) # connect to the file2
+landscape2 <- RSQLite::dbReadTable(db2, "landscape")
+RSQLite::dbDisconnect(db2)
 
 ```
 
@@ -1778,8 +1985,8 @@ Merge the data from the three files together and make a column which tells which
 
 ```{r ex77, eval=TRUE, message = FALSE, warning=FALSE}
 
-landscape<-rbind(landscape1 |> dplyr::mutate(run=name1) , 
- landscape2 |> dplyr::mutate(run=name2))
+landscape <- rbind(landscape1 |> dplyr::mutate(run = name1),
+                   landscape2 |> dplyr::mutate(run = name2))
 
 head(landscape)
 ```
@@ -1799,31 +2006,37 @@ cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
 
 # We set here the order of the run categories for the table, to have the first
 #run first and then the second. (left-right of the plots)
-landscape$run<-factor( landscape$run, levels=c(name1,name2))
+landscape$run <- factor(landscape$run, levels = c(name1, name2))
 
 # Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
-g1<-ggplot2::ggplot(landscape, aes(year, total_carbon_kg/1000 , fill=factor(species)))+
- ggplot2::geom_area() +
- ggplot2::scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Living C t/ha",fill = "Species")+
- ggplot2::theme_bw()
+g1 <-
+    ggplot2::ggplot(landscape, aes(year, total_carbon_kg / 1000 , fill = factor(species))) +
+    ggplot2::geom_area() +
+    ggplot2::scale_fill_manual(values = cols.all, guide = guide_legend(reverse =
+                                                                           TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Living C t/ha", fill = "Species") +
+    ggplot2::theme_bw()
 
-g2<-ggplot2::ggplot(landscape, aes(year, count_ha , fill=factor(species)))+
- ggplot2::geom_area() +
- ggplot2::scale_fill_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Number of trees per ha",fill = "Species")+
- ggplot2::theme_bw()
+g2 <-
+    ggplot2::ggplot(landscape, aes(year, count_ha , fill = factor(species))) +
+    ggplot2::geom_area() +
+    ggplot2::scale_fill_manual(values = cols.all, guide = guide_legend(reverse =
+                                                                           TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Number of trees per ha", fill = "Species") +
+    ggplot2::theme_bw()
 
-gridExtra::grid.arrange(g1,g2, ncol=1)
+gridExtra::grid.arrange(g1, g2, ncol = 1)
 
-g3<-ggplot2::ggplot(landscape, aes(year, dbh_avg_cm , color=factor(species)))+
- ggplot2::geom_line(lwd=1) +
- ggplot2::scale_color_manual(values=cols.all, guide=guide_legend(reverse=TRUE))+
- ggplot2::facet_wrap(~run, nrow=1)+
- ggplot2::labs(x = "Year",y="Mean dbh",fill = "Species")+
- ggplot2::theme_bw()
+g3 <-
+    ggplot2::ggplot(landscape, aes(year, dbh_avg_cm , color = factor(species))) +
+    ggplot2::geom_line(lwd = 1) +
+    ggplot2::scale_color_manual(values = cols.all, guide = guide_legend(reverse =
+                                                                            TRUE)) +
+    ggplot2::facet_wrap( ~ run, nrow = 1) +
+    ggplot2::labs(x = "Year", y = "Mean dbh", fill = "Species") +
+    ggplot2::theme_bw()
 print(g3)
 ```
 
@@ -1838,14 +2051,18 @@ The species-specific graphs for mean dbh indicates that some species do not have
 Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
 ```{r ex79, eval=TRUE, message = FALSE, warning=FALSE}
-livingC0 <- data.frame(landscape |> dplyr::filter(year==0) |> 
-                         dplyr::group_by(run) |> 
- dplyr::summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+livingC0 <- data.frame(
+    landscape |> dplyr::filter(year == 0) |>
+        dplyr::group_by(run) |>
+        dplyr::summarize(sum.livingC = sum(total_carbon_kg / 1000))
+)
 print(livingC0)
 
-livingC100 <- data.frame(landscape |> dplyr::filter(year==100) |> 
-                           dplyr::group_by(run) |> 
- dplyr::summarize(sum.livingC=sum(total_carbon_kg/1000)) )
+livingC100 <- data.frame(
+    landscape |> dplyr::filter(year == 100) |>
+        dplyr::group_by(run) |>
+        dplyr::summarize(sum.livingC = sum(total_carbon_kg / 1000))
+)
 print(livingC100)
 ```
 
@@ -1854,26 +2071,35 @@ The initial conditions are same for the runs, but they are ending up at differen
 Calculate the stored C amount PER SPECIES in the initial year (year==0) and the last year (year==100)
 
 ```{r ex80, eval=TRUE, message = FALSE, warning=FALSE}
-species.livingC0 <- data.frame(landscape |> dplyr::filter(year==0) |>
-                                 dplyr::group_by(run, species) |> 
- dplyr::summarize(livingC=sum(total_carbon_kg/1000)) )
+species.livingC0 <- data.frame(
+    landscape |> dplyr::filter(year == 0) |>
+        dplyr::group_by(run, species) |>
+        dplyr::summarize(livingC = sum(total_carbon_kg / 1000))
+)
 print(species.livingC0)
 
-species.livingC100 <- data.frame(landscape |> dplyr::filter(year==100) |> 
-                                   dplyr::group_by(run, species) |> 
- dplyr::summarize(livingC=sum(total_carbon_kg/1000)) )
+species.livingC100 <-
+    data.frame(
+        landscape |> dplyr::filter(year == 100) |>
+            dplyr::group_by(run, species) |>
+            dplyr::summarize(livingC = sum(total_carbon_kg / 1000))
+    )
 print(species.livingC100)
 ```
 
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
 ```{r ex81, eval=TRUE, message = FALSE, warning=FALSE}
-LC0 <- dplyr::left_join(species.livingC0, livingC0, by="run" )
-LC0 <- data.frame(LC0 |> dplyr::mutate(spec.prop=livingC/sum.livingC, year=0))
+LC0 <- dplyr::left_join(species.livingC0, livingC0, by = "run")
+LC0 <-
+    data.frame(LC0 |> dplyr::mutate(spec.prop = livingC / sum.livingC, year =
+                                        0))
 print(LC0)
 
-LC100 <- dplyr::left_join(species.livingC100, livingC100, by="run" )
-LC100 <- data.frame(LC100 |> dplyr::mutate(spec.prop=livingC/sum.livingC, year=100))
+LC100 <- dplyr::left_join(species.livingC100, livingC100, by = "run")
+LC100 <-
+    data.frame(LC100 |> dplyr::mutate(spec.prop = livingC / sum.livingC, year =
+                                          100))
 print(LC100)
 
 ```
@@ -1881,30 +2107,30 @@ print(LC100)
 Put the two tables together and visualize the results!
 
 ```{r ex82, eval=TRUE, message = FALSE, warning=FALSE}
-LC <- rbind(LC0,LC100)
+LC <- rbind(LC0, LC100)
 
-LC$run <- factor(LC$run, levels=c(name1,name2))
+LC$run <- factor(LC$run, levels = c(name1, name2))
 
-ggplot2::ggplot(LC, aes(fill=species, y=livingC , x=factor(year))) + 
- ggplot2::geom_bar(position="stack", stat="identity")+
- ggplot2::scale_fill_manual(values=cols.all)+
- ggplot2::facet_wrap(~run)+
- ggplot2::ylab("Living C absolute values")+
- ggplot2::theme_bw()
+ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
+    ggplot2::geom_bar(position = "stack", stat = "identity") +
+    ggplot2::scale_fill_manual(values = cols.all) +
+    ggplot2::facet_wrap( ~ run) +
+    ggplot2::ylab("Living C absolute values") +
+    ggplot2::theme_bw()
 
 
-ggplot2::ggplot(LC, aes(fill=species, y=spec.prop, x=factor(year))) + 
- ggplot2::geom_bar(position="stack", stat="identity")+
- ggplot2::scale_fill_manual(values=cols.all)+
- ggplot2::facet_wrap(~run)+
- ggplot2::ylab("Species proportion based on carbon")+
- ggplot2::theme_bw()
+ggplot2::ggplot(LC, aes(fill = species, y = spec.prop, x = factor(year))) +
+    ggplot2::geom_bar(position = "stack", stat = "identity") +
+    ggplot2::scale_fill_manual(values = cols.all) +
+    ggplot2::facet_wrap( ~ run) +
+    ggplot2::ylab("Species proportion based on carbon") +
+    ggplot2::theme_bw()
 
 ```
 
 The living C stock tripled over 100 years due to the accumulation of biomass in trees and no management interventions and reached higher level under the climate change scenario. Both cases the proportion of beech increased.
 
-# Empirical modeling
+# Empirical modeling {#sec-em}
 
 In the empirical modelling we will cover two examples of creating two models based on observed data. We will use two approaches Generalized Linear Models (GLMs) and Boosted Regression trees (BRTs). Please take all the results with a grain of salt, we are making very generalized statements from a limited data set, and we are not getting into the details of how each of the models should be assessed; the goal here is that you learn how observed data can be used to create models that help you to understand the data and relationships better.
 
@@ -2051,33 +2277,47 @@ You could do further analysis by exploring the data correlations and you can eve
 You could for example explore the behavior of the variables by plotting a scatterplot:
 
 ```{r explore data 2, fig.width = 9, fig.height = 9}
-pairs(~F.sylvatica + P.sylvestris + latitude + volAllha +  GiniDBH + ShannonIndexTreeSpp + Bryophytes_rich, 
-      data = observations, main = "Scatterplot Matrix")
+pairs(
+    ~ F.sylvatica + P.sylvestris + latitude + volAllha +  GiniDBH + 
+        ShannonIndexTreeSpp + Bryophytes_rich,
+    data = observations,
+    main = "Scatterplot Matrix"
+)
 ```
 
 You can also create individual scatterplots or histograms for a variable of interest, for example:
 
 ```{r example scatterplot}
 #Divide the screen in 1 line and 3 columns
-par(mfrow = c(1, 2), oma = c(0, 2, 0, 0)) 
- 
+par(mfrow = c(1, 2), oma = c(0, 2, 0, 0))
+
 #Make the margin around each graph a bit smaller
 par(mar = c(4, 4, 2, 2))
 # Histogram and Scatterplot
-hist(observations$bryophitaNumObs, main = "", breaks = 10,
-     col = rgb(0.3, 0.5, 1, 0.4) , 
-     xlab = "Number of observed bryophita")
-plot(y = observations$bryophitaNumObs, 
-     x = observations$GiniDBH,
-     main = "" , pch = 20, cex = 0.4, col = rgb(0.3, 0.5, 1, 0.4), 
-     xlab = "Ginni index", ylab = "Number of observed bryophita" )
+hist(
+    observations$bryophitaNumObs,
+    main = "",
+    breaks = 10,
+    col = rgb(0.3, 0.5, 1, 0.4) ,
+    xlab = "Number of observed bryophita"
+)
+plot(
+    y = observations$bryophitaNumObs,
+    x = observations$GiniDBH,
+    main = "" ,
+    pch = 20,
+    cex = 0.4,
+    col = rgb(0.3, 0.5, 1, 0.4),
+    xlab = "Ginni index",
+    ylab = "Number of observed bryophita"
+)
 ```
 
 ### Question C - Group 1 {#sec-C_1}
 
 -   Does a more diverse forest in structure and composition have more Bryophytes species?
 
-#### Fitting a Poisson GLM in R
+#### Fitting a Poisson GLM in R {#sec-C_1_fit}
 
 During your data exploration, you should have selected your response variable, `bryophitaNumObs`. In this case, since we are trying to understand forest structure and composition, you should also choose explanatory variables for that, such as `GiniDBH,` which indicates the forest structural diversity in diameter sizes; higher values indicate more structural heterogeneity, and lower values indicate more homogeneous stands, or the `ShannonIndexTreeSpp` which assesses the diversity of tree species in the plot.
 
@@ -2085,8 +2325,8 @@ We could start by only looking at how the forest structural diversity affects th
 
 ```{r fit glm struct11}
 bryoModel1 <- glm(bryophitaNumObs ~ GiniDBH,
-                 family = poisson,
-                 data = observations)
+                  family = poisson,
+                  data = observations)
 
 summary(bryoModel1)
 ```
@@ -2097,8 +2337,8 @@ We are also interested in understanding the relationship of the number of Bryoph
 
 ```{r fit glm struct12}
 bryoModel2 <- glm(bryophitaNumObs ~ GiniDBH + ShannonIndexTreeSpp,
-                 family = poisson,
-                 data = observations)
+                  family = poisson,
+                  data = observations)
 
 summary(bryoModel2)
 ```
@@ -2118,7 +2358,7 @@ dev.null <- bryoModel1$null.deviance
 dev.resid <- bryoModel1$deviance
 
 # Calculate the deviance explained by the model
-dev.explained <- (dev.null - dev.resid)/dev.null
+dev.explained <- (dev.null - dev.resid) / dev.null
 
 # Round to 3 decimal places
 dev.explained <- round(dev.explained, 3)
@@ -2131,11 +2371,11 @@ Variability in forest structure (Gini index) explain 15% of the variation in Bry
 
 #### Model Assumptions
 
-For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter λ, which describes both the mean and the variance of the distribution.
+For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter $\lambda$, which describes both the mean and the variance of the distribution.
 
 Count data in ecology are often **overdispersed**, where the variance is greater than the mean. This violates the assumption of a Poisson GLM, and means that any statistics that we calculate from the model may be unreliable.
 
-We can get an indication of whether a model is over-dispersed by inspecting the model summary. As a rule of thumb, if the response variable conforms to a true Poisson distribution, we expect the residual deviance to be approximately equal to the residual degrees of freedom. If the deviance is much greater than the degrees of freedom, this indicates over-dispersion. This is the case in our models.
+We can get look whether a model is over-dispersed by inspecting the model summary as you did in @sec-C_1_fit. As a rule of thumb, if the response variable conforms to a true Poisson distribution, we expect the residual deviance to be approximately equal to the residual degrees of freedom. If the deviance is much greater than the degrees of freedom, this indicates over-dispersion. This is the case in our models (see outputs from running the code in @sec-C_1_fit).
 
 To check the model assumptions in a GLM is not as straight forward as with a linear model. This is because classical residuals are not expected to behave in the same way for GLMs. We can use the DHARMa package in R for working with GLMs, which uses a simulation-based approach to compare the residuals from the actual model with the expectation if the model is behaving normally:
 
@@ -2153,7 +2393,7 @@ These plots show us that this model is not behaving as we would expect in terms 
 
 -   Is the number of Briophites species affected by forest management type and the forest structural diversity?
 
-#### Fitting a Poisson GLM in R
+#### Fitting a Poisson GLM in R {#sec-D_1_fit}
 
 Fitting a Poisson GLM in R is very similar to fitting an analysis of covariance (or linear model), except that now we need to use the glm function. To run a GLM, we need to provide one extra piece of information beyond that needed for a linear model: the family of model we want to use. In this case, we want a Poisson family.
 
@@ -2161,20 +2401,20 @@ We could start by only looking at how the forest structural diversity affects th
 
 ```{r fit glm struct21}
 bryoModel1 <- glm(bryophitaNumObs ~ GiniDBH,
-                 family = poisson,
-                 data = observations)
+                  family = poisson,
+                  data = observations)
 
 summary(bryoModel1)
 ```
 
 Here you can see that the coefficient table produced by a GLM is very similar to a linear model. The intercept tells us the estimated value of the response variable when the continuous explanatory variables (here just Gini index) have a value of 0. We then also have coefficients describing the slope of the relationship with our continuous explanatory variables. We can see here that the bryophita numbers appears to show a positive relationship with Gini index, which means that increasing structural diversity in trees diameter sizes has a positive relationship with the number of bryophita species in the plot.
 
-We are also interested in understanding the relationship with the number of observed Bryophytes species and forest management, we can now try to add this variable into the model.
+We are also interested in understanding the relationship of the number of observed Bryophytes species and forest management, we can now try to add this variable into the model.
 
 ```{r fit glm struct22}
 bryoModel2 <- glm(bryophitaNumObs ~ forestManagementType,
-                 family = poisson,
-                 data = observations)
+                  family = poisson,
+                  data = observations)
 
 summary(bryoModel2)
 ```
@@ -2194,7 +2434,7 @@ dev.null <- bryoModel1$null.deviance
 dev.resid <- bryoModel1$deviance
 
 # Calculate the deviance explained by the model
-dev.explained <- (dev.null - dev.resid)/dev.null
+dev.explained <- (dev.null - dev.resid) / dev.null
 
 # Round to 3 decimal places
 dev.explained <- round(dev.explained, 3)
@@ -2207,11 +2447,11 @@ Variability in forest structure (Gini index) explains 15% of the variation in br
 
 #### Model Assumptions
 
-For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter λ, which describes both the mean and the variance of the distribution.
+For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter $\lambda$, which describes both the mean and the variance of the distribution.
 
 Count data in ecology are often ***overdispersed***, where the variance is greater than the mean. This violates the assumption of a Poisson GLM, and means that any statistics that we calculate from the model may be unreliable.
 
-We can get an indication of whether a model is over-dispersed by inspecting the model summary. As a rule of thumb, if the response variable conforms to a true Poisson distribution, we expect the residual deviance to be approximately equal to the residual degrees of freedom. If the deviance is much greater than the degrees of freedom, this indicates over-dispersion. This is the case in our models.
+We can get look whether a model is over-dispersed by inspecting the model summary as you did in @sec-D_1_fit. As a rule of thumb, if the response variable conforms to a true Poisson distribution, we expect the residual deviance to be approximately equal to the residual degrees of freedom. If the deviance is much greater than the degrees of freedom, this indicates over-dispersion. This is the case in our models (see outputs from running the code in @sec-D_1_fit).
 
 To check the model assumptions in a GLM is not as straight-forward as with a linear model. This is because classical residuals are not expected to behave in the same way for GLMs. We can use the DHARMa package in R for working with GLMs, which uses a simulation-based approach to compare the residuals from the actual model with the expectation if the model is behaving normally.
 
@@ -2229,33 +2469,33 @@ These plots show us that this model is not behaving as we would expect in terms 
 
 -   Does a more diverse forest in structure and composition have more bird species?
 
-#### Fitting a Poisson GLM in R
+#### Fitting a Poisson GLM in R {#sec-C_2_fit}
 
-During your data exploration you should have selected your response variable: `bryophitaNumObs`. In this case since we are trying to understand forest structure and composition you should also select explanatory variables for that such as `GiniDBH` which indicates the forest structural diversity in diameter sizes, higher values indicate more structural heterogeneity and lower values indicate more homogeneous stands, or the `ShannonIndexTreeSpp` which assess the diversity of tree species in the plot.
+During your data exploration you should have selected your response variable: `birdNumObs`. In this case since we are trying to understand forest structure and composition you should also select explanatory variables for that such as `GiniDBH` which indicates the forest structural diversity in diameter sizes, higher values indicate more structural heterogeneity and lower values indicate more homogeneous stands, or the `ShannonIndexTreeSpp` which assess the diversity of tree species in the plot.
 
-We could start by only looking at how the forest structural diversity affects the number Bryophytes species that we have in a plot. You can do this by creating a GLM model which has `bryophitaNumObs` as response variable and `GiniDBH` as explanatory variable. For that you will use the function `glm`in R and use the `family = poisson`. You can see how to create and see this model here:
+We could start by only looking at how the forest structural diversity affects the number bird species that we have in a plot. You can do this by creating a GLM model which has `birdNumObs` as response variable and `GiniDBH` as explanatory variable. For that you will use the function `glm`in R and use the `family = poisson`. You can see how to create and see this model here:
 
 ```{r fit glm struct 31}
 birdModel1 <- glm(birdNumObs ~ GiniDBH,
-                 family = poisson,
-                 data = observations)
+                  family = poisson,
+                  data = observations)
 
 summary(birdModel1)
 ```
 
 Here you can see that the coefficient table produced by a GLM is very similar to a linear model. The intercept tells us the estimated value of the response variable when the continuous explanatory variables (here just Gini index) has a value of 0. We then also have coefficients describing the slope of the relationship with our continuous explanatory variables. We can see here that the number of bird species appears to show a positive relationship with Gini index, which means that increasing structural diversity in trees diameter sizes has a positive relationship with the number of bird species in the plot.
 
-We are also interested in understanding the relationship with the number of bird species and the trees species diversity, we can now try to add this variable into the model and see if it help us to understand things. You can do that by adding the variable `ShannonIndexTreeSpp` into the model
+We are also interested in understanding the relationship of the number of bird species and the trees species diversity, we can now try to add this variable into the model and see if it help us to understand things. You can do that by adding the variable `ShannonIndexTreeSpp` into the model
 
 ```{r fit glm struct32}
 birdModel2 <- glm(birdNumObs ~ GiniDBH + ShannonIndexTreeSpp,
-                 family = poisson,
-                 data = observations)
+                  family = poisson,
+                  data = observations)
 
 summary(birdModel2)
 ```
 
-Here we can see that the variable Shannon index also has a positive relationship with the number of bird species in the plot but its effect is much smaller. We can also observed that this variable it is not significant and that including this variable also made Gini index variable not significant. This does not mean that is wrong to add this variable, because we want to understand its effect, but keeping this variable in the model or not it depends on what you're trying to do, and what "reality" is. Adding variables that are not needed will not help your model (particularly your estimates), but also might not matter much (e.g. predictions). However, removing variables that are real, even if they don't meet significance, can create a useless model.
+Here we can see that the variable Shannon index also has a positive relationship with the number of bird species in the plot but its effect is much smaller. We can also observe that this variable is not significant and that including this variable also made Gini index variable not significant. This does not mean that is wrong to add this variable, because we want to understand its effect, but keeping this variable in the model or not depends on what you're trying to do, and what "reality" is. Adding variables that are not needed will not help your model (particularly your estimates), but also might not matter much (e.g. predictions). However, removing variables that are real, even if they don't meet significance, can create a useless model.
 
 Variable selection is a long and complicated topic. some general rules of thumb include: (1) Include the variable if it is of interest, (2) Include the variable if you have some prior knowledge that it should be relevant. This can be misleading, because it's a confirmation bias, but in most cases this makes sense. (3) If you want a model that can generalize to many cases, you should favor fewer variables.
 
@@ -2270,7 +2510,7 @@ dev.null <- birdModel1$null.deviance
 dev.resid <- birdModel1$deviance
 
 # Calculate the deviance explained by the model
-dev.explained <- (dev.null - dev.resid)/dev.null
+dev.explained <- (dev.null - dev.resid) / dev.null
 
 # Round to 3 decimal places
 dev.explained <- round(dev.explained, 3)
@@ -2283,11 +2523,11 @@ Variability in forest structure (Gini index) explain 8% of the variation in bird
 
 #### Model Assumptions
 
-For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter λ, which describes both the mean and the variance of the distribution.
+For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter $\lambda$, which describes both the mean and the variance of the distribution.
 
 Count data in ecology are often **overdispersed**, where the variance is greater than the mean. This violates the assumption of a Poisson GLM, and means that any statistics that we calculate from the model may be unreliable.
 
-We can get an indication of whether a model is over-dispersed by inspecting the model summary. As a rule of thumb, if the response variable conforms to a true Poisson distribution, we expect the residual deviance to be approximately equal to the residual degrees of freedom. If the deviance is much greater than the degrees of freedom, this indicates over-dispersion. This is the case in our models.
+We can get look whether a model is over-dispersed by inspecting the model summary as you did in @sec-C_2_fit. As a rule of thumb, if the response variable conforms to a true Poisson distribution, we expect the residual deviance to be approximately equal to the residual degrees of freedom. If the deviance is much greater than the degrees of freedom, this indicates over-dispersion. This is the case in our models (see outputs from running the code in @sec-C_2_fit).
 
 To check the model assumptions in a GLM is not as straight-forward as with a linear model. This is because classical residuals are not expected to behave in the same way for GLMs. We can use the DHARMa package in R for working with GLMs, which uses a simulation-based approach to compare the residuals from the actual model with the expectation if the model is behaving normally:
 
@@ -2305,35 +2545,35 @@ These plots show us that this model is not behaving as we would expect in terms 
 
 -   Is the number of bird species affected by forest management type and the forest structural diversity?
 
-#### Fitting a Poisson GLM in R
+#### Fitting a Poisson GLM in R {#sec-D_2_fit}
 
 Fitting a Poisson GLM in R is very similar to fitting an analysis of covariance (or linear model), except that now we need to use the glm function. To run a GLM, we need to provide one extra piece of information beyond that needed for a linear model: the family of model we want to use. In this case, we want a Poisson family.
 
-We could start by only looking at how the forest structural diversity affects the number Bryophytes species that we have in a plot. You can do this by creating a GLM model which has `birdNumObs` as response variable and `GiniDBH` as explanatory variable. For that you will use the function `glm` in R and use the `family = poisson`. You can see how to create and see this model here:
+We could start by only looking at how the forest structural diversity affects the number bird species that we have in a plot. You can do this by creating a GLM model which has `birdNumObs` as response variable and `GiniDBH` as explanatory variable. For that you will use the function `glm` in R and use the `family = poisson`. You can see how to create and see this model here:
 
 ```{r fit glm struct41}
 birdModel1 <- glm(birdNumObs ~ GiniDBH,
-                 family = poisson,
-                 data = observations)
+                  family = poisson,
+                  data = observations)
 
 summary(birdModel1)
 ```
 
 Here you can see that the coefficient table produced by a GLM is very similar to a linear model. The intercept tells us the estimated value of the response variable when the continuous explanatory variables (here just Gini index) have a value of 0. We then also have coefficients describing the slope of the relationship with our continuous explanatory variables. We can see here that the bird numbers appears to show a positive relationship with Gini index, which means that increasing structural diversity in trees diameter sizes has a positive relationship with the number of bird species in the plot.
 
-We are also interested in understanding the relationship with the number of observed bird species and forest management, we can now try to add this variable into the model.
+We are also interested in understanding the relationship of the number of observed bird species and forest management, we can now try to add this variable into the model.
 
 ```{r fit glm struct42}
 birdModel2 <- glm(birdNumObs ~ forestManagementType,
-                 family = poisson,
-                 data = observations)
+                  family = poisson,
+                  data = observations)
 
 summary(birdModel2)
 ```
 
 The intercept here tells us the estimated value of the response variable when the reference groups in our grouping (categorical) variables (here for retention clear-cutting). We then also have coefficients describing the slope of the relationship with our continuous explanatory variables, and coefficients giving the estimated difference in the response variable for non-reference groupings. We can see here that number of bird species appears to show a negative relationship with simple clearcutting, unmanaged and a positive relationship with retention clear-cutting.
 
-The type simple clearcutting and unmanaged it appears to be no significant, which only tell us about the pairwise differences between the levels. To test whether the categorical predictor, as a whole, is significant is equivalent to testing whether there is any heterogeneity in the means of the levels of the predictor. When there are no other predictors in the model, this is a classical [ANOVA](http://en.wikipedia.org/wiki/Analysis_of_variance) problem.
+The type simple clearcutting and unmanaged appear to be no significant, which only tell us about the pairwise differences between the levels. To test whether the categorical predictor, as a whole, is significant is equivalent to testing whether there is any heterogeneity in the means of the levels of the predictor. When there are no other predictors in the model, this is a classical [ANOVA](http://en.wikipedia.org/wiki/Analysis_of_variance) problem.
 
 #### Explanatory Power of the model
 
@@ -2346,7 +2586,7 @@ dev.null <- birdModel1$null.deviance
 dev.resid <- birdModel1$deviance
 
 # Calculate the deviance explained by the model
-dev.explained <- (dev.null - dev.resid)/dev.null
+dev.explained <- (dev.null - dev.resid) / dev.null
 
 # Round to 3 decimal places
 dev.explained <- round(dev.explained, 3)
@@ -2355,15 +2595,15 @@ dev.explained
 
 ```
 
-Variability in forest structure (Gini index) explain 15% of the variation in bryophita species richness in this study system. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness for bryophitas and we are attempting to explain everything with one variable).
+Variability in forest structure (Gini index) explain 15% of the variation in bird species richness in this study system. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness and we are attempting to explain everything with one variable).
 
 #### Model Assumptions
 
-For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter λ, which describes both the mean and the variance of the distribution.
+For Poisson GLMs, there is one further assumption that we have not encountered before. If data follow a Poisson distribution, then the mean of the distribution is equal to the variance. Accordingly, a Poisson distribution is represented by just one parameter $\lambda$, which describes both the mean and the variance of the distribution.
 
 Count data in ecology are often ***overdispersed***, where the variance is greater than the mean. This violates the assumption of a Poisson GLM, and means that any statistics that we calculate from the model may be unreliable.
 
-We can get an indication of whether a model is over-dispersed by inspecting the model summary. As a rule of thumb, if the response variable conforms to a true Poisson distribution, we expect the residual deviance to be approximately equal to the residual degrees of freedom. If the deviance is much greater than the degrees of freedom, this indicates over-dispersion. This is the case in our models.
+We can get look whether a model is over-dispersed by inspecting the model summary as you did in @sec-D_2_fit. As a rule of thumb, if the response variable conforms to a true Poisson distribution, we expect the residual deviance to be approximately equal to the residual degrees of freedom. If the deviance is much greater than the degrees of freedom, this indicates over-dispersion. This is the case in our models (see outputs from running the code in @sec-D_2_fit).
 
 To check the model assumptions in a GLM is not as straight forward as with a linear model. This is because classical residuals are not expected to behave in the same way for GLMs. We can use the DHARMa package in R for working with GLMs, which uses a simulation-based approach to compare the residuals from the actual model with the expectation if the model is behaving normally.
 
@@ -2389,20 +2629,25 @@ Then you need to select some variables of interest, after you have explored the 
 
 -   `latitude` as proxy for plot location or/and climate
 
--   `forestManagementType` to assess if different management types have different impact in the presence / absence of Parus major.
+-   `forestManagementType` to assess if different management types have different impact in the presence / absence of Great spotted woodpecker.
 
 -   `volAllha` that is the total volume in the plot, as a proxy of how dense the plot is. Higher volumes will mean that the forest is more dense.
 
--   `GiniDBH` showing how homogeneous the plot is in trees diameters. A value closer to 1 will mean that indicate more structural heterogeneity, lower values indicate more homogeneous plots.
+-   `GiniDBH` showing how homogeneous the plot is in trees diameters. A value closer to 1 indicate  a more structural heterogeneity, lower values indicate more homogeneous plots.
 
--   `Birds_rich` are the species richness value calculated for all bird species species, higher value indicate higher species richness for birds.
 
 You can create a vector `selVar` in which you add the names of the selected variables. Then you only take those variables from the data that you will use to create the model.
 
 ```{r selectVar}
 # Select variables from the dataset for the model
-selVar <- c("dendrocoposMajor", "latitude","forestManagementType",
-            "volAllha", "GiniDBH",  "ShannonIndexTreeSpp", "Birds_rich")
+selVar <- c(
+    "dendrocoposMajor",
+    "latitude",
+    "forestManagementType",
+    "volAllha",
+    "GiniDBH",
+    "ShannonIndexTreeSpp"
+)
 
 # Filter the dataset to the selected variables
 modelDataSel <- observations[, colnames(observations) %in% selVar]
@@ -2412,8 +2657,8 @@ modelDataSel <- observations[, colnames(observations) %in% selVar]
 Unfortunately the amount of that we have in this dataset it is not enough to fit a BRT model for these variables. We are going to do an obviously wrong thing for the shake of being able to demonstrate how to fit a BRT model. In the next code you are going to repeat the same dataset multiple times:
 
 ```{r data repetition}
-modelDataSel <- rbind(modelDataSel, modelDataSel, modelDataSel, modelDataSel,
-                      modelDataSel)
+modelDataSel <- rbind(modelDataSel, modelDataSel, modelDataSel, 
+                      modelDataSel, modelDataSel)
 ```
 
 Now it is important to assess if the variables have the right categories. Variables should be type numeric or factor.
@@ -2422,7 +2667,8 @@ Now it is important to assess if the variables have the right categories. Variab
 summary(modelDataSel)
 
 # Two variables are character, we assign to factor instead:
-modelDataSel$forestManagementType <- as.factor(modelDataSel$forestManagementType)
+modelDataSel$forestManagementType <-
+    as.factor(modelDataSel$forestManagementType)
 
 ```
 
@@ -2436,20 +2682,21 @@ As a first guess you could decide there are enough data to model interactions of
 
 ```{r BRTmodel, message=FALSE, warning=FALSE, results = "hide"}
 family <- "bernoulli"
+tc = 1    # tree complexity
+lr = 0.01 # learning rate-shrinkage
+bag = 0.5 # bag fraction
 
-    tc = 1    # tree complexity
-    lr = 0.01 # learning rate-shrinkage 
-    bag = 0.5 # bag fraction
-    
-    modelBRT <- dismo::gbm.step(data = modelDataSel,
-                          #indices of predictor variables in data
-                          gbm.x = 1:6, 
-                          #index of response variable in data:
-                          gbm.y = 7,  
-                          family = family,
-                          tree.complexity = tc,
-                          learning.rate = lr,
-                          bag.fraction = bag)  
+modelBRT <- dismo::gbm.step(
+    data = modelDataSel,
+    #indices of predictor variables in data
+    gbm.x = 1:5,
+    #index of response variable in data:
+    gbm.y = 6,
+    family = family,
+    tree.complexity = tc,
+    learning.rate = lr,
+    bag.fraction = bag
+)  
 
 ```
 
@@ -2457,56 +2704,64 @@ Running a model such as that described above writes progress reports to the scre
 
 The model is built with the default 10-fold cross-validation (CV). In the plotted graph the solid black curve is the mean, and the dotted curves 1 standard error, for the changes in predictive deviance (i.e., as measured on the excluded folds of the CV). The red line shows the minimum of the mean, and the green line the number of trees at which that occurs. The final model that is returned in the model object is built on the full data set, using the number of trees identified as optimal.
 
-Ideally, you should invest time in modifying the parameters and finr the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
+Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
 
 #### Model behaviour
 
-You can summarized the model parameters used and the cross validation statistics from the fitted model by doing this:
+You can summarize the model parameters used and the cross validation statistics from the fitted model by doing this:
 
 ```{r BRTeval}
 # We make a table with the summary statistics  
- results <- data.frame(
-
-# Model parameters
-Tree.Complexity = modelBRT$gbm.call$tree.complexity, 
-Learning.Rate = modelBRT$gbm.call$learning.rate, 
-                 Bag.Fraction = modelBRT$gbm.call$bag.fraction,
-                 Interaction.depth = modelBRT$interaction.depth,
-                 Shrinkage = modelBRT$shrinkage,
-                 N.trees = modelBRT$n.trees,
-     
-# Cross validation statistics 
-     
-## mean total deviance
-Deviance = modelBRT$self.statistics$mean.resid, # mean residual deviance 
-
-AUC = modelBRT$self.statistics$discrimination, # training data AUC score
-
-Corr = modelBRT$self.statistics$correlation,   # training data correlation
-                 
-## Cross Validation statistics
-                 
-# We calculate each statistic within each fold (at the identified optimal number
-# of trees that is calculated on the mean change in predictive deviance over all folds), 
-#then present here the mean and standard error of those fold-based statistics.
-                 
-devianceCV = modelBRT$cv.statistics$deviance.mean,  # estimated cv deviance 
-devianceCVse = modelBRT$cv.statistics$deviance.se,  # estimated cv deviance se
-                 
-CorrCV = modelBRT$cv.statistics$correlation.mean,  #cv correlation
-CorrCVse = modelBRT$cv.statistics$correlation.se,  #cv correlation se
-                 
-AUCcv = modelBRT$cv.statistics$discrimination.mean, # cv AUC score
-AUCcvSE = modelBRT$cv.statistics$discrimination.se)  # cv AUC score se
-                
+results <- data.frame(
+    # Model parameters
+    Tree.Complexity = modelBRT$gbm.call$tree.complexity,
+    Learning.Rate = modelBRT$gbm.call$learning.rate,
+    Bag.Fraction = modelBRT$gbm.call$bag.fraction,
+    Interaction.depth = modelBRT$interaction.depth,
+    Shrinkage = modelBRT$shrinkage,
+    N.trees = modelBRT$n.trees,
     
+    # Cross validation statistics
+    
+    ## mean total deviance
+    Deviance = modelBRT$self.statistics$mean.resid,
+    # mean residual deviance
+    
+    AUC = modelBRT$self.statistics$discrimination,
+    # training data AUC score
+    
+    Corr = modelBRT$self.statistics$correlation,
+    # training data correlation
+    
+    ## Cross Validation statistics
+    
+    # We calculate each statistic within each fold (at the identified optimal number
+    # of trees that is calculated on the mean change in predictive deviance over all folds),
+    #then present here the mean and standard error of those fold-based statistics.
+    
+    devianceCV = modelBRT$cv.statistics$deviance.mean,
+    # estimated cv deviance
+    devianceCVse = modelBRT$cv.statistics$deviance.se,
+    # estimated cv deviance se
+    
+    CorrCV = modelBRT$cv.statistics$correlation.mean,
+    #cv correlation
+    CorrCVse = modelBRT$cv.statistics$correlation.se,
+    #cv correlation se
+    
+    AUCcv = modelBRT$cv.statistics$discrimination.mean,
+    # cv AUC score
+    AUCcvSE = modelBRT$cv.statistics$discrimination.se
+)  # cv AUC score se
+
+
 print(t(results))
 
 ```
 
 #### Model output analysis
 
-We can look at the relative contribution of each of the predictor variables. The measures are based on the number of time the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
+We can look at the relative contribution of each of the predictor variables. The measures are based on the number of times the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
 
 ```{r varImportance}
 # Variables contribution 
@@ -2519,22 +2774,28 @@ Here we can see that the two variables with the highest influence in the respons
 Now we can evaluate the model behavior via partial dependence plots, showing the effect of each of the variables on the response by accounting for the average effects of all other predictors in the model:
 
 ```{r marginallEffects}
-    dismo::gbm.plot(modelBRT, n.plots = 6,
-             plot.layout = c(2, 3), write.title = F)
+
+dismo::gbm.plot(
+    modelBRT,
+    n.plots = 6,
+    plot.layout = c(2, 3),
+    write.title = F
+)
 ```
 
-In this partial dependence plots the predictions are on the scale of f(x). In this case, for the Bernoulli loss the returned value is on the log odds scale. You can see how this plot will look by plotting with the function from the package `gbm` and using the type "response". Since we are interesting in finding out if the forest density has an impact in the presence of the Great spotted woodpecker we can have a look to the plot density variable `volAllha` :
+In partial dependence plots the predictions are on the scale of f(x). In this case, for the Bernoulli loss the returned value is on the log odds scale. You can see how this plot will look by plotting with the function from the package `gbm` and using the type "response". Since we are interested in finding out if the forest density has an impact on the presence of the Great spotted woodpecker we can have a look to the plot density variable `volAllha` :
 
 ```{r, response}
-gbm::plot.gbm(modelBRT, i.var = 3, type = "response", ylab = "Probability of finding a Great spotted woodpecker ")
+gbm::plot.gbm(modelBRT, i.var = 3, type = "response", 
+              ylab = "Probability of finding a Great spotted woodpecker ")
 ```
 
 It seems that there is an increase in probability of finding a Great spotted woodpecker with higher forest densities, but the trend it is not very clear. We could also analyse the interaction effects, of density and for example overall bird richness. The model predictions can be obtained for each pair of predictor variables, setting all other predictors to their means.
 
 To plot this pairwise interactions we have to do:
 
-```{r pairwise int, warning=FALSE, message=FALSE}
-dismo::gbm.perspec(modelBRT, 3, 6)
+```{r pairwise int, warning=FALSE, message=FALSE, fig.width = 9, fig.height = 9}
+dismo::gbm.perspec(modelBRT, 3, 4)
 ```
 
 Here we can see that both increasing bird diversity and forest density provides the highest probabilities for finding the Great spotted woodpecker.
@@ -2551,20 +2812,25 @@ Then you need to select some variables of interest, after you have explored the 
 
 -   `latitude` as proxy for plot location or/and climate
 
--   `forestManagementType` to assess if different management types have different impact in the presence / absence of Parus major.
+-   `forestManagementType` to assess if different management types have different impact in the presence / absence of Great spotted woodpecker.
 
 -   `volAllha` that is the total volume in the plot, as a proxy of how dense the plot is. Higher volumes will mean that the forest is more dense.
 
 -   `GiniDBH` showing how homogeneous the plot is in trees diameters. A value closer to 1 will mean that indicate more structural heterogeneity, lower values indicate more homogeneous plots.
 
--   `Birds_rich` are the species richness value calculated for all bird species species, higher value indicate higher species richness for birds.
 
 You can create a vector `selVar` in which you add the names of the selected variables. Then you only take those variables from the data that you will use to create the model.
 
 ```{r selectVar6}
 # Select variables from the dataset for the model
-selVar <- c("dendrocoposMajor", "latitude","forestManagementType",
-            "volAllha","GiniDBH",  "ShannonIndexTreeSpp", "Birds_rich")
+selVar <- c(
+    "dendrocoposMajor",
+    "latitude",
+    "forestManagementType",
+    "volAllha",
+    "GiniDBH",
+    "ShannonIndexTreeSpp"
+)
 
 # Filter the dataset to the selected variables
 modelDataSel <- observations[, colnames(observations) %in% selVar]
@@ -2584,7 +2850,8 @@ Now it is important to assess if the variables have the right categories. Variab
 summary(modelDataSel)
 
 # Two variables are character, we assign to factor instead:
-modelDataSel$forestManagementType <- as.factor(modelDataSel$forestManagementType)
+modelDataSel$forestManagementType <-
+    as.factor(modelDataSel$forestManagementType)
 
 ```
 
@@ -2599,19 +2866,21 @@ As a first guess you could decide there are enough data to model interactions of
 ```{r BRTmodel6, message=FALSE, warning=FALSE, results = "hide"}
 family <- "bernoulli"
 
-    tc = 1    # tree complexity
-    lr = 0.01 # learning rate-shrinkage 
-    bag = 0.5 # bag fraction
-    
-    modelBRT <- dismo::gbm.step(data = modelDataSel,
-                          #indices of predictor variables in data
-                          gbm.x = 1:6, 
-                          #index of response variable in data:
-                          gbm.y = 7,  
-                          family = family,
-                          tree.complexity = tc,
-                          learning.rate = lr,
-                          bag.fraction = bag)  
+tc = 1    # tree complexity
+lr = 0.01 # learning rate-shrinkage
+bag = 0.5 # bag fraction
+
+modelBRT <- dismo::gbm.step(
+    data = modelDataSel,
+    #indices of predictor variables in data
+    gbm.x = 1:5,
+    #index of response variable in data:
+    gbm.y = 6,
+    family = family,
+    tree.complexity = tc,
+    learning.rate = lr,
+    bag.fraction = bag
+)  
 
 ```
 
@@ -2619,56 +2888,64 @@ Running a model such as that described above writes progress reports to the scre
 
 The model is built with the default 10-fold cross-validation (CV). In the plotted graph the solid black curve is the mean, and the dotted curves 1 standard error, for the changes in predictive deviance (i.e., as measured on the excluded folds of the CV). The red line shows the minimum of the mean, and the green line the number of trees at which that occurs. The final model that is returned in the model object is built on the full data set, using the number of trees identified as optimal.
 
-Ideally, you should invest time in modifying the parameters and finr the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
+Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
 
 #### Model behaviour
 
-You can summarized the model parameters used and the cross validation statistics from the fitted model by doing this:
+You can summarize the model parameters used and the cross validation statistics from the fitted model by doing this:
 
 ```{r BRTeval6}
 # We make a table with the summary statistics  
- results <- data.frame(
-
-# Model parameters
-Tree.Complexity = modelBRT$gbm.call$tree.complexity, 
-Learning.Rate = modelBRT$gbm.call$learning.rate, 
-                 Bag.Fraction = modelBRT$gbm.call$bag.fraction,
-                 Interaction.depth = modelBRT$interaction.depth,
-                 Shrinkage = modelBRT$shrinkage,
-                 N.trees = modelBRT$n.trees,
-     
-# Cross validation statistics 
-     
-## mean total deviance
-Deviance = modelBRT$self.statistics$mean.resid, # mean residual deviance 
-
-AUC = modelBRT$self.statistics$discrimination, # training data AUC score
-
-Corr = modelBRT$self.statistics$correlation,   # training data correlation
-                 
-## Cross Validation statistics
-                 
-# We calculate each statistic within each fold (at the identified optimal number
-# of trees that is calculated on the mean change in predictive deviance over all folds), 
-#then present here the mean and standard error of those fold-based statistics.
-                 
-devianceCV = modelBRT$cv.statistics$deviance.mean,  # estimated cv deviance 
-devianceCVse = modelBRT$cv.statistics$deviance.se,  # estimated cv deviance se
-                 
-CorrCV = modelBRT$cv.statistics$correlation.mean,  #cv correlation
-CorrCVse = modelBRT$cv.statistics$correlation.se,  #cv correlation se
-                 
-AUCcv = modelBRT$cv.statistics$discrimination.mean, # cv AUC score
-AUCcvSE = modelBRT$cv.statistics$discrimination.se)  # cv AUC score se
-                
+results <- data.frame(
+    # Model parameters
+    Tree.Complexity = modelBRT$gbm.call$tree.complexity,
+    Learning.Rate = modelBRT$gbm.call$learning.rate,
+    Bag.Fraction = modelBRT$gbm.call$bag.fraction,
+    Interaction.depth = modelBRT$interaction.depth,
+    Shrinkage = modelBRT$shrinkage,
+    N.trees = modelBRT$n.trees,
     
+    # Cross validation statistics
+    
+    ## mean total deviance
+    Deviance = modelBRT$self.statistics$mean.resid,
+    # mean residual deviance
+    
+    AUC = modelBRT$self.statistics$discrimination,
+    # training data AUC score
+    
+    Corr = modelBRT$self.statistics$correlation,
+    # training data correlation
+    
+    ## Cross Validation statistics
+    
+    # We calculate each statistic within each fold (at the identified optimal number
+    # of trees that is calculated on the mean change in predictive deviance over all folds),
+    #then present here the mean and standard error of those fold-based statistics.
+    
+    devianceCV = modelBRT$cv.statistics$deviance.mean,
+    # estimated cv deviance
+    devianceCVse = modelBRT$cv.statistics$deviance.se,
+    # estimated cv deviance se
+    
+    CorrCV = modelBRT$cv.statistics$correlation.mean,
+    #cv correlation
+    CorrCVse = modelBRT$cv.statistics$correlation.se,
+    #cv correlation se
+    
+    AUCcv = modelBRT$cv.statistics$discrimination.mean,
+    # cv AUC score
+    AUCcvSE = modelBRT$cv.statistics$discrimination.se
+)  # cv AUC score se
+
+
 print(t(results))
 
 ```
 
 #### Model output analysis
 
-We can look at the relative contribution of each of the predictor variables. The measures are based on the number of time the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
+We can look at the relative contribution of each of the predictor variables. The measures are based on the number of times the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
 
 ```{r varImportance6}
 # Variables contribution 
@@ -2681,21 +2958,28 @@ Here we can see that the two variables with the highest influence in the respons
 Now we can evaluate the model behavior via partial dependence plots, showing the effect of each of the variables on the response by accounting for the average effects of all other predictors in the model:
 
 ```{r marginallEffects6}
-    dismo::gbm.plot(modelBRT, n.plots = 6,
-             plot.layout = c(2, 3), write.title = F)
+dismo::gbm.plot(
+    modelBRT,
+    n.plots = 6,
+    plot.layout = c(2, 3),
+    write.title = F
+)
 ```
 
 In this partial dependence plots the predictions are on the scale of f(x). In this case, for the Bernoulli loss the returned value is on the log odds scale. You can see how this plot will look by plotting with the function from the package `gbm` and using the type "response". Since we are interesting in finding out if the forest diversity has an impact in the presence of the Great spotted woodpecker we can have a look to the plot density variable `volAllha` :
 
 ```{r, response6}
-gbm::plot.gbm(modelBRT, i.var = 5, type = "response", ylab = "Probability of finding a Great spotted woodpecker ")
+gbm::plot.gbm(modelBRT,
+              i.var = 5,
+              type = "response",
+              ylab = "Probability of finding a Great spotted woodpecker ")
 ```
 
 It seems that there is an increase in probability of finding a Great spotted woodpecker with higher forest densities, but the trend it is not very clear. We could also analyse the interaction effects, of forest diversity and for example forest density. The model predictions can be obtained for each pair of predictor variables, setting all other predictors to their means.
 
 To plot this pairwise interactions we have to do:
 
-```{r pairwise int6, warning=FALSE, message=FALSE}
+```{r pairwise int6, warning=FALSE, message=FALSE, , fig.width = 9, fig.height = 9}
 dismo::gbm.perspec(modelBRT, 3, 5)
 ```
 
@@ -2707,13 +2991,13 @@ Here we can not see a very clear combined behavior between forest diversity and 
 
 #### Fitting a BRT in R
 
-In this case we want to assess the occurrence of certain species across the plots. In other words, we want to assess what is the probability of a certain species with biodiversity interest to be present in a plot based on the variables that describe the forest of that plot. In this case the response variable is `phoenicurus` that represents if the Great spotted woodpecker has been observed in this plot or not.
+In this case we want to assess the occurrence of certain species across the plots. In other words, we want to assess what is the probability of a certain species with biodiversity interest to be present in a plot based on the variables that describe the forest of that plot. In this case the response variable is `certhia` that represents if the Eurasian treecreeper has been observed in this plot or not.
 
 Then you need to select some variables of interest, after you have explored the data you can decide which variables you want to use to fit this model. We are proposing to select the following variables:
 
 -   `latitude` as proxy for plot location or/and climate
 
--   `forestManagementType` to assess if different management types have different impact in the presence / absence of Parus major.
+-   `forestManagementType` to assess if different management types have different impact in the presence / absence of Great spotted woodpecker.
 
 -   `volAllha` that is the total volume in the plot, as a proxy of how dense the plot is. Higher volumes will mean that the forest is more dense.
 
@@ -2723,9 +3007,14 @@ You can create a vector `selVar` in which you add the names of the selected vari
 
 ```{r selectVar7}
 # Select variables from the dataset for the model
-selVar <- c("certhia", "latitude", "forestManagementType",
-            "volAllha", "GiniDBH",  "ShannonIndexTreeSpp", 
-            "Birds_rich")
+selVar <- c(
+    "certhia",
+    "latitude",
+    "forestManagementType",
+    "volAllha",
+    "GiniDBH",
+    "ShannonIndexTreeSpp"
+)
 
 # Filter the dataset to the selected variables
 modelDataSel <- observations[, colnames(observations) %in% selVar]
@@ -2745,7 +3034,8 @@ Now it is important to assess if the variables have the right categories. Variab
 summary(modelDataSel)
 
 # Two variables are character, we assign to factor instead:
-modelDataSel$forestManagementType <- as.factor(modelDataSel$forestManagementType)
+modelDataSel$forestManagementType <-
+    as.factor(modelDataSel$forestManagementType)
 
 ```
 
@@ -2760,19 +3050,21 @@ As a first guess you could decide there are enough data to model interactions of
 ```{r BRTmodel7, message=FALSE, warning=FALSE, results = "hide"}
 family <- "bernoulli"
 
-    tc = 1    # tree complexity
-    lr = 0.01 # learning rate-shrinkage 
-    bag = 0.5 # bag fraction
-    
-    modelBRT <- dismo::gbm.step(data = modelDataSel,
-                          #indices of predictor variables in data
-                          gbm.x = 1:6, 
-                          #index of response variable in data:
-                          gbm.y = 7,  
-                          family = family,
-                          tree.complexity = tc,
-                          learning.rate = lr,
-                          bag.fraction = bag)  
+tc = 1    # tree complexity
+lr = 0.01 # learning rate-shrinkage
+bag = 0.5 # bag fraction
+
+modelBRT <- dismo::gbm.step(
+    data = modelDataSel,
+    #indices of predictor variables in data
+    gbm.x = 1:5,
+    #index of response variable in data:
+    gbm.y = 6,
+    family = family,
+    tree.complexity = tc,
+    learning.rate = lr,
+    bag.fraction = bag
+)  
 
 ```
 
@@ -2780,7 +3072,7 @@ Running a model such as that described above writes progress reports to the scre
 
 The model is built with the default 10-fold cross-validation (CV). In the plotted graph the solid black curve is the mean, and the dotted curves 1 standard error, for the changes in predictive deviance (i.e., as measured on the excluded folds of the CV). The red line shows the minimum of the mean, and the green line the number of trees at which that occurs. The final model that is returned in the model object is built on the full data set, using the number of trees identified as optimal.
 
-Ideally, you should invest time in modifying the parameters and finr the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
+Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
 
 #### Model behaviour
 
@@ -2788,48 +3080,56 @@ You can summarized the model parameters used and the cross validation statistics
 
 ```{r BRTeval7}
 # We make a table with the summary statistics  
- results <- data.frame(
-
-# Model parameters
-Tree.Complexity = modelBRT$gbm.call$tree.complexity, 
-Learning.Rate = modelBRT$gbm.call$learning.rate, 
-                 Bag.Fraction = modelBRT$gbm.call$bag.fraction,
-                 Interaction.depth = modelBRT$interaction.depth,
-                 Shrinkage = modelBRT$shrinkage,
-                 N.trees = modelBRT$n.trees,
-     
-# Cross validation statistics 
-     
-## mean total deviance
-Deviance = modelBRT$self.statistics$mean.resid, # mean residual deviance 
-
-AUC = modelBRT$self.statistics$discrimination, # training data AUC score
-
-Corr = modelBRT$self.statistics$correlation,   # training data correlation
-                 
-## Cross Validation statistics
-                 
-# We calculate each statistic within each fold (at the identified optimal number
-# of trees that is calculated on the mean change in predictive deviance over all folds), 
-#then present here the mean and standard error of those fold-based statistics.
-                 
-devianceCV = modelBRT$cv.statistics$deviance.mean,  # estimated cv deviance 
-devianceCVse = modelBRT$cv.statistics$deviance.se,  # estimated cv deviance se
-                 
-CorrCV = modelBRT$cv.statistics$correlation.mean,  #cv correlation
-CorrCVse = modelBRT$cv.statistics$correlation.se,  #cv correlation se
-                 
-AUCcv = modelBRT$cv.statistics$discrimination.mean, # cv AUC score
-AUCcvSE = modelBRT$cv.statistics$discrimination.se)  # cv AUC score se
-                
+results <- data.frame(
+    # Model parameters
+    Tree.Complexity = modelBRT$gbm.call$tree.complexity,
+    Learning.Rate = modelBRT$gbm.call$learning.rate,
+    Bag.Fraction = modelBRT$gbm.call$bag.fraction,
+    Interaction.depth = modelBRT$interaction.depth,
+    Shrinkage = modelBRT$shrinkage,
+    N.trees = modelBRT$n.trees,
     
+    # Cross validation statistics
+    
+    ## mean total deviance
+    Deviance = modelBRT$self.statistics$mean.resid,
+    # mean residual deviance
+    
+    AUC = modelBRT$self.statistics$discrimination,
+    # training data AUC score
+    
+    Corr = modelBRT$self.statistics$correlation,
+    # training data correlation
+    
+    ## Cross Validation statistics
+    
+    # We calculate each statistic within each fold (at the identified optimal number
+    # of trees that is calculated on the mean change in predictive deviance over all folds),
+    #then present here the mean and standard error of those fold-based statistics.
+    
+    devianceCV = modelBRT$cv.statistics$deviance.mean,
+    # estimated cv deviance
+    devianceCVse = modelBRT$cv.statistics$deviance.se,
+    # estimated cv deviance se
+    
+    CorrCV = modelBRT$cv.statistics$correlation.mean,
+    #cv correlation
+    CorrCVse = modelBRT$cv.statistics$correlation.se,
+    #cv correlation se
+    
+    AUCcv = modelBRT$cv.statistics$discrimination.mean,
+    # cv AUC score
+    AUCcvSE = modelBRT$cv.statistics$discrimination.se
+)  # cv AUC score se
+
+
 print(t(results))
 
 ```
 
 #### Model output analysis
 
-We can look at the relative contribution of each of the predictor variables. The measures are based on the number of time the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
+We can look at the relative contribution of each of the predictor variables. The measures are based on the number of times the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
 
 ```{r varImportance7}
 # Variables contribution 
@@ -2842,25 +3142,32 @@ Here we can see that the two variables with the highest influence in the respons
 Now we can evaluate the model behavior via partial dependence plots, showing the effect of each of the variables on the response by accounting for the average effects of all other predictors in the model:
 
 ```{r marginallEffects7}
-    dismo::gbm.plot(modelBRT, n.plots = 6,
-             plot.layout = c(2, 3), write.title = F)
+dismo::gbm.plot(
+    modelBRT,
+    n.plots = 6,
+    plot.layout = c(2, 3),
+    write.title = F
+)
 ```
 
 In this partial dependence plots the predictions are on the scale of f(x). In this case, for the Bernoulli loss the returned value is on the log odds scale. You can see how this plot will look by plotting with the function from the package `gbm` and using the type "response". Since we are interesting in finding out if the forest density has an impact in the presence of the Eurasian treecreeper affected we can have a look to the plot density variable `volAllha` :
 
 ```{r, response7}
-gbm::plot.gbm(modelBRT, i.var = 3, type = "response", ylab = "Probability of finding a Common redstart")
+gbm::plot.gbm(modelBRT,
+              i.var = 3,
+              type = "response",
+              ylab = "Probability of finding a Common redstart")
 ```
 
 It seems that there is an increase in probability of finding a Eurasian treecreeper with higher forest densities. We could also analyse the interaction effects, of forest diversity and for example forest density. The model predictions can be obtained for each pair of predictor variables, setting all other predictors to their means.
 
 To plot this pairwise interactions we have to do:
 
-```{r pairwise int7, warning=FALSE, message=FALSE}
+```{r pairwise int7, warning=FALSE, message=FALSE, fig.width = 9, fig.height = 9}
 dismo::gbm.perspec(modelBRT, 3, 5)
 ```
 
-It seems that the highes chances to see a Eurasian treecreeper is in dense forests with highest tree diversity.
+It seems that the highest chances to see a Eurasian treecreeper is in dense forests with highest tree diversity.
 
 ### Question D - Group 4 {#sec-D_4}
 
@@ -2868,13 +3175,13 @@ It seems that the highes chances to see a Eurasian treecreeper is in dense fores
 
 #### Fitting a BRT in R
 
-In this case we want to assess the occurrence of certain species across the plots. In other words, we want to assess what is the probability of a certain species with biodiversity interest to be present in a plot based on the variables that describe the forest of that plot. In this case the response variable is `phoenicurus` that represents if the Great spotted woodpecker has been observed in this plot or not.
+In this case we want to assess the occurrence of certain species across the plots. In other words, we want to assess what is the probability of a certain species with biodiversity interest to be present in a plot based on the variables that describe the forest of that plot. In this case the response variable is `certhia` that represents if the Eurasian treecreeper has been observed in this plot or not.
 
 Then you need to select some variables of interest, after you have explored the data you can decide which variables you want to use to fit this model. We are proposing to select the following variables:
 
 -   `latitude` as proxy for plot location or/and climate
 
--   `forestManagementType` to assess if different management types have different impact in the presence / absence of Parus major.
+-   `forestManagementType` to assess if different management types have different impact in the presence / absence of Great spotted woodpecker.
 
 -   `volAllha` that is the total volume in the plot, as a proxy of how dense the plot is. Higher volumes will mean that the forest is more dense.
 
@@ -2884,9 +3191,14 @@ You can create a vector `selVar` in which you add the names of the selected vari
 
 ```{r selectVar8}
 # Select variables from the dataset for the model
-selVar <- c("certhia", "latitude", "forestManagementType",
-            "volAllha", "GiniDBH",  "ShannonIndexTreeSpp", 
-            "Birds_rich")
+selVar <- c(
+    "certhia",
+    "latitude",
+    "forestManagementType",
+    "volAllha",
+    "GiniDBH",
+    "ShannonIndexTreeSpp"
+)
 
 # Filter the dataset to the selected variables
 modelDataSel <- observations[, colnames(observations) %in% selVar]
@@ -2906,7 +3218,8 @@ Now it is important to assess if the variables have the right categories. Variab
 summary(modelDataSel)
 
 # Two variables are character, we assign to factor instead:
-modelDataSel$forestManagementType <- as.factor(modelDataSel$forestManagementType)
+modelDataSel$forestManagementType <-
+    as.factor(modelDataSel$forestManagementType)
 
 ```
 
@@ -2921,19 +3234,21 @@ As a first guess you could decide there are enough data to model interactions of
 ```{r BRTmodel8, message=FALSE, warning=FALSE, results = "hide"}
 family <- "bernoulli"
 
-    tc = 1    # tree complexity
-    lr = 0.01 # learning rate-shrinkage 
-    bag = 0.5 # bag fraction
-    
-    modelBRT <- dismo::gbm.step(data = modelDataSel,
-                          #indices of predictor variables in data
-                          gbm.x = 1:6, 
-                          #index of response variable in data:
-                          gbm.y = 7,  
-                          family = family,
-                          tree.complexity = tc,
-                          learning.rate = lr,
-                          bag.fraction = bag)  
+tc = 1    # tree complexity
+lr = 0.01 # learning rate-shrinkage
+bag = 0.5 # bag fraction
+
+modelBRT <- dismo::gbm.step(
+    data = modelDataSel,
+    #indices of predictor variables in data
+    gbm.x = 1:5,
+    #index of response variable in data:
+    gbm.y = 6,
+    family = family,
+    tree.complexity = tc,
+    learning.rate = lr,
+    bag.fraction = bag
+)  
 
 ```
 
@@ -2941,56 +3256,64 @@ Running a model such as that described above writes progress reports to the scre
 
 The model is built with the default 10-fold cross-validation (CV). In the plotted graph the solid black curve is the mean, and the dotted curves 1 standard error, for the changes in predictive deviance (i.e., as measured on the excluded folds of the CV). The red line shows the minimum of the mean, and the green line the number of trees at which that occurs. The final model that is returned in the model object is built on the full data set, using the number of trees identified as optimal.
 
-Ideally, you should invest time in modifying the parameters and finr the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
+Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
 
 #### Model behaviour
 
-You can summarized the model parameters used and the cross validation statistics from the fitted model by doing this:
+You can summarize the model parameters used and the cross validation statistics from the fitted model by doing this:
 
 ```{r BRTeval8}
-# We make a table with the summary statistics  
- results <- data.frame(
-
-# Model parameters
-Tree.Complexity = modelBRT$gbm.call$tree.complexity, 
-Learning.Rate = modelBRT$gbm.call$learning.rate, 
-                 Bag.Fraction = modelBRT$gbm.call$bag.fraction,
-                 Interaction.depth = modelBRT$interaction.depth,
-                 Shrinkage = modelBRT$shrinkage,
-                 N.trees = modelBRT$n.trees,
-     
-# Cross validation statistics 
-     
-## mean total deviance
-Deviance = modelBRT$self.statistics$mean.resid, # mean residual deviance 
-
-AUC = modelBRT$self.statistics$discrimination, # training data AUC score
-
-Corr = modelBRT$self.statistics$correlation,   # training data correlation
-                 
-## Cross Validation statistics
-                 
-# We calculate each statistic within each fold (at the identified optimal number
-# of trees that is calculated on the mean change in predictive deviance over all folds), 
-#then present here the mean and standard error of those fold-based statistics.
-                 
-devianceCV = modelBRT$cv.statistics$deviance.mean,  # estimated cv deviance 
-devianceCVse = modelBRT$cv.statistics$deviance.se,  # estimated cv deviance se
-                 
-CorrCV = modelBRT$cv.statistics$correlation.mean,  #cv correlation
-CorrCVse = modelBRT$cv.statistics$correlation.se,  #cv correlation se
-                 
-AUCcv = modelBRT$cv.statistics$discrimination.mean, # cv AUC score
-AUCcvSE = modelBRT$cv.statistics$discrimination.se)  # cv AUC score se
-                
+# We make a table with the summary statistics
+results <- data.frame(
+    # Model parameters
+    Tree.Complexity = modelBRT$gbm.call$tree.complexity,
+    Learning.Rate = modelBRT$gbm.call$learning.rate,
+    Bag.Fraction = modelBRT$gbm.call$bag.fraction,
+    Interaction.depth = modelBRT$interaction.depth,
+    Shrinkage = modelBRT$shrinkage,
+    N.trees = modelBRT$n.trees,
     
+    # Cross validation statistics
+    
+    ## mean total deviance
+    Deviance = modelBRT$self.statistics$mean.resid,
+    # mean residual deviance
+    
+    AUC = modelBRT$self.statistics$discrimination,
+    # training data AUC score
+    
+    Corr = modelBRT$self.statistics$correlation,
+    # training data correlation
+    
+    ## Cross Validation statistics
+    
+    # We calculate each statistic within each fold (at the identified optimal number
+    # of trees that is calculated on the mean change in predictive deviance over all folds),
+    #then present here the mean and standard error of those fold-based statistics.
+    
+    devianceCV = modelBRT$cv.statistics$deviance.mean,
+    # estimated cv deviance
+    devianceCVse = modelBRT$cv.statistics$deviance.se,
+    # estimated cv deviance se
+    
+    CorrCV = modelBRT$cv.statistics$correlation.mean,
+    #cv correlation
+    CorrCVse = modelBRT$cv.statistics$correlation.se,
+    #cv correlation se
+    
+    AUCcv = modelBRT$cv.statistics$discrimination.mean,
+    # cv AUC score
+    AUCcvSE = modelBRT$cv.statistics$discrimination.se
+)  # cv AUC score se
+
+
 print(t(results))
 
 ```
 
 #### Model output analysis
 
-We can look at the relative contribution of each of the predictor variables. The measures are based on the number of time the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
+We can look at the relative contribution of each of the predictor variables. The measures are based on the number of times the variable is selected for splitting, weighted by the improvement of the model as a result of each split averaged across all trees. The relative contribution of each of the variables is scaled so the sum is 100%, with higher numbers indicating stronger influence in the response.
 
 ```{r varImportance8}
 # Variables contribution 
@@ -3003,25 +3326,32 @@ Here we can see that the two variables with the highest influence in the respons
 Now we can evaluate the model behavior via partial dependence plots, showing the effect of each of the variables on the response by accounting for the average effects of all other predictors in the model:
 
 ```{r marginallEffects8}
-    dismo::gbm.plot(modelBRT, n.plots = 6,
-             plot.layout = c(2, 3), write.title = F)
+dismo::gbm.plot(
+    modelBRT,
+    n.plots = 6,
+    plot.layout = c(2, 3),
+    write.title = F
+)
 ```
 
 In this partial dependence plots the predictions are on the scale of f(x). In this case, for the Bernoulli loss the returned value is on the log odds scale. You can see how this plot will look by plotting with the function from the package `gbm` and using the type "response". Since we are interesting in finding out if the forest density has an impact in the presence of the Eurasian treecreeper affected we can have a look to the plot density variable `volAllha` :
 
 ```{r, response8}
-gbm::plot.gbm(modelBRT, i.var = 2, type = "response", ylab = "Probability of finding a Common redstart")
+gbm::plot.gbm(modelBRT,
+              i.var = 2,
+              type = "response",
+              ylab = "Probability of finding a Eurasian treecreeper")
 ```
 
 It seems that there is a small difference in the probability of finding the Eurasian treecreeper different management strategies. We could also analyse the interaction effects, of forest diversity and forest structual diversity. The model predictions can be obtained for each pair of predictor variables, setting all other predictors to their means.
 
 To plot this pairwise interactions we have to do:
 
-```{r pairwise int8, warning=FALSE, message=FALSE}
+```{r pairwise int8, warning=FALSE, message=FALSE, fig.width = 9, fig.height = 9}
 dismo::gbm.perspec(modelBRT, 5, 4)
 ```
 
-It seems that there are not clear pattenrs in the combined effect of forest structure diversity and forest tree species diversity.
+It seems that there are not clear patterns in the combined effect of forest structure diversity and forest tree species diversity.
 
 # References
 
