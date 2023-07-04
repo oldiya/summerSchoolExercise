@@ -1,0 +1,161 @@
+---
+title: Forest Modeling Exercise
+subtitle: Process-based and empirical modeling exercises
+format:
+  titlepage-pdf:
+    documentclass: scrbook
+    classoption: ["oneside", "open=any"]
+    number-sections: true
+    toc: true
+    titlepage: "bg-image"
+    titlepage-bg-image: "images/logo3.jpg"
+    titlepage-logo: "images/logos_proclias_cost.jpg"
+    titlepage-header: ""
+    titlepage-footer: |
+      Interdisciplinary Summer School\
+      Ljubljana 2023\
+      [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)
+    titlepage-theme:
+      bg-image-size: 8cm
+author:
+  - name: Olalla Díaz-Yáñez
+    affiliations:
+      - name: olalla.diaz@usys.ethz.ch (ETH Zurich)
+  - name: Laura Dobor 
+    affiliations:
+      - name: dobor@fld.czu.cz (CZU Prague)
+  - name: Katarina Merganicova
+    affiliations:
+      - name: merganicova@fld.czu.cz (CZU Prague)
+  - name: Mats Nieberg
+    affiliations:
+      - name: mats.nieberg@pik-potsdam.de (PIK Potsdam | EFI)
+bibliography: bibliography.bib  
+---
+
+```{r not to show, echo=FALSE}
+  # To export to html for the web 
+  # html:
+   #  toc: true
+   #  toc-depth: 3
+#    #  toc-location: left
+#    
+
+
+```
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+# GROUP1
+
+## Tasks
+The group should answer 4 questions during the exercises (A-D). 
+Questions A-B addressing process-based modeling for Plot1, C-D addressing empirical modeling for Bryophites species using GLMs.
+Four sub-groups should be formed inside the group addressing 1-1 questions.
+
+
+### Subgroup A:
+
+Question to address: How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 1?
+
+General tasks:
+
+1. Get familiar with the model @sec-iland
+2. Get start with the exercise @sec-gs
+3. Get familiar with the input files @sec-in
+4. Run the model and check the outputs @sec-run + @sec-out
+5. Run alternative scenario @sec-as
+
+Question-specific tasks:
+
+6. Open R project file and open a new script and save it into your "code" folder, here you can start to work
+7. Load the output files into R and read in the *tree* output table from the sqlite files both for reference simulations and scenario run(s) (@sec-A_1.1)
+8. Study the output table and do some visualizations, e.g. plot the trees by locations in year=0 and year=100 coloring by species and making different size of circles based on dbh and compare reference and scenario runs! (@sec-A_1.2)
+9. Plot the time development of some variables (e.g. average dbh of the trees) and compare reference and scenario runs! (@sec-A_1.3)
+10. Study how biodiversity changed over time during your simulations and compare reference and scenario runs:
+
+** Here you can address species diversity based Shannon index using the *adiv* R package speciesdiV() function  (@sec-A_1.4)
+** You can address structural diversity using Francesco's R package *treespat* R package that you can install via devtools (@sec-A_1.5)
+
+```{r ex1, eval=FALSE, message = FALSE, warning=FALSE}
+devtools::install_gitlab('fchianucci/treespat')
+```
+For example, these two:
+
+DIFF, Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree.
+The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that
+neighboring trees have equal size.
+
+MING, Mingling (Aguirre et al., 2003): One very intuitive extension of taxonomic species diversity (either richness or abundance) is considering spatial
+mingling, namely how plants of the same (con-specific neighbors) or different (hetero-specific neighbors) species are arranged in space.
+The mingling index calculates the proportion of the k nearest neighbors that do not belong to the same species as the reference tree.
+For example, with four neighbors, the mingling attribute can assume five values, ranging from 0 (all trees are of the same species) to 1 (all trees belong to different species).
+
+** ..or feel free to use any of the tools that you know or learnt during this week.
+
+Note: you can find R package documentation in the *documents* folder
+Compare the development of biodiversity indices in time for the reference and scenario runs.
+
+
+### Subgroup B:
+
+Question to address: How are the species distribution and total living biomass C content changing in time on Plot 1? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
+
+General tasks:
+
+1. Get familiar with the model @sec-iland
+2. Get start with the exercise @sec-gs
+3. Get familiar with the input files @sec-in
+4. Run the model and check the outputs @sec-run + @sec-out
+5. Run alternative scenario @sec-as
+
+
+Question-specific tasks:
+
+6. Open R project file and open a new script and save it into your "code" folder, here you can start to work.
+7. Load the output files into R and read in the *landscape* output table from the sqlite files both for reference simulations and scenario run(s) (@sec-B_1.1)
+8. Visualize model results for both reference and scenarios run(s) using the species specific outputs, for example total_carbon_kg (carbon content of living compartments) and count_ha (number of trees). You can also plot e.g. mean dbh change per species, or anything that you think is interesting @sec-B_1.2
+9. Calculate the carbon content of living compartments of the trees in year=0 and year=100 and compare them between different model runs.  @sec-B_1.3
+10. Study the species composition change based on carbon content, or volume. Which species remained there, disappeared of increased on decreased their proportions. @sec-B_1.4
+
+
+### Subgroup C:
+Question to address: Does a more diverse forest in structure and composition have more Bryophites species? 
+
+... steps...
+
+
+### Subgroup D:
+Question to address: Is the number of Bryophites species affected by forest management type and the forest structural diversity? 
+
+... steps...
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+# GROUP2
+
+## Tasks
+
+The group should answer 4 questions during the exercises (A-D). 
+Questions A-B addressing process-based modeling for Plot2, C-D addressing empirical modeling for bird species using GLMs.
+Four sub-groups should be formed inside the group addressing 1-1 questions.
+
+
+### Subgroup A:
+
+
+
+### Subgroup B:
+
+### Subgroup C:
+
+### Subgroup D:
+
+
+and so on...
+
