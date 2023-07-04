@@ -90,6 +90,27 @@ Please, always ask your coach if you do not know what is the section where you s
 
 We provide all data, model and scripts for the excercises. However if you will use the model iLand for your research in the future please get in contact with the model developers at the Technical University Münich: Werner Rammer (werner.rammer\@tum.de) and Rupert Seidl (rupert.seidl\@tum.de). Regarding the biodiversity data used in the empirical modeling processed in the emprical modeling part, in case of further usage please contact Jeňýk Hofmeister at the Czech University of Life Sciences Prague (jenyk.hofmeister\@email.cz).
 
+### The project folder {#sec-projFolder}
+
+To do this exercise you first need to download the project folder. You can download the complete project folder from the summer school folder XXXX LINK TO THE GOOGLE DRIVE SPACE WITH THE COMPLE THE PROJECT HERE XXXX.
+
+In this project you will find the following folders and files:
+
+* `summerSchoolExercise.Rproj`: this is the project file that you should open. This file contains various project options and is used as a shortcut for opening the project directly from the file system.
+* `code`: where you should save the R scripts . 
+* `data`: this contains the data used in the empirical modeling. 
+* `instructions`:  where you can find the pdf and qmd with the step by step instructions for the exercises without the solutions,  and all the extensions and images needed to compile the document
+* `model`:  where you will find the folder `iLand_simulations` with all the files needed to run the process based exercise
+* `solutions`:  where you can find this document in pdf and in the qmd and all the extensions and images needed to compile the document
+
+Our recommendation is that you follow this folder structure and that you use the `summerSchoolExercise.Rproj` to open Rstudio.  If you decide to organize things in a different way then you will have to change all the relative paths in the codes provided in the solutions documentation. The folder you have downloaded should look like this:
+
+![](images/folderStrucComplete.png){width="300"}
+
+
+This project is also available in a github repository. You can clone the project in [here \[2\]](https://github.com/oldiya/summerSchoolExercise) via git. However in github the data file ```data/observations.csv``` and the folder `model/iLand_simulations` are missing and have to be downloaded separately (read the README.md files in these folders to learn how to download them).
+
+
 # Process based {#sec-pb}
 
 ## iLand model {#sec-iland}
@@ -2332,23 +2353,17 @@ The BRT model calibration is defined by four parameters:
 
 ## The exercise
 
-### The project folder
+### Recomendations before starting
 
-All the project is available in a github repository. You can download the project with this document, code, the `.rproj` and the correct folder structure in [here \[2\]](https://github.com/oldiya/summerSchoolExercise).
+We highly recommend that you open the `summerSchoolExercise.Rproj` from the project folder that you now you have in your computer after following the instructions in @sec-projFolder.
 
-\[2\] https://github.com/oldiya/summerSchoolExercise
+We also highly recommend that you storage any Rscript that you create in the folder `code`.
 
-In this project you will find a folder called `code` where the codes for each question are stored. A folder called `data` is where you have to store the data that you have downloaded. A folder called `exercise` contains this document and all the required files to build it.
+### Find the data
 
-### Download the data
+If you followed the instructions in @sec-projFolder you should have the file `observations.csv` inside the folder `data`of your project file: 
 
-You can download the data in [here \[1\]](https://polybox.ethz.ch/index.php/s/qERYKjzmFTr81Sq)
-
-\[1\] https://polybox.ethz.ch/index.php/s/qERYKjzmFTr81Sq
-
-Our recommendation is that you follow this folder structure and you put the data in the folder data of the project and the `.rproj` into the main folder. If you decide to organize things in a different way then you will have to change the path to the code provided to load the data in the section "Explore the data"
-
-![](images/folderStruc.png){width="300"}
+![](images/folderStruc_data.png){width="300"}
 
 ### Explore the data
 
