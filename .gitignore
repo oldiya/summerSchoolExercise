@@ -4,5 +4,6 @@
 .Ruserdata
 data/observations.csv
 model/iLand_simulations/*
-solutions/modelEx.html
-solutions/modelEx_files/*
+solutions/exerciseSolutions.html
+solutions/exerciseSolutions_files/*
+
