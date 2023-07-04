@@ -1,6 +1,6 @@
 ---
 title: Forest Modeling Exercise
-subtitle: Process-based and empirical modeling exercises
+subtitle: Step by step instructions
 format:
   titlepage-pdf:
     documentclass: scrbook
