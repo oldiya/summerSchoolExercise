@@ -2,62 +2,54 @@
 title: Forest Modeling Exercise
 subtitle: Process-based and empirical modeling exercises
 format:
-  titlepage-pdf:
-    documentclass: scrbook
-    classoption: ["oneside", "open=any"]
-    number-sections: true
-    toc: true
-    titlepage: "bg-image"
-    titlepage-bg-image: "images/logo3.jpg"
-    titlepage-logo: "images/logos_proclias_cost.jpg"
-    titlepage-header: ""
-    titlepage-footer: |
-      Interdisciplinary Summer School\
-      Ljubljana 2023\
-      [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)
-    titlepage-theme:
-      bg-image-size: 8cm
+   html:
+     toc: true
+     toc-depth: 4
+     toc-location: left
 author:
   - name: Olalla Díaz-Yáñez
     affiliations:
       - name: olalla.diaz@usys.ethz.ch (ETH Zurich)
   - name: Laura Dobor 
     affiliations:
-      - name: dobor@fld.czu.cz (CZU)
+      - name: dobor@fld.czu.cz (CZU Prague)
   - name: Katarina Merganicova
     affiliations:
-      - name: merganicova@fld.czu.cz (CZU)
+      - name: merganicova@fld.czu.cz (CZU Prague)
   - name: Mats Nieberg
     affiliations:
-      - name: mats.nieberg@pik-potsdam.de (PIK-Potsdam | EFI)
+      - name: mats.nieberg@pik-potsdam.de (PIK Potsdam | EFI)
 bibliography: bibliography.bib  
 ---
 
-```{r not to show, echo=FALSE}
-  # To export to html for the web 
-  # html:
-   #  toc: true
-   #  toc-depth: 3
-#    #  toc-location: left
-#    
+```{r not to show, echo=T, include=FALSE}
+# To export to html for the web 
+   # html:
+   #   toc: true
+   #   toc-depth: 3
+   #   toc-location: left
+   #  sessionInfo()
+
+  # titlepage-pdf:
+  #   documentclass: scrbook
+  #   classoption: ["oneside", "open=any",  DIV=16, fontsize=11pt]
+  #   number-sections: true
+  #   toc: true
+  #   titlepage: "bg-image"
+  #   titlepage-bg-image: "images/logo3.jpg"
+  #   titlepage-logo: "images/logos_proclias_cost.jpg"
+  #   titlepage-header: ""
+  #   titlepage-footer: |
+  #     Interdisciplinary Summer School\
+  #     Ljubljana 2023\
+  #     [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)
+  #   titlepage-theme:
+  #     bg-image-size: 8cm
 
 
-```
 
-```{r setup, include=FALSE}
 
-knitr::opts_chunk$set(echo = TRUE)
 
-library(ggplot2)
-library(fields)
-library(RSQLite)
-library(tidyverse)
-library(gridExtra)   
-
-library(cowplot)
-library(openxlsx)
-library(truncnorm)
-library(adiv)
 ```
 
 # Overview {#sec-overview}
@@ -94,7 +86,7 @@ We provide all data, model and scripts for the excercises. However if you will u
 
 # Process based {#sec-pb}
 
-## iLand model
+## iLand model {#sec-iland}
 
 ### General
 
@@ -128,7 +120,7 @@ A)  How biodiversity indices are changing in time and across the simulated scena
 
 B)  How the species distribution and total living biomass C content changing in time? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
-### Getting started
+### Getting started {#sec-gs}
 
 Navigate to this folder and download the materials for the process-based modeling exercise: https://drive.google.com/drive/folders/1o2_K3ZN-SnPR44UzZoHj9lFZQu-vU3wg?usp=drive_link
 
@@ -158,7 +150,7 @@ More details about the project file structure and meaning of each record can be 
 
 We prepared one project file for each group (for each simulation plot). You can right away run it, and then copy-paste and modify it to specify your own scenarios for alternative simulations. You can open a project file in any text editor, but we recommend to use Notepad++ for this (https://notepad-plus-plus.org/downloads/).
 
-### Explore input files
+### Explore input files {#sec-in}
 
 The following input files are needed and prepared for you to run the model: This is all prepared, YOU DO NOT HAVE TO CHANGE ANYTHING:
 
@@ -280,7 +272,7 @@ To answer the questions the most straight forward way is to look the *landscape*
  
 ```
 
-### Run the model
+### Run the model {#sec-run}
 
 -   Double click on iland.exe and wait until the graphical interface opens.
 -   Load the required project file on the left-hand-side under *iLand project file* by browsing on your computer after clicking on the folder icon next to the box.
@@ -292,7 +284,7 @@ To answer the questions the most straight forward way is to look the *landscape*
 -   Stage of the last year remains in the simulation area, and you can go to the folder *output* to check your output file.
 -   When you want to run another simulation, first click on "Destroy", then start the process again by "Creating Model" for the same project file or loading new project file.
 
-### Working with the output:
+### Working with the output {#sec-out}
 
 The output database has a *.sqlite* extension. You can explore outputs:
 
@@ -321,7 +313,7 @@ head(landscape)
 
 There are different output tables in iLand and all have specific structure, column and spatial representation of the records. The landscape output gives information on the whole landscape, but here we will work with one 1 ha pixel that is our "whole" landscape for now. Here species specific information is also available for each year. More about the meaning of the columns in the landscape output you can find here: https://iland-model.org/Outputs#Landscape_aggregates_per_species Not always all outputs are produced, in the project file we can set which output tables we want to enable, and those will be created.
 
-### Run alternative scenarios
+### Run alternative scenarios {#sec-as}
 
 The prepared simulation is using the 30years climate of 1961-1990, and repeating during the simulation. (The model copy paste the 30year time series after each other to fill up the simulation period) For CO2 concentration 400ppm is given. Your task is to run 2 extra alternative scenarios where you modify the output data. For example assuming 800ppm, and 4degree warming, or keep CO2 on 400ppm and decrease precipitation by 20%.
 
@@ -364,9 +356,12 @@ Running the alternative scenario follows the same steps as before.
 
 Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
 
-Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
-Read in the *tree* output table from two outputs you have for your plot:
+
+#### Read the tree output table {#sec-A_1.1}
+
+Read in the *tree* output table from two outputs you have for your plot: 
 
 ```{r ex11, eval=TRUE, message = FALSE, warning=FALSE}
 path1 <- "model/iLand_simulations/output/Output_plot1.sqlite"
@@ -411,7 +406,12 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 head(tree)
 ```
 
+
+#### Visualize trees in year 0 and year 100! {#sec-A_1.2}
+
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
+
+
 
 ```{r ex13, eval=TRUE, message = FALSE, warning=FALSE}
 tree0 <- tree |> dplyr::filter(year == 0)
@@ -434,8 +434,8 @@ gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 We can see that the species composition has changed and the forest become more dense. We can even identify the same trees at the same location.
 
-Visualize some changes in time, for example the mean diameter of the trees!
 
+#### Visualize some changes in time! {#sec-A_1.3}
 
 ```{r ex14, eval=TRUE, message = FALSE, warning=FALSE}
 sum.table <- tree |> dplyr::group_by(year, run) |>
@@ -453,6 +453,8 @@ ggplot2::ggplot(sum.table, ggplot2::aes(x = year,
 ```
 
 We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
+
+#### Species diversity {#sec-A_1.4}
 
 To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
 You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
@@ -522,7 +524,7 @@ div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
 
 div <- rbind(div1, div2)
 
-ggplot2::ggplot(div, aes(year, Shannon , color = run)) +
+ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
     ggplot2::geom_line(lwd = 1.5) +
     ggplot2::ggtitle("Species diversity") +
     ggplot2::labs(x = "Year", y = "Shannon index") +
@@ -536,6 +538,7 @@ $$S=-\sum{({p~i~} * log { (p~i~)})}$$
 
 Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
 
+#### Spatial diversity {#sec-A_1.5}
 
 We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
 You can find a short description of the package here: *"documents/treespat_package.pdf"*
@@ -607,22 +610,24 @@ We calculated each index as separate variable and then merged them into indices1
 ```{r ex21, eval=TRUE, message = FALSE, warning=FALSE}
 
 diff <- data.frame(treespat::DIFF(tree2, .x = x, .y = y,.mark = dbh, 
-      xmax = 100, ymax = 100, max.k = 4, shape='square', .groups=c('year')) |> 
-      dplyr::mutate(index="DIFF", name="Diameter differentiation", run=name2))
+      xmax = 100, ymax = 100, max.k = 4, shape = 'square',
+      .groups = c('year')) |> 
+      dplyr::mutate(index = "DIFF", name = "Diameter differentiation", 
+                    run = name2))
 
 ming <- data.frame(treespat::MING(tree2, .x = x, .y = y, .species = species, 
-       xmax = 100, ymax = 100, max.k = 4, shape='square', .groups=c('year')) |> 
-        dplyr::mutate(index="MING", name="Mingling", run=name2))
+       xmax = 100, ymax = 100, max.k = 4, shape = 'square', .groups = c('year')) |> 
+        dplyr::mutate(index = "MING", name = "Mingling", run = name2))
 
-indices2 <- rbind(diff |> dplyr::rename(value=DIFF),
-                  ming |> dplyr::rename(value=MINGLING ) )
+indices2 <- rbind(diff |> dplyr::rename(value = DIFF),
+                  ming |> dplyr::rename(value = MINGLING))
 
 indices <- rbind(indices1,indices2)
 
-ggplot2::ggplot(indices, aes(x=year, y=value, color=run))+
- ggplot2::geom_line(lwd=1)+
- ggplot2::facet_wrap(~name, ncol=2, scales="free")+
- ggplot2::theme_bw() 
+ggplot2::ggplot(indices, ggplot2::aes(x = year, y = value, color = run)) +
+    ggplot2::geom_line(lwd = 1) +
+    ggplot2::facet_wrap( ~ name, ncol = 2, scales = "free") +
+    ggplot2::theme_bw() 
 ```
 
 The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first 20/25 years, after which it steeply increases due to the occurrence of ingrowth and then the values are stabilized. The values for the reference climate scenario are slightly higher than for the climate change scenario indicating slower growth under drier and warmer conditions and/or the differences in tree species composition (proportion of tree species).
@@ -633,7 +638,9 @@ The mingling index is studying the neighboring trees regarding their species. In
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 1? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+
+#### Read the landscape output table {#sec-B_1.1}
 
 Read in the *landscape* output table from two outputs you have for your plot:
 
@@ -676,6 +683,10 @@ landscape <- rbind(landscape1 |> dplyr::mutate(run = name1),
 head(landscape)
 ```
 
+
+#### Visualize changes in time {#sec-B_1.2}
+
+
 We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the beginning. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
 
 ```{r ex24, eval=TRUE, message = FALSE, warning=FALSE}
@@ -694,19 +705,20 @@ cols.all=c( "rops"="#e0e0e0","acpl"="#A9A9A9","alin"="#696969","alvi"="#2e2e2e",
 landscape$run <- factor(landscape$run, levels = c(name1, name2))
 
 # Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
-g1 <- ggplot2::ggplot(landscape, aes(year, total_carbon_kg / 1000 ,
-                                     fill = factor(species))) +
+g1 <- ggplot2::ggplot(landscape, ggplot2::aes(year, total_carbon_kg / 1000 ,
+                                              fill = factor(species))) +
     ggplot2::geom_area() +
-    ggplot2::scale_fill_manual(values = cols.all, guide = guide_legend(reverse = TRUE)) +
+    ggplot2::scale_fill_manual(values = cols.all, 
+                               guide = ggplot2::guide_legend(reverse = TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Living C t/ha", fill = "Species") +
     ggplot2::theme_bw()
 
 g2 <-
-    ggplot2::ggplot(landscape, aes(year, count_ha , fill = factor(species))) +
+    ggplot2::ggplot(landscape, ggplot2::aes(year, count_ha , fill = factor(species))) +
     ggplot2::geom_area() +
     ggplot2::scale_fill_manual(values = cols.all,
-                               guide = guide_legend(reverse = TRUE)) +
+                               guide = ggplot2::guide_legend(reverse = TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Number of trees per ha", fill = "Species") +
     ggplot2::theme_bw()
@@ -714,10 +726,10 @@ g2 <-
 gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 g3 <- ggplot2::ggplot(landscape,
-                      aes(year, dbh_avg_cm , color = factor(species))) +
+                      ggplot2::aes(year, dbh_avg_cm , color = factor(species))) +
     ggplot2::geom_line(lwd = 1) +
     ggplot2::scale_color_manual(values = cols.all,
-                                guide = guide_legend(reverse = TRUE)) +
+                                guide = ggplot2::guide_legend(reverse = TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Mean dbh", fill = "Species") +
     ggplot2::theme_bw()
@@ -731,6 +743,8 @@ Note that we do not have management intervention, and in the model trees shorter
 At the end of the simulated 100 years, the total simulated carbon stock in living biomass under climate change scenario was slightly higher than under the reference climate. The proportion of beech and pine increased under drier and warmer climate, while the proportion of spruce was lower, since spruce is in general more susceptible to dry conditions. The changes in the number of trees of individual tree species were more substantial than the changes in carbon stock. The number of spruce trees was substantially reduced under climate change, while under reference climate it was doubled after 30 years and then remain stable until the end of simulation. In contrast, the number of beech trees increased under both scenarios, but the increase was more pronounced under climate change scenario due to the reduction of spruce trees.
 
 Mean dbh of individual species reflected the development of the number of trees. The increase in the number of trees caused the reduction of mean dbh, e.g. of beech under both scenarios between 20 and 35 simulation years. The species-specific graphs for mean dbh indicates that some species do not have successful regeneration under the climate change scenario. Spruce and pine dbh decreased only under reference scenario, when we observed the increase of the number of trees, while under climate change scenario the mean dbh of spruce or pine was growing indicating the growth of remaining trees of the species at the plot. In the case of fir, we observed the continuous increase of dbh due to the more or less stable number of trees at the plots. While the mean dbh of fir was growing during the whole simulation period, under drier and warmer climate mean dbh of fir did not substantially change after 70 years.
+
+#### Assess the stored carbon amount {#sec-B_1.3} 
 
 
  Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
@@ -775,6 +789,10 @@ species.livingC100 <-
 print(species.livingC100)
 ```
 
+
+#### Assess the species proportions {#sec-B_1.4} 
+
+
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
 ```{r ex27, eval=TRUE, message = FALSE, warning=FALSE}
@@ -799,7 +817,7 @@ LC <- rbind(LC0, LC100)
 
 LC$run <- factor(LC$run, levels = c(name1, name2))
 
-ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
+ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = livingC , x = factor(year))) +
     ggplot2::geom_bar(position = "stack", stat = "identity") +
     ggplot2::scale_fill_manual(values = cols.all) +
     ggplot2::facet_wrap( ~ run) +
@@ -807,7 +825,8 @@ ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
     ggplot2::theme_bw()
 
 
-ggplot2::ggplot(LC, aes(fill = species, y = spec.prop, x = factor(year))) +
+ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = spec.prop,
+                                 x = factor(year))) +
     ggplot2::geom_bar(position = "stack", stat = "identity") +
     ggplot2::scale_fill_manual(values = cols.all) +
     ggplot2::facet_wrap( ~ run) +
@@ -826,8 +845,10 @@ The living C stock tripled over 100 years due to the accumulation of biomass in 
 
 Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
 
-Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
+
+#### Read the tree output table {#sec-A_2.1}
 Read in the *tree* output table from two outputs you have for your plot:
 
 ```{r ex29, eval=TRUE, message = FALSE, warning=FALSE}
@@ -874,6 +895,9 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 head(tree)
 ```
 
+
+#### Visualize trees in year 0 and year 100! {#sec-A_2.2}
+
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
 ```{r ex31, eval=TRUE, message = FALSE, warning=FALSE}
@@ -897,6 +921,9 @@ gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 We can see that the species composition has changed and the dbh of the trees seems to be larger, than in the initial year. We can even identify the same trees at the same location.
 
+
+#### Visualize some changes in time! {#sec-A_2.3}
+
 Visualize some changes in time, for example the mean diameter of the trees!
 
 ```{r ex32, eval=TRUE, message = FALSE, warning=FALSE}
@@ -914,6 +941,9 @@ ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
 ```
 
 We can see that there is an initial increase in mean dbh, then a drop after 20/25 years under reference conditions. Under the climate change scenario, the mean dbh is growing for longer time and has the drop after 60 years. The dbh in the last year are very similar however the development of the simulations were different. The drop is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
+
+#### Species diversity {#sec-A_2.4}
+
 
 To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
 You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
@@ -948,7 +978,7 @@ We make the same steps for the other simulation results (tree2).
 
 ```{r ex35, eval=TRUE, message = FALSE, warning=FALSE}
 tlong2 <- tree2 |>
-    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
     tidyr::pivot_wider(
         id_cols = 'year',
         names_from = 'species',
@@ -968,7 +998,7 @@ We merge them all together and make a plot based on Shannon index.
 ```{r ex36, eval=TRUE, message = FALSE, warning=FALSE}
 
 tlong2 <- tree2 |>
-    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
     tidyr::pivot_wider(
         id_cols = 'year',
         names_from = 'species',
@@ -983,7 +1013,7 @@ div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
 
 div <- rbind(div1, div2)
 
-ggplot2::ggplot(div, aes(year, Shannon , color = run)) +
+ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
     ggplot2::geom_line(lwd = 1.5) +
     ggplot2::ggtitle("Species diversity") +
     ggplot2::labs(x = "Year", y = "Shannon index") +
@@ -997,6 +1027,7 @@ $$S=-\sum{({p~i~} * log { (p~i~)})}$$
 
 Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
 
+#### Spatial diversity {#sec-A_2.5}
 
 We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
 You can find a short description of the package here: *"documents/treespat_package.pdf"*
@@ -1059,7 +1090,7 @@ indices2 <- rbind(diff |> dplyr::rename(value = DIFF),
 
 indices <- rbind(indices1, indices2)
 
-ggplot2::ggplot(indices, aes(x = year, y = value, color = run)) +
+ggplot2::ggplot(indices, ggplot2::aes(x = year, y = value, color = run)) +
     ggplot2::geom_line(lwd = 1) +
     ggplot2::facet_wrap( ~ name, ncol = 2, scales = "free") +
     ggplot2::theme_bw() 
@@ -1073,7 +1104,11 @@ The mingling index is studying the neighboring trees regarding their species. In
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 2? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+
+
+#### Read the landscape output table {#sec-B_2.1}
+ 
 
 Read in the *landscape* output table from two outputs you have for your plot:
 
@@ -1115,6 +1150,8 @@ landscape <- rbind(landscape1 |> dplyr::mutate(run = name1) ,
 head(landscape)
 ```
 
+#### Visualize changes in time {#sec-B_2.2}
+
 We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the beginning. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
 
 ```{r ex42, eval=TRUE, message = FALSE, warning=FALSE}
@@ -1134,19 +1171,19 @@ landscape$run <- factor(landscape$run, levels = c(name1, name2))
 
 # Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
 g1 <-
-    ggplot2::ggplot(landscape, aes(year, total_carbon_kg / 1000 , fill = factor(species))) +
+    ggplot2::ggplot(landscape, ggplot2::aes(year, total_carbon_kg / 1000 , fill = factor(species))) +
     ggplot2::geom_area() +
-    ggplot2::scale_fill_manual(values = cols.all, guide = guide_legend(reverse =
-                                                                           TRUE)) +
+    ggplot2::scale_fill_manual(values = cols.all, 
+                               guide = ggplot2::guide_legend(reverse = TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Living C t/ha", fill = "Species") +
     ggplot2::theme_bw()
 
 g2 <-
-    ggplot2::ggplot(landscape, aes(year, count_ha , fill = factor(species))) +
+    ggplot2::ggplot(landscape, ggplot2::aes(year, count_ha , fill = factor(species))) +
     ggplot2::geom_area() +
-    ggplot2::scale_fill_manual(values = cols.all, guide = guide_legend(reverse =
-                                                                           TRUE)) +
+    ggplot2::scale_fill_manual(values = cols.all, 
+                               guide = ggplot2::guide_legend(reverse = TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Number of trees per ha", fill = "Species") +
     ggplot2::theme_bw()
@@ -1154,10 +1191,11 @@ g2 <-
 gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 g3 <-
-    ggplot2::ggplot(landscape, aes(year, dbh_avg_cm , color = factor(species))) +
+    ggplot2::ggplot(landscape, 
+                    ggplot2::aes(year, dbh_avg_cm , color = factor(species))) +
     ggplot2::geom_line(lwd = 1) +
-    ggplot2::scale_color_manual(values = cols.all, guide = guide_legend(reverse =
-                                                                            TRUE)) +
+    ggplot2::scale_color_manual(values = cols.all, 
+                                guide = ggplot2::guide_legend(reverse = TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Mean dbh", fill = "Species") +
     ggplot2::theme_bw()
@@ -1169,6 +1207,9 @@ Note that we do not have management intervention, and in the model trees shorter
 
 *Castanea sativa* gradually decreased during the simulation period under both scenarios. The reduction resulted from the mortality of chestnut trees, indicating their aging. By the end of the simulation period, chestnut almost completely disappeared from the stand due to the increased number of trees of other species at the plot, and hence higher inter-tree competition, especially under the reference climate, which hindered the chestnut regeneration and its survival.
 Mean dbh of chestnut is zero at the end of the simulation period under the reference climate indicating that the species completely disappeared from the stand due to the high stand density, and inter-tree competition.
+
+#### Assess the stored carbon amount {#sec-B_2.3} 
+
 
 Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
@@ -1210,6 +1251,8 @@ species.livingC100 <-
 print(species.livingC100)
 ```
 
+#### Assess the species proportions {#sec-B_2.4}
+
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
 ```{r ex45, eval=TRUE, message = FALSE, warning=FALSE}
@@ -1234,7 +1277,7 @@ LC <- rbind(LC0, LC100)
 
 LC$run <- factor(LC$run, levels = c(name1, name2))
 
-ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
+ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = livingC , x = factor(year))) +
     ggplot2::geom_bar(position = "stack", stat = "identity") +
     ggplot2::scale_fill_manual(values = cols.all) +
     ggplot2::facet_wrap( ~ run) +
@@ -1242,7 +1285,8 @@ ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
     ggplot2::theme_bw()
 
 
-ggplot2::ggplot(LC, aes(fill = species, y = spec.prop, x = factor(year))) +
+ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = spec.prop, 
+                                 x = factor(year))) +
     ggplot2::geom_bar(position = "stack", stat = "identity") +
     ggplot2::scale_fill_manual(values = cols.all) +
     ggplot2::facet_wrap( ~ run) +
@@ -1260,7 +1304,9 @@ Additionally, we see a significant increase in the share of the shade-tolerant b
 
 Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
 
-Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+
+#### Read the tree output table {#sec-A_3.1}
 
 Read in the *tree* output table from two outputs you have for your plot:
 
@@ -1308,6 +1354,10 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 head(tree)
 ```
 
+
+#### Visualize trees in year 0 and year 100! {#sec-A_3.2}
+
+
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
 ```{r ex49, eval=TRUE, message = FALSE, warning=FALSE}
@@ -1331,6 +1381,9 @@ gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 We can see that the species composition is somewhat changed and the forest become more dense. We can even identify the same trees at the same location.
 
+#### Visualize some changes in time! {#sec-A_3.3}
+
+
 Visualize some changes in time, for example the mean diameter of the trees!
 
 ```{r ex50, eval=TRUE, message = FALSE, warning=FALSE}
@@ -1348,6 +1401,9 @@ ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
 ```
 
 We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
+
+
+#### Species diversity {#sec-A_3.4}
 
 To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
 You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
@@ -1382,7 +1438,7 @@ We make the same steps for the other simulation results (tree2).
 
 ```{r ex53, eval=TRUE, message = FALSE, warning=FALSE}
 tlong2 <- tree2 |>
-    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
     tidyr::pivot_wider(
         id_cols = 'year',
         names_from = 'species',
@@ -1402,7 +1458,7 @@ We merge them all together and make a plot based on Shannon index.
 ```{r ex54, eval=TRUE, message = FALSE, warning=FALSE}
 
 tlong2 <- tree2 |>
-    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
     tidyr::pivot_wider(
         id_cols = 'year',
         names_from = 'species',
@@ -1417,7 +1473,7 @@ div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
 
 div <- rbind(div1, div2)
 
-ggplot2::ggplot(div, aes(year, Shannon , color = run)) +
+ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
     ggplot2::geom_line(lwd = 1.5) +
     ggplot2::ggtitle("Species diversity") +
     ggplot2::labs(x = "Year", y = "Shannon index") +
@@ -1431,6 +1487,7 @@ $$S=-\sum{({p~i~} * log { (p~i~)})}$$
 
 Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
 
+#### Spatial diversity {#sec-A_3.5}
 
 We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
 You can find a short description of the package here: *"documents/treespat_package.pdf"*
@@ -1495,7 +1552,7 @@ indices2 <- rbind(diff |> dplyr::rename(value = DIFF),
 
 indices <- rbind(indices1, indices2)
 
-ggplot2::ggplot(indices, aes(x = year, y = value, color = run)) +
+ggplot2::ggplot(indices, ggplot2::aes(x = year, y = value, color = run)) +
     ggplot2::geom_line(lwd = 1) +
     ggplot2::facet_wrap( ~ name, ncol = 2, scales = "free") +
     ggplot2::theme_bw() 
@@ -1510,7 +1567,9 @@ The mingling index is studying the neighboring trees regarding their species. In
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 3? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+
+#### Read the landscape output table {#sec-B_3.1}
 
 Read in the *landscape* output table from two outputs you have for your plot:
 
@@ -1552,6 +1611,9 @@ landscape <- rbind(landscape1 |> dplyr::mutate(run = name1) ,
 head(landscape)
 ```
 
+#### Visualize changes in time {#sec-B_3.2}
+
+
 We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the beginning. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
 
 ```{r ex60, eval=TRUE, message = FALSE, warning=FALSE}
@@ -1571,20 +1633,21 @@ landscape$run <- factor(landscape$run, levels = c(name1, name2))
 
 # Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
 g1 <-
-    ggplot2::ggplot(landscape, aes(year, total_carbon_kg / 1000 , 
+    ggplot2::ggplot(landscape, ggplot2::aes(year, total_carbon_kg / 1000 , 
                                    fill = factor(species))) +
     ggplot2::geom_area() +
     ggplot2::scale_fill_manual(values = cols.all,
-                               guide = guide_legend(reverse = TRUE)) +
+                               guide = ggplot2::guide_legend(reverse = TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Living C t/ha", fill = "Species") +
     ggplot2::theme_bw()
 
 g2 <-
-    ggplot2::ggplot(landscape, aes(year, count_ha , fill = factor(species))) +
+    ggplot2::ggplot(landscape, ggplot2::aes(year, count_ha, 
+                                            fill = factor(species))) +
     ggplot2::geom_area() +
     ggplot2::scale_fill_manual(values = cols.all, 
-                               guide = guide_legend(reverse = TRUE)) +
+                               guide = ggplot2::guide_legend(reverse = TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Number of trees per ha", 
                   fill = "Species") +
@@ -1593,11 +1656,11 @@ g2 <-
 gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 g3 <-
-    ggplot2::ggplot(landscape, aes(year, dbh_avg_cm , 
+    ggplot2::ggplot(landscape, ggplot2::aes(year, dbh_avg_cm , 
                                    color = factor(species))) +
     ggplot2::geom_line(lwd = 1) +
     ggplot2::scale_color_manual(values = cols.all, 
-                                guide = guide_legend(reverse = TRUE)) +
+                                guide = ggplot2::guide_legend(reverse = TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Mean dbh", fill = "Species") +
     ggplot2::theme_bw()
@@ -1611,6 +1674,9 @@ Beech profited from drier and warmer conditions at the expense of spruce. *Acer 
 The increase of the number of trees indicates the success of the regeneration under reference conditions, however this increase is much slower under the climate change scenario.
 
 Mean dbh of individual species reflected the development of the number of trees. The increase in the number of trees caused the reduction of mean dbh, e.g. of beech under both scenarios between 20 and 35 simulation years. The species-specific graphs for mean dbh indicates that some species do not have successful regeneration under the climate change scenario. Spruce dbh decreased only under reference scenario, when we observed the increase of the number of trees, while under climate change scenario the mean dbh of spruce was growing indicating the growth of remaining trees of the species at the plot.
+
+#### Assess the stored carbon amount {#sec-B_3.3} 
+
 
 Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
@@ -1652,6 +1718,9 @@ species.livingC100 <-
 print(species.livingC100)
 ```
 
+#### Assess the species proportions {#sec-B_3.4} 
+
+
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
 ```{r ex63, eval=TRUE, message = FALSE, warning=FALSE}
@@ -1677,7 +1746,8 @@ LC <- rbind(LC0, LC100)
 
 LC$run <- factor(LC$run, levels = c(name1, name2))
 
-ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
+ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = livingC, 
+                                 x = factor(year))) +
     ggplot2::geom_bar(position = "stack", stat = "identity") +
     ggplot2::scale_fill_manual(values = cols.all) +
     ggplot2::facet_wrap( ~ run) +
@@ -1685,7 +1755,8 @@ ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
     ggplot2::theme_bw()
 
 
-ggplot2::ggplot(LC, aes(fill = species, y = spec.prop, x = factor(year))) +
+ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = spec.prop,
+                                x = factor(year))) +
     ggplot2::geom_bar(position = "stack", stat = "identity") +
     ggplot2::scale_fill_manual(values = cols.all) +
     ggplot2::facet_wrap( ~ run) +
@@ -1703,7 +1774,7 @@ The living C stock more than doubled over 100 years due to the accumulation of b
 
 Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
 
-Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 Read in the *tree* output table from two outputs you have for your plot:
 
@@ -1750,6 +1821,7 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 
 head(tree)
 ```
+#### Visualize trees in year 0 and year 100! {#sec-A_4.2}
 
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
@@ -1774,6 +1846,8 @@ gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 We can see that the species composition is somewhat changed and the forest become more dense. We can even identify the same trees at the same location.
 
+#### Visualize some changes in time! {#sec-A_4.3}
+
 Visualize some changes in time, for example the mean diameter of the trees!
 
 ```{r ex68, eval=TRUE, message = FALSE, warning=FALSE}
@@ -1790,6 +1864,8 @@ ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
 ```
 
 We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
+
+#### Species diversity {#sec-A_4.4}
 
 To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
 You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
@@ -1824,7 +1900,7 @@ We make the same steps for the other simulation results (tree2).
 
 ```{r ex71, eval=TRUE, message = FALSE, warning=FALSE}
 tlong2 <- tree2 |>
-    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
     tidyr::pivot_wider(
         id_cols = 'year',
         names_from = 'species',
@@ -1844,7 +1920,7 @@ We merge them all together and make a plot based on Shannon index.
 ```{r ex72, eval=TRUE, message = FALSE, warning=FALSE}
 
 tlong2 <- tree2 |>
-    dplyr::group_by(year, species) |> dplyr::summarise(N = n()) |>
+    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
     tidyr::pivot_wider(
         id_cols = 'year',
         names_from = 'species',
@@ -1859,7 +1935,7 @@ div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
 
 div <- rbind(div1, div2)
 
-ggplot2::ggplot(div, aes(year, Shannon , color = run)) +
+ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
     ggplot2::geom_line(lwd = 1.5) +
     ggplot2::ggtitle("Species diversity") +
     ggplot2::labs(x = "Year", y = "Shannon index") +
@@ -1873,6 +1949,7 @@ $$S=-\sum{({p~i~} * log { (p~i~)})}$$
 
 Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
 
+#### Spatial diversity {#sec-A_4.5}
 
 We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
 You can find a short description of the package here: *"documents/treespat_package.pdf"*
@@ -1934,7 +2011,7 @@ indices2 <- rbind(diff |> dplyr::rename(value = DIFF),
 
 indices <- rbind(indices1, indices2)
 
-ggplot2::ggplot(indices, aes(x = year, y = value, color = run)) +
+ggplot2::ggplot(indices, ggplot2::aes(x = year, y = value, color = run)) +
     ggplot2::geom_line(lwd = 1) +
     ggplot2::facet_wrap( ~ name, ncol = 2, scales = "free") +
     ggplot2::theme_bw() 
@@ -1949,7 +2026,9 @@ The mingling index is studying the neighboring trees regarding their species. In
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 4? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExerciseProcessBased.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+
+#### Read the landscape output table {#sec-B_4.1}
 
 Read in the *landscape* output table from two outputs you have for your plot:
 
@@ -1991,6 +2070,8 @@ landscape <- rbind(landscape1 |> dplyr::mutate(run = name1),
 head(landscape)
 ```
 
+#### Visualize changes in time {#sec-B_4.2}
+
 We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the beginning. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
 
 ```{r ex78, eval=TRUE, message = FALSE, warning=FALSE}
@@ -2010,18 +2091,21 @@ landscape$run <- factor(landscape$run, levels = c(name1, name2))
 
 # Plot the living carbon content, to have tonnes/ha, we divide total_carbon_kg by 1000.
 g1 <-
-    ggplot2::ggplot(landscape, aes(year, total_carbon_kg / 1000 , fill = factor(species))) +
+    ggplot2::ggplot(landscape, ggplot2::aes(year, total_carbon_kg / 1000,
+                                            fill = factor(species))) +
     ggplot2::geom_area() +
-    ggplot2::scale_fill_manual(values = cols.all, guide = guide_legend(reverse =
-                                                                           TRUE)) +
+    ggplot2::scale_fill_manual(values = cols.all, 
+                               guide = ggplot2::guide_legend(reverse = TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Living C t/ha", fill = "Species") +
     ggplot2::theme_bw()
 
 g2 <-
-    ggplot2::ggplot(landscape, aes(year, count_ha , fill = factor(species))) +
+    ggplot2::ggplot(landscape, ggplot2::aes(year, count_ha, 
+                                            fill = factor(species))) +
     ggplot2::geom_area() +
-    ggplot2::scale_fill_manual(values = cols.all, guide = guide_legend(reverse =
+    ggplot2::scale_fill_manual(values = cols.all, 
+                               guide = ggplot2::guide_legend(reverse =
                                                                            TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Number of trees per ha", fill = "Species") +
@@ -2030,9 +2114,11 @@ g2 <-
 gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 g3 <-
-    ggplot2::ggplot(landscape, aes(year, dbh_avg_cm , color = factor(species))) +
+    ggplot2::ggplot(landscape, ggplot2::aes(year, dbh_avg_cm,
+                                            color = factor(species))) +
     ggplot2::geom_line(lwd = 1) +
-    ggplot2::scale_color_manual(values = cols.all, guide = guide_legend(reverse =
+    ggplot2::scale_color_manual(values = cols.all,
+                                guide = ggplot2::guide_legend(reverse =
                                                                             TRUE)) +
     ggplot2::facet_wrap( ~ run, nrow = 1) +
     ggplot2::labs(x = "Year", y = "Mean dbh", fill = "Species") +
@@ -2047,6 +2133,9 @@ At the end of the simulated 100 years, the total simulated carbon stock in livin
 
 Mean dbh of individual species reflected the development of the number of trees. The increase in the number of trees caused the reduction of mean dbh, e.g. of beech under both scenarios between 20 and 35 simulation years. 
 The species-specific graphs for mean dbh indicates that some species do not have successful regeneration under the climate change scenario. Pine dbh decreased only under reference scenario, when we observed the increase of the number of trees, while under climate change scenario the mean dbh of pine was growing indicating the growth of remaining trees of the species at the plot. The small proportion of chestnut almost decrease to 0 under both scenarios, its dbh development does not show any successful regeneration processes.
+
+#### Assess the stored carbon amount {#sec-B_4.3} 
+
 
 Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
@@ -2087,6 +2176,8 @@ species.livingC100 <-
 print(species.livingC100)
 ```
 
+#### Assess the species proportions {#sec-B_4.4} 
+
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
 ```{r ex81, eval=TRUE, message = FALSE, warning=FALSE}
@@ -2111,7 +2202,8 @@ LC <- rbind(LC0, LC100)
 
 LC$run <- factor(LC$run, levels = c(name1, name2))
 
-ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
+ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = livingC, 
+                                 x = factor(year))) +
     ggplot2::geom_bar(position = "stack", stat = "identity") +
     ggplot2::scale_fill_manual(values = cols.all) +
     ggplot2::facet_wrap( ~ run) +
@@ -2119,7 +2211,8 @@ ggplot2::ggplot(LC, aes(fill = species, y = livingC , x = factor(year))) +
     ggplot2::theme_bw()
 
 
-ggplot2::ggplot(LC, aes(fill = species, y = spec.prop, x = factor(year))) +
+ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = spec.prop,
+                                 x = factor(year))) +
     ggplot2::geom_bar(position = "stack", stat = "identity") +
     ggplot2::scale_fill_manual(values = cols.all) +
     ggplot2::facet_wrap( ~ run) +
@@ -2136,7 +2229,7 @@ In the empirical modelling we will cover two examples of creating two models bas
 
 ## Data
 
-We will work with one dataset derived from the inventory developed to assess forest structure and deadwood properties of six representative forest areas in the Czech Republic [@hosek]. This dataset collects observations of the presence /absence of certain species of biodiversity importance across 99 plots.
+We will work with one dataset derived from the inventory developed to assess forest structure and deadwood properties of six representative forest areas in the Czech Republic (Hošek, 2022). This dataset collects observations of the presence /absence of certain species of biodiversity importance across 99 plots.
 
 The data was collected from square sampling plots (2500 m2 each) in six forested Czech Republic regions. These regions are representative of the main bio-regions and elevation range of forests, considering their importance in territorial representation, forestry, and ecology. The inventory sampled for biodiversity variables such as the presence/absence of different species of birds, Tracheophyta, bryophytes, fungi, lichens, and beetles.
 
@@ -2219,13 +2312,13 @@ Fitting a Poisson GLM in R is similar to analyzing covariance (or linear model),
 
 ### Boosted regression trees (BRTs) {#sec-modelBRT}
 
-Boosted regression trees (BRT) are a combination of two powerful statistical techniques: boosting and regression trees. Boosting is a machine learning technique similar to model averaging, where the results of several competing models are merged. Unlike model averaging, however, boosting uses a forward, stage-wise procedure, where tree models are fitted iteratively to a subset of the training data. Subsets of the training data used at each iteration of the model fit are randomly selected without replacement, where the proportion of the training data used is determined by the modeler, this is defined with the "bag fraction" parameter. This procedure, known as stochastic gradient boosting, introduces an element of stochasticity that improves model accuracy and reduces overfitting [@elith2008].
+Boosted regression trees (BRT) are a combination of two powerful statistical techniques: boosting and regression trees. Boosting is a machine learning technique similar to model averaging, where the results of several competing models are merged. Unlike model averaging, however, boosting uses a forward, stage-wise procedure, where tree models are fitted iteratively to a subset of the training data. Subsets of the training data used at each iteration of the model fit are randomly selected without replacement, where the proportion of the training data used is determined by the modeler, this is defined with the "bag fraction" parameter. This procedure, known as stochastic gradient boosting, introduces an element of stochasticity that improves model accuracy and reduces overfitting (Elith et al., 2008).
 
 The BRT model calibration is defined by four parameters:
 
 -   the `learning rate` (or shrinkage parameter): The learning rate determines the contribution of each new tree to the growing model, and it is always substantially lower than 1, higher values being related to faster learning.
 
--   the `bag fraction`: The bag fraction provides in- formation on which fraction of the entire data should be drawn randomly to fit the new tree. This parameter includes a random probabilistic component, making each run model different, and is aimed at improving model accuracy, speed of model creation, and the reduction of overfitting [@friedman].
+-   the `bag fraction`: The bag fraction provides in- formation on which fraction of the entire data should be drawn randomly to fit the new tree. This parameter includes a random probabilistic component, making each run model different, and is aimed at improving model accuracy, speed of model creation, and the reduction of overfitting (Friedman et al., 2008).
 
 -   the `tree complexity`: Tree complexity controls the number of fitted interactions among variables, and determines the number of splits in each tree; for example, a value of 1 will present only one split, meaning that the model does not consider interactions; a value of 2 will result in two splits, and two interactions.
 
@@ -3353,10 +3446,354 @@ dismo::gbm.perspec(modelBRT, 5, 4)
 
 It seems that there are not clear patterns in the combined effect of forest structure diversity and forest tree species diversity.
 
-# References
+# References and further reading {#sec-ref}
 
 Aguirre, O., Hui, G., von Gadow, K. and Jiménez, J., 2003. An analysis of spatial forest structure using
 neighbourhood-based variables. Forest ecology and management, 183 (1-3), pp.137-145. 
 
-Gadow, K.V., Zhang, C.Y., Wehenkel, C., Pommerening, A., Corral-Rivas, J., Korol, M., Myklush, S., Hui,
-G.Y., Kiviste, A. and Zhao, X.H., 2012. Forest structure and diversity. Continuous cover forestry, pp.29-83.
+Elith, J., J. R. Leathwick, and T. Hastie. 2008. “A Working Guide to Boosted RegressionTrees.”Journal of Animal Ecology77 (4): 802–13.https://doi.org/10.1111/j.1365-2656.2008.01390.x.
+
+Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. n.d. “ADDITIVE LOGISTICREGRESSION: A STATISTICAL VIEW OF BOOSTING.”
+
+Gadow, K.V., Zhang, C.Y., Wehenkel, C., Pommerening, A., Corral-Rivas, J., Korol, M., Myklush, S., Hui, G.Y., Kiviste, A. and Zhao, X.H., 2012. Forest structure and diversity. Continuous cover forestry, pp.29-83.
+
+Hošek, Jan. n.d. “Forest Structure and Dead Wood Properties in Six Representative Forest Areas in the Czech Republic.”165
+
+
+
+On iLand model:
+
+Seidl, R., Rammer, W., Scheller, R.M., Spies, T.A., 2012. An individual-based process model to simulate landscape-scale forest ecosystem dynamics. Ecol. Model. 231, 87-100.
+
+Seidl, R., Rammer, W., Blennow, K. 2014 Simulating wind disturbance impacts on forest landscapes: Tree-level heterogeneity matters. Environmental Modelling and Software 51, 1-11. 
+
+Rammer, W., Seidl, R., 2015 Coupling human and natural systems: Simulating adaptive management agents in dynamically changing forest landscapes. Global Environmental Change, 35, 475-485.
+
+Rammer, W., Seidl, R., 2015 Coupling human and natural systems: Simulating adaptive management agents in dynamically changing forest landscapes. Global Environmental Change, 35, 475-485.
+
+On Applications:
+
+Thom, D., Rammer, W., Garstenauer, R., & Seidl, R. ,2018 Legacies of past land use have a stronger effect on forest carbon exchange than future climate change in a temperate forest landscape. Biogeosciences, 15(18), 5699–5713.
+
+Silva Pedro, M., Rammer, W., & Seidl, R., 2017 Disentangling the effects of compositional and structural diversity on forest productivity. Journal of Vegetation Science, 28(3), 649–658.
+
+Dobor, L., Hlásny, T., Rammer, W., Barka, I., Trombik, J., Pavlenda, P., Seidl, R., 2018 Post-disturbance recovery of forest carbon in a temperate forest landscape under climate change. Agricultural and Forest Meteorology, 263, 308–322. 
+
+Albrich, K., Rammer, W., Thom, D., & Seidl, R., 2018 Trade-offs between temporal stability and level of forest ecosystem services provisioning under climate change. Ecological Applications, 28(7), 1884–1896.
+
+Dobor, L., Hlásny, T., Rammer, W., Zimová, S., Barka, I., & Seidl, R., 2020 Spatial configuration matters when removing windfelled trees to manage bark beetle disturbances in Central European forest landscapes. Journal of Environmental Management, 254
+
+Honkaniemi, J., Rammer, W., & Seidl, R. (2020). Norway spruce at the trailing edge: the effect of landscape configuration and composition on climate resilience. Landscape Ecology, 35(3), 591–606.
+
+Sommerfeld, A., Rammer, W., Heurich, M., Hilmers, T., Müller, J., & Seidl, R. (2020). Do bark beetle outbreaks amplify or dampen future bark beetle disturbances in Central Europe? Journal of Ecology, July, 1–13.
+
+
+
+# Appendix - Initialize trees for the model based on inventory data {#sec-app}
+
+## Inventory data
+
+We had inventory data prior the summer school.
+These plots were established in 2007 for monitoring of urban forest Rožnik. Those four plots were already remeasured by NFI teams (for yearly training) at the beginning of April 2023. The radius of the plots is 13.8m and trees dbh>=10 were measured.
+
+
+## iLand needs
+
+We need to produce tree list with tree positions, species, dbh and height for a 1ha area, that is the smallest unit in the model that can be individually simulated.
+We will use a so called "torus" when the simulation space is treated as a torus, where any influence (e.g. a light influence pattern) leaving on one side again enters at the opposite site. This is especially useful for small simulated areas to provide a continuous environment without edge effects.
+
+Idea: use the measured trees as the middle of our 1ha area, keep the trees and locations as they are, but populate the rest of the 1ha randomly based on the characteristics of the measured plot.
+
+
+This script is using these input files which are placed here: iLand_simulations/init/trees/
+-testPlot_data_Roznik.xlsx
+-species_names.csv
+
+And making outputs as text files for each four plots with tree lists that are directly can go into model iLand as initialization file.
+
+
+### Read in the inventory data to R visualize it. Read also a table with species latin names and short names in iLand. 
+
+```{r app1, eval=TRUE, message = FALSE, warning=FALSE}
+
+
+a <-
+    openxlsx::read.xlsx(here::here("model/iLand_simulations/init/trees/testPlot_data_Roznik.xlsx"))
+
+head(a)
+
+
+# read table with latin and iLand names:
+sp <-
+    utils::read.table(
+        here::here("model/iLand_simulations/init/trees/species_names.csv"),
+        header = T,
+        sep = ";"
+    )
+
+# change the column names to have the latin name column similar name as in "a"
+colnames(sp) <- c("id", "iLand_name", "treeSp")
+
+# add iLand names as a new column:
+a <- dplyr::left_join(a, sp, by = "treeSp")
+
+
+g1 <- ggplot2::ggplot(a, ggplot2::aes(X, Y, color = iLand_name)) +
+    ggplot2::geom_point(size = a$dbh / 10) +
+    ggplot2::facet_wrap( ~ plotID, nrow = 2) +
+    ggplot2::theme_bw() +
+    ggplot2::theme(
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        strip.background = ggplot2::element_rect(fill = "white")
+    )
+
+print(g1)
+
+```  
+
+
+
+### Calculate some statistics for populating remaining areas:
+
+Not all records have height, so we calculate H:D ratios for each tree that has.
+
+```{r app2, eval=TRUE, message = FALSE, warning=FALSE}
+
+# Area of the plots:
+r <- 13.82  #m, radius of the circular plot
+plot.area <- r * r * pi   #m2
+
+
+tree.stats <- a |> dplyr::group_by(plotID, treeSp, iLand_name) |>
+    dplyr::summarize(
+        mean.dbh = mean(dbh),
+        min.dbh = min(dbh),
+        max.dbh = max(dbh),
+        sd.dbh = sd(dbh) ,
+        n = dplyr::n()
+    ) |>
+    dplyr::mutate(n.perha = n * 10000 / plot.area)
+
+tree.stats$sd.dbh[is.na(tree.stats$sd.dbh) == T] <- 10
+
+
+# Look the H:D ratio for each trees:
+a <- a |> dplyr::mutate(hdratio = 10 * `height.(dm)` / dbh)
+
+# Species specific H:D ratio ranges (to calculate height for trees which are not
+#given:
+hdratios <- a |> dplyr::group_by(treeSp, iLand_name) |>
+    dplyr::summarize(
+        mean.hdratio = mean(hdratio, na.rm = T),
+        min.hdratio = min(hdratio, na.rm = T),
+        max.hdratio = max(hdratio, na.rm = T),
+        n = dplyr::n()
+    )
+
+# abies alba was missing hd ratios, there were no height for any abal trees:
+hdratios$mean.hdratio[hdratios$iLand_name == "abal"] <- 80
+
+print(hdratios)
+```
+
+
+
+### Generate trees for each plot
+
+* Using the number of trees/ha as required number of trees.
+* Generate dbh that normally distributed using mean dbh and stdev
+* Randomly placed: x,y coordinates -50m -> 50m. (inventory data had 0,0 coordinate in the middle, so we kept this "coordinate system" for now)
+
+```{r app3, eval=TRUE, message = FALSE, warning=FALSE}
+
+ids <- unique(a$plotID)
+tree.list <- c()
+for (i in 1:4) {
+    # go on plots
+    
+    a1 <- tree.stats |> dplyr::filter(plotID == ids[i])
+    
+    for (j in 1:length(a1$treeSp)) {
+        # go on species
+        spec1 <- a1[j, ]
+        ntree <- round(spec1$n.perha)
+        print(paste(
+            "We need ",
+            ntree,
+            spec1$iLand_name ,
+            "trees per ha,for plot id: ",
+            ids[i]
+        ))
+        
+        # tree list for one species:
+        
+        trees <- data.frame(
+            plotID = rep(ids[i], ntree),
+            species = rep(spec1$iLand_name, ntree),
+            dbh = truncnorm::rtruncnorm(ntree, 5, 100, 
+                                        spec1$mean.dbh, spec1$sd.dbh),
+            X = runif(ntree) * 100 - 50,
+            Y = runif(ntree) * 100 - 50
+        )
+        
+        tree.list <- rbind(tree.list, trees)
+        
+    }
+    
+}
+
+
+g2 <- ggplot2::ggplot(tree.list, ggplot2::aes(dbh)) +
+    ggplot2::geom_histogram(color = "black", fill = "white") +
+    ggplot2::facet_grid(species ~ plotID, scales = "free") +
+    ggplot2::theme_bw() + ggplot2::theme(
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        strip.background = ggplot2::element_rect(fill = "white")
+    )
+
+g3 <- ggplot2::ggplot(tree.list, ggplot2::aes(X, Y, color = species)) +
+    ggplot2::geom_point(size = tree.list$dbh / 10) +
+    ggplot2::facet_wrap( ~ plotID, nrow = 2) +
+    ggplot2::xlim(-50, 50) + ggplot2::ylim(-50, 50) +
+    ggplot2::theme_bw() + ggplot2::theme(
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        strip.background = ggplot2::element_rect(fill = "white")
+    )
+
+print(g2)
+print(g3)
+
+```
+
+
+
+### Lets remove the trees in the middle, and put back the real trees from the inventory
+
+```{r app4, eval=TRUE, message = FALSE, warning=FALSE}
+# Calculate the distance for each tree from the center point:
+tree.list <- tree.list |> dplyr::mutate(distance = sqrt(X * X + Y * Y))
+
+# Look which we want to keep: where distance is larger than the plot radius was:
+cutted.tree.list <- tree.list |> dplyr::filter(distance > r)
+
+g4 <- ggplot2::ggplot(cutted.tree.list,  
+                      ggplot2::aes(X, Y, color = species)) +
+     ggplot2::geom_point(size = cutted.tree.list$dbh / 10) +
+     ggplot2::facet_wrap( ~ plotID, nrow = 2) +
+     ggplot2::xlim(-50, 50) + ggplot2::ylim(-50, 50) +
+     ggplot2::theme_bw() +  ggplot2::theme(
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        strip.background = ggplot2::element_rect(fill = "white")
+    )
+
+# Check our inventory trees:
+trees.circle = data.frame(
+    plotID = a$plotID,
+    species = a$iLand_name,
+    dbh = a$dbh,
+    X = a$X,
+    Y = a$Y,
+    distance = sqrt(a$X * a$X + a$Y * a$Y)
+)
+
+g5 <-  ggplot2::ggplot(trees.circle,  ggplot2::aes(X, Y, color = species)) +
+     ggplot2::geom_point(size = trees.circle$dbh / 10) +
+     ggplot2::facet_wrap( ~ plotID, nrow = 2) +
+    ggplot2::xlim(-50, 50) + ggplot2::ylim(-50, 50) +
+     ggplot2::theme_bw() +  ggplot2::theme(
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        strip.background = ggplot2::element_rect(fill = "white")
+    )
+
+# put them all together:
+all.trees <- rbind(trees.circle, cutted.tree.list)
+```
+
+
+### Give height and plot final layout
+
+```{r app5, eval=TRUE, message = FALSE, warning=FALSE}
+
+# add hd ratio to each record and calculate height:
+all.trees2 <-
+    dplyr::left_join(all.trees, hdratios[, c("iLand_name", "mean.hdratio")],
+              by = c("species" = "iLand_name"))  |>
+    dplyr::mutate(height = dbh * mean.hdratio / 100)
+
+summary(all.trees2$height)
+
+g6 <- ggplot2::ggplot(all.trees, ggplot2::aes(X, Y, color = species)) +
+    ggplot2::geom_point(size = all.trees$dbh / 10) +
+    ggplot2::facet_wrap( ~ plotID, nrow = 2) +
+    ggplot2::xlim(-50, 50) + ggplot2::ylim(-50, 50) +
+    ggplot2::theme_bw() + ggplot2::theme(
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        strip.background = ggplot2::element_rect(fill = "white")
+    )
+  
+```
+ 
+ 
+### Make files for iLand:
+  
+Coordinates need to be shifted: 0, 0 is the bottom left corner.
+So we shift everything back by 50m.
+  
+```{r app6, eval=TRUE, message = FALSE, warning=FALSE}
+# Make the tree list for iLand:
+#https://iland-model.org/initialize+trees
+#
+## this is a sample tree input file
+# note that the height is given in meter
+# the 2nd tree has no age
+# x;y;species;dbh;height;age
+# 31.11;8.01;piab;42.2;29.7;120
+# 21.11;15.11;piab;52.8;33.5;0
+# 11.51;25.11;fasy;55;35;100
+
+
+plotids <- unique(all.trees2$plotID)
+for (i in 1:4) {
+    d <- all.trees2 |> dplyr::filter(plotID == plotids[i])
+    
+    # order them by dbh!
+    d <- d[order(d$dbh, decreasing = T), ]
+    
+    dat <-
+        data.frame(
+            x = d$X + 50,
+            y = d$Y + 50,
+            species = d$species,
+            dbh = d$dbh,
+            height = d$height,
+            age = 0
+        )
+    
+    out <-
+        paste0(here::here("model/iLand_simulations/init/trees/Tree_init_plot_"),
+               i,
+               ".txt")
+    write.table(
+        dat,
+        out,
+        sep = ";",
+        col.names = T,
+        row.names = F,
+        quote = F
+    )
+    
+}
+
+```  
