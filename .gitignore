@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
-data/
-model/*
+data/observations.csv
+model/iLand_simulations/*
 solutions/modelEx.html
 solutions/modelEx_files/*
