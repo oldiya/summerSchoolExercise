@@ -30,7 +30,6 @@ author:
   - name: Mats Nieberg
     affiliations:
       - name: mats.nieberg@pik-potsdam.de (PIK Potsdam | EFI)
-bibliography: bibliography.bib  
 ---
 
 ```{r not to show, echo=T, include=FALSE}
