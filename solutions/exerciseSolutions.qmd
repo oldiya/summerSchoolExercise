@@ -2,21 +2,10 @@
 title: Forest Modeling Exercise
 subtitle: Process-based and empirical modeling exercises
 format:
-  titlepage-pdf:
-    documentclass: scrbook
-    classoption: ["oneside", "open=any",  DIV=16, fontsize=11pt]
-    number-sections: true
-    toc: true
-    titlepage: "bg-image"
-    titlepage-bg-image: "images/logo3.jpg"
-    titlepage-logo: "images/logos_proclias_cost.jpg"
-    titlepage-header: ""
-    titlepage-footer: |
-      Interdisciplinary Summer School\
-      Ljubljana 2023\
-      [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)
-    titlepage-theme:
-      bg-image-size: 8cm
+   html:
+     toc: true
+     toc-depth: 3
+     toc-location: left
 author:
   - name: Olalla Díaz-Yáñez
     affiliations:
@@ -86,13 +75,13 @@ Please, always ask your coach if you do not know what is the section where you s
 | 4     | C                 | Is the presence of the Eurasian treecreeper affected by forest density?                                     | BRT      | @sec-C_4 |
 | 4     | D                 | Is the presence of the Eurasian treecreeper affected by forest management?                                  | BRT      | @sec-D_4 |
 
-## Data and model
+## Data and model {#sec-policy}
 
-We provide all data, model and scripts for the excercises. However if you will use the model iLand for your research in the future please get in contact with the model developers at the Technical University Münich: Werner Rammer (werner.rammer\@tum.de) and Rupert Seidl (rupert.seidl\@tum.de). Regarding the biodiversity data used in the empirical modeling processed in the emprical modeling part, in case of further usage please contact Jeňýk Hofmeister at the Czech University of Life Sciences Prague (jenyk.hofmeister\@email.cz).
+We provide all data, model and scripts for the exercises. However if you will use the model iLand for your research in the future please get in contact with the model developers at the Technical University Münich: Werner Rammer (werner.rammer\@tum.de) and Rupert Seidl (rupert.seidl\@tum.de). Regarding the biodiversity data used in the empirical modeling processed in the empirical modeling part, in case of further usage please contact Jeňýk Hofmeister at the Czech University of Life Sciences Prague (jenyk.hofmeister\@email.cz).
 
 ### The project folder {#sec-projFolder}
 
-To do this exercise you first need to download the project folder. You can download the complete project folder from the summer school folder XXXX LINK TO THE GOOGLE DRIVE SPACE WITH THE COMPLE THE PROJECT HERE XXXX.
+To do this exercise you first need to download the project folder. You can download the complete project folder from this [link https://polybox.ethz.ch/index.php/s/Q8iFpTcJFd7nDBy](https://polybox.ethz.ch/index.php/s/Q8iFpTcJFd7nDBy).
 
 In this project you will find the following folders and files:
 
@@ -123,13 +112,13 @@ iLand's mechanistic representation of forest disturbances and vegetation dynamic
 
 A detailed model documentation is availabe on iLand WIKI page: https://iland-model.org/iLand+Hub
 
-### Input and outputs of iLand
+### Inputs and outputs of iLand
 
 iLand needs information in specific formats about environment (mainly climate and soil) and trees. Daily climate data is needed (https://iland-model.org/ClimateData) for minimum, maximum temperature, precipitation, vapor pressure deficit and radiation. Soil depth and soil texture (sand, silt, clay %) information are needed. The soil is represented as a one-layer bucket, no depth-dependent information is needed. The model needs species-specific parameters (https://iland-model.org/species+parameter) that are describing the behavior of each tree species (growth, mortality, competition etc.). Currently there are 31 species parametrizied for iLand, and the species specific parameters are stored in a database that is an input for the model. The parameters were previously calibrated for European conditions (species_param_europe.sqlite). iLand uses short codes for species derived from the latin names (e.g. Picea Abies - piab, Fagus Sylvatica - fasy, ..) Information on the initial forest is also required to start a simulation.
 
 As iLand is a landscape scale model, both climate, soil and tree information need to be set spatially. For larger areas environmental maps can be set using a 100x100m resolution grid, a so called resource grid with resource units, and tree information can be set by maximum 10x10m resolution grid on a stand grid using stand IDs. There are more options how to initialize a landscape in iLand depending on our spatial scales and available data (https://iland-model.org/initialization).
 
-In our case now we will use iLand in a stand-scale mode (called torus), where we simulate only one 100x100m pixel, 1 ha forest area. We will use single-tree initialization method, where we set the x-y coordinates of the trees inside the 100x100m area, tree species, dbh and height of each tree. From inventory we have data for the a circle with 13.82m radius. We generated trees for the 1ha area based on the plot-data. See details later.
+In our case now we will use iLand in a stand-scale mode (called torus), where we simulate only one 100x100m pixel, 1 ha forest area. We will use single-tree initialization method, where we set the x-y coordinates of the trees inside the 100x100m area, tree species, dbh and height of each tree. From inventory we have data for the a circle with 13.82m radius. We generated trees for the 1ha area based on the plot-data. See details in the Appendix [@sec-app] on this document.
 
 The output of the model is an sqlite database file. The output produced by the model is highly versatile and needs to be set in advance of the simulation which output tables we would like to get.
 
@@ -272,7 +261,7 @@ Set in project file:
 
 Here we initialize trees taller than 4 meters. Trees smaller than 4m are handled as sapling cohorts in separated input file. Now we do not put there saplings and we do not have a sapling file. 
 
-We assume now no-management scenario for all simulations. Generally iLand has a very sophisticated so called "agent based management engine" functionality for large landscapes, but also simple management activities are possible for stand-scale simulations. However, for the sake of simplicity in these examples we do not simulate any management activities. This need to keep in mind during the interpretation of the results.
+For the sake of simplicity we assume now no-management scenario for all simulations. 
 
 NOTE: in the graphical interface you also wont see trees smaller than 4m, because they are not simulated as individuals rather in cohorts. But as regeneration will work, after a while as they grow above 4m, they become individual trees and we can see them also visually and they have own properties (dbh, height, age,...https://iland-model.org/tree+variables ). More details on saplings: https://iland-model.org/sapling+growth+and+competition
 
@@ -342,7 +331,7 @@ There are different output tables in iLand and all have specific structure, colu
 
 ### Run alternative scenarios {#sec-as}
 
-The prepared simulation is using the 30years climate of 1961-1990, and repeating during the simulation. (The model copy paste the 30year time series after each other to fill up the simulation period) For CO2 concentration 400ppm is given. Your task is to run 2 extra alternative scenarios where you modify the output data. For example assuming 800ppm, and 4degree warming, or keep CO2 on 400ppm and decrease precipitation by 20%.
+The prepared simulation is using the 30years climate of 1961-1990, and repeating during the simulation. (The model copy paste the 30year time series after each other to fill up the simulation period) For CO2 concentration 400ppm is given. Your task is to run 1-2 extra alternative scenarios where you modify the output data. For example assuming 800ppm, and 4degree warming, or keep CO2 on 400ppm and decrease precipitation by 20%.
 
 All of these modification can be done in the project file directly, you do not need to modify input data files!
 
@@ -377,13 +366,47 @@ DO NOT FORGET TO CHANGE THE OUTPUT FILE NAME AS WELL for your alternative scenar
 
 Running the alternative scenario follows the same steps as before.
 
+
+### Settings to consider for the assessment of model results {#sec-se}
+
+#### No management
+
+We simulate stand development without management activities, which most likely generates accumulation of carbon and volume on the stands in this 100 years period. Generally iLand has a very sophisticated so called "agent based management engine" functionality for large landscapes, but also simple management activities are possible for stand-scale simulations. However, for the sake of simplicity in these examples we do not simulate any management activities.
+
+#### Initialization of trees 
+
+iLand consider trees higher than 4m as individuals. All trees smaller than this size are simulated as cohorts. We initialize individual trees in year=0, but no regeneration layer, however the process of regeneration turned on, consequently trees are producing seeds and after the establishment they start to grow. It takes some 15-20-25 year to be able to see this effect on the outputs which we will study (that are based on individual trees). You can find more information here: https://iland-model.org/regeneration?highlight=regeneration
+
+#### Closed system
+
+We assume no external seed input to our stand. This is highly unrealistic, as seeds can enter to our 1 ha area from the surrounding forests and bring there species which are not there as individual trees in the beginning. Additionally, we are using the so-called torus mode so everything that escape on one side of the pixel, enters on the other side.
+In iLand there is an option to set background seed availability to different species assuming probabilities for establishment in the project file, which we turned off for now. In this way new species cannot appear on the stand during the simulation time.
+
+Practically the probabilities can be set based on the knowledge about the potential natural vegetation in the region, or based on the knowledge of the surrounding area.
+You can try to set external seeds if you wish in the project file turning the *externalSeedEnabled* from false to true.
+And set some probabilities (really small numbers) at *externalSeedBackgroundInput* a bit below down:
+
+```{r ex10b, eval=FALSE, message = FALSE, warning=FALSE}
+
+<externalSeedEnabled>true</externalSeedEnabled>        
+...
+
+<externalSeedBackgroundInput>fasy 0.0004 abal 0.0004 qupe 0.0002 tico 0.00002
+cabe 0.00001 potr 0.00001 frex 0.00001 pisy 0.00001 bepe 0.00001 soau 0.00001 
+piab 0.00001 acps 0.00001</externalSeedBackgroundInput>		  
+     
+```
+
+More information on external seeds are here:
+https://iland-model.org/external+seeds?highlight=seed
+
+
+
 ### Question A - Group 1 {#sec-A_1}
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 1?
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
-
-Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 
 #### Read the tree output table {#sec-A_1.1}
@@ -486,6 +509,15 @@ We can see that there is an initial increase in mean dbh, then a drop after 20/2
 To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
 You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
 
+Shannon index is calculated as follows:
+
+$$S=-\sum{({p~i~} * log { (p~i~)})}$$
+
+Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
+Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees.
+We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
+
+
 ```{r ex15, eval=TRUE, message = FALSE, warning=FALSE}
 
 # First we need to change the 
@@ -559,11 +591,7 @@ ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
 
 ```
 We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the 4deg_20percdrier is more substantial than under the reference scenario. 
-Shannon index is calculated as follows:
 
-$$S=-\sum{({p~i~} * log { (p~i~)})}$$
-
-Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
 
 #### Spatial diversity {#sec-A_1.5}
 
@@ -665,7 +693,7 @@ The mingling index is studying the neighboring trees regarding their species. In
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 1? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 #### Read the landscape output table {#sec-B_1.1}
 
@@ -870,9 +898,7 @@ The living C stock tripled over 100 years due to the accumulation of biomass in 
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 2?
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
-
-Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 
 #### Read the tree output table {#sec-A_2.1}
@@ -975,6 +1001,14 @@ We can see that there is an initial increase in mean dbh, then a drop after 20/2
 To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
 You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
 
+Shannon index is calculated as follows:
+
+$$S=-\sum{({p~i~} * log { (p~i~)})}$$
+
+Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
+Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees.
+We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
+
 ```{r ex33, eval=TRUE, message = FALSE, warning=FALSE}
 
 # First we need to change the 
@@ -1048,11 +1082,6 @@ ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
 
 ```
 We see that the values of Shannon index are first increasing and then tend to decrease, while the reduction under the 4deg_20percdrier is starting later than under the reference scenario. 
-Shannon index is calculated as follows:
-
-$$S=-\sum{({p~i~} * log { (p~i~)})}$$
-
-Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
 
 #### Spatial diversity {#sec-A_2.5}
 
@@ -1131,7 +1160,7 @@ The mingling index is studying the neighboring trees regarding their species. In
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 2? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 
 #### Read the landscape output table {#sec-B_2.1}
@@ -1329,9 +1358,7 @@ Additionally, we see a significant increase in the share of the shade-tolerant b
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 3?
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
-
-Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*.We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 #### Read the tree output table {#sec-A_3.1}
 
@@ -1427,13 +1454,21 @@ ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
     ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
 ```
 
-We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
+We can see that there is an initial increase in mean dbh, then a drop after 12/15 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts. After the stand canopy became closed, the mean DBH started to increase again until the end of the simulation period.
 
 
 #### Species diversity {#sec-A_3.4}
 
 To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
 You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
+
+Shannon index is calculated as follows:
+
+$$S=-\sum{({p~i~} * log { (p~i~)})}$$
+
+Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
+Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees.
+We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
 
 ```{r ex51, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -1508,11 +1543,7 @@ ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
 
 ```
 We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the 4deg_20percdrier is more substantial than under the reference scenario. 
-Shannon index is calculated as follows:
 
-$$S=-\sum{({p~i~} * log { (p~i~)})}$$
-
-Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
 
 #### Spatial diversity {#sec-A_3.5}
 
@@ -1586,15 +1617,15 @@ ggplot2::ggplot(indices, ggplot2::aes(x = year, y = value, color = run)) +
 ```
 
 
-The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first 20/25 years, after which it steeply increases due to the occurrence of ingrowth and then the values are stabilized. The values for the reference climate scenario are slightly higher than for the climate change scenario indicating slower growth under drier and warmer conditions and/or the differences in tree species composition (proportion of tree species).
-The mingling index is studying the neighboring trees regarding their species. In both development there is a decrease in the index after the occurrence of regeneration. Using the climate change scenario the index shows steeper decrease.
+The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first circa 12 years, after which it steeply increases due to the occurrence of ingrowth and then the values are stabilized. The values of Shannon index differed between the scenarios only at the end of the simulation period, when the calculated Shannon index under the climate change scenario was slightly lower than under the reference climate.
+The mingling index is studying the neighboring trees regarding their species. In both development there is a decrease in the index after the occurrence of regeneration, because the number of trees increased four times. Using the climate change scenario the index shows greater decrease since the spruce share was substantially reduced (see Figures in Question B - Group 3, @sec-B_3.2).
 
 
 ### Question B - Group 3 {#sec-B_3}
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 3? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 #### Read the landscape output table {#sec-B_3.1}
 
@@ -1799,9 +1830,7 @@ The living C stock more than doubled over 100 years due to the accumulation of b
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 4?
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time.
-
-Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 Read in the *tree* output table from two outputs you have for your plot:
 
@@ -1890,12 +1919,20 @@ ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
     ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
 ```
 
-We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
+We can see that there is an initial increase in mean dbh, then a drop after 30/40 years followed by a less steep increase until the end of the simulation period. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees are less than 4 m tall, they do not appear in the individual *tree* output as they are handled in cohorts. When the canopy closes around the age 30/40, no more massive ingrowth occurs and mean DBH starts to grow again.
 
 #### Species diversity {#sec-A_4.4}
 
 To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
 You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
+
+Shannon index is calculated as follows:
+
+$$S=-\sum{({p~i~} * log { (p~i~)})}$$
+
+Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
+Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees.
+We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
 
 ```{r ex69, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -1969,12 +2006,8 @@ ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
     ggplot2::theme_bw()
 
 ```
-We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the 4deg_20percdrier is more substantial than under the reference scenario. 
-Shannon index is calculated as follows:
+We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the *4deg_20percdrier* scenario is slightly greater than under the reference scenario due to the more pronounced dominance of beech (see Figures in Question B - Group 4, @sec-B_4.2).
 
-$$S=-\sum{({p~i~} * log { (p~i~)})}$$
-
-Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
 
 #### Spatial diversity {#sec-A_4.5}
 
@@ -2045,15 +2078,14 @@ ggplot2::ggplot(indices, ggplot2::aes(x = year, y = value, color = run)) +
 ```
 
 
-The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first 20/25 years, after which it steeply increases due to the occurrence of ingrowth and then the values are stabilized. The values for the reference climate scenario are slightly higher than for the climate change scenario indicating slower growth under drier and warmer conditions and/or the differences in tree species composition (proportion of tree species).
-The mingling index is studying the neighboring trees regarding their species. In both development there is a decrease in the index after the occurrence of regeneration. Using the climate change scenario the index shows steeper decrease.
-
+The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first 15/20 years, after which increase due to the occurrence of ingrowth and then the values are reduced again to their minima in 37/50 years, after which they again slightly increase. The values for the reference climate scenario are slightly lower than for the climate change scenario indicating slower growth.
+The mingling index is studying the neighboring trees regarding their species. No substantial difference in species mingling between scenarios was detected.
 
 ### Question B - Group 4 {#sec-B_4}
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 4? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. If you manage to simulate 2 scenarios, you can expand the code to have file3, and 3rd from each variable, or make the comparison in 2 step always comparing one scenario to the reference conditions at the time. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 #### Read the landscape output table {#sec-B_4.1}
 
@@ -2156,7 +2188,7 @@ print(g3)
 
 Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model start to handle them as individual trees and including in these outputs which we are looking now.
 
-At the end of the simulated 100 years, the total simulated carbon stock in living biomass under climate change scenario was slightly higher than under the reference climate. The proportion of beech has increased under both simulations. The number of trees increased in both cases after circa 25 years, but the increase was steeper under reference conditions. This increase caused by the regeneration.
+At the end of the simulated 100 years, the total simulated carbon stock in living biomass under climate change scenario was slightly higher than under the reference climate. The proportion of beech has increased under both simulations. The number of trees increased in both cases after circa 25 years, but the increase was steeper under reference conditions. This increase was caused by the regeneration. However, at the end of the simulation period, the number of remaining trees was slightly higher under climate change scenario than the reference one, indicating much higher tree mortality.
 
 Mean dbh of individual species reflected the development of the number of trees. The increase in the number of trees caused the reduction of mean dbh, e.g. of beech under both scenarios between 20 and 35 simulation years. 
 The species-specific graphs for mean dbh indicates that some species do not have successful regeneration under the climate change scenario. Pine dbh decreased only under reference scenario, when we observed the increase of the number of trees, while under climate change scenario the mean dbh of pine was growing indicating the growth of remaining trees of the species at the plot. The small proportion of chestnut almost decrease to 0 under both scenarios, its dbh development does not show any successful regeneration processes.
@@ -2363,7 +2395,6 @@ We also highly recommend that you storage any Rscript that you create in the fol
 
 If you followed the instructions in @sec-projFolder you should have the file `observations.csv` inside the folder `data`of your project file: 
 
-![](images/folderStruc_data.png){width="300"}
 
 ### Explore the data
 
@@ -3576,7 +3607,7 @@ print(g1)
 
 
 
-### Calculate some statistics for populating remaining areas:
+### Calculate some statistics for populating remaining areas
 
 Not all records have height, so we calculate H:D ratios for each tree that has.
 
@@ -3767,7 +3798,7 @@ g6 <- ggplot2::ggplot(all.trees, ggplot2::aes(X, Y, color = species)) +
 ```
  
  
-### Make files for iLand:
+### Make files for iLand
   
 Coordinates need to be shifted: 0, 0 is the bottom left corner.
 So we shift everything back by 50m.

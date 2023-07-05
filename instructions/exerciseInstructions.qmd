@@ -40,8 +40,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # General
 
-To do this exercise you first need to download the project folder. You can download the complete project folder from the summer school folder:
-https://drive.google.com/drive/folders/1goy-cY8h8YfkF9nN_33GLzW05siCNk17?usp=sharing
+To do this exercise you first need to download the project folder. You can download the complete project folder from this [link https://polybox.ethz.ch/index.php/s/Q8iFpTcJFd7nDBy](https://polybox.ethz.ch/index.php/s/Q8iFpTcJFd7nDBy).
 
 In this project you will find the following folders and files:
 
