@@ -40,9 +40,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # General
 
-To do this exercise you first need to download the project folder. You can download the complete project folder from this [link https://polybox.ethz.ch/index.php/s/Q8iFpTcJFd7nDBy](https://polybox.ethz.ch/index.php/s/Q8iFpTcJFd7nDBy).
+This document is the step by step guide. You will now find a set of instructions for your group.
 
-In this project you will find the following folders and files:
+To do this exercise you first need to download the project folder. You can download the complete project folder from [this link https://drive.google.com/drive/u/0/folders/1IXfJNIXw32lp1q4AmEZzt0nqgE3HDRIx](https://drive.google.com/drive/u/0/folders/1IXfJNIXw32lp1q4AmEZzt0nqgE3HDRIx).
+
+In this project folder NAME HERE! you will find the following folders and files:
 
 -   `summerSchoolExercise.Rproj`: this is the project file that you should open. This file contains various project options and is used as a shortcut for opening the project directly from the file system.
 -   `code`: where you should save the R scripts .
@@ -57,9 +59,7 @@ Our recommendation is that you follow this folder structure and that you use the
 
 This project is also available in a github repository. You can clone the project in [here \[2\]](https://github.com/oldiya/summerSchoolExercise) via git. However in github the data file `data/observations.csv` and the folder `model/iLand_simulations` are missing and have to be downloaded separately (read the README.md files in these folders to learn how to download them).
 
-You will now find a set of instructions for your group.
-
-Please be aware of data policy and read it [[here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-policy)!
+Please be aware of data policy and read it [\[here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-policy)!
 
 # GROUP1
 
@@ -67,7 +67,7 @@ Please be aware of data policy and read it [[here]](https://ites-fe.ethz.ch/rws/
 
 The group should answer 4 questions during the exercises (A-D). Questions A-B addressing process-based modeling for Plot1, C-D addressing empirical modeling for Bryophites species using GLMs. You should form four sub-groups of 3-4 people inside the group to address each of the questions.
 
-## Subgroup A
+## Subgroup A \[Process Based\]
 
 ### Question to address
 
@@ -75,23 +75,24 @@ How are biodiversity indices changing in time and across the simulated scenario(
 
 ### Step by step guide
 
-1.  Get familiar with the model [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
-2.  Get start with the exercise [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
-3.  Get familiar with the input files [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
-4.  Read information on model settings to consider [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
-5.  Run the model for the reference case [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
-6.  Create and run alternative scenario [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
-7.  Process model outputs [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
+1.  Get familiar with the model [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
+2.  Get start with the exercise [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
+3.  Get familiar with the input files [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
+4.  Read information on model settings to consider [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
+5.  Run the model for the reference case [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
+6.  Create and run alternative scenario [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
+7.  Process model outputs [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
 
+```{=html}
+<!-- -->
+```
 a.  Open R project file and open a new script and save it into your "code" folder, here you can start to work
-b.  Load the output files into R and read in the *tree* output table from the sqlite files both for reference simulations and scenario run(s) [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.1)
-c.  Study the output table and do some visualizations, e.g. plot the trees by locations in year=0 and year=100 coloring by species and making different size of circles based on dbh and compare reference and scenario runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.2)
-d.  Plot the time development of some variables (e.g. average dbh of the trees) and compare reference and scenario runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.3)
-e. Study how biodiversity changed over time during your simulations and compare reference and scenario runs. You can use species diversity index ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.4)), and also some structural diversity indices for which you can get familiar with Francesco's R package "treespat" ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.5))
-You can find R package documentation in the *documents* folder 
+b.  Load the output files into R and read in the *tree* output table from the sqlite files both for reference simulations and scenario run(s) [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.1)
+c.  Study the output table and do some visualizations, e.g. plot the trees by locations in year=0 and year=100 coloring by species and making different size of circles based on dbh and compare reference and scenario runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.2)
+d.  Plot the time development of some variables (e.g. average dbh of the trees) and compare reference and scenario runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.3)
+e.  Study how biodiversity changed over time during your simulations and compare reference and scenario runs. You can use species diversity index ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.4)), and also some structural diversity indices for which you can get familiar with Francesco's R package "treespat" ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.5)) You can find R package documentation in the *documents* folder
 
-
-## Subgroup B
+## Subgroup B \[Process Based\]
 
 ### Question to address
 
@@ -99,21 +100,24 @@ How are the species distribution and total living biomass C content changing in 
 
 ### Step by step guide
 
-1.  Get familiar with the model [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
-2.  Get start with the exercise [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
-3.  Get familiar with the input files [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
-4.  Read information on model settings to consider [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
-5.  Run the model for the reference case [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
-6.  Create and run alternative scenario [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
-7.  Process model outputs [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
+1.  Get familiar with the model [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
+2.  Get start with the exercise [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
+3.  Get familiar with the input files [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
+4.  Read information on model settings to consider [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
+5.  Run the model for the reference case [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
+6.  Create and run alternative scenario [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
+7.  Process model outputs [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
 
+```{=html}
+<!-- -->
+```
 a.  Open R project file and open a new script and save it into your "code" folder, here you can start to work.
-b.  Load the output files into R and read in the *landscape* output table from the sqlite files both for reference simulations and scenario run(s) [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_1.1)
-c.  Visualize model results for both reference and scenarios run(s) using the species specific outputs, for example total_carbon_kg (carbon content of living compartments) and count_ha (number of trees). You can also plot e.g. mean dbh change per species, or anything that you think is interesting. [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_1.2)
-d.  Calculate the carbon content of living compartments of the trees in year=0 and year=100 and compare them between different model runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_1.3)
-e. Study the species composition change based on carbon content, or volume. Which species remained there, disappeared of increased on decreased their proportions! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_1.4)
+b.  Load the output files into R and read in the *landscape* output table from the sqlite files both for reference simulations and scenario run(s) [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_1.1)
+c.  Visualize model results for both reference and scenarios run(s) using the species specific outputs, for example total_carbon_kg (carbon content of living compartments) and count_ha (number of trees). You can also plot e.g. mean dbh change per species, or anything that you think is interesting. [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_1.2)
+d.  Calculate the carbon content of living compartments of the trees in year=0 and year=100 and compare them between different model runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_1.3)
+e.  Study the species composition change based on carbon content, or volume. Which species remained there, disappeared of increased on decreased their proportions! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_1.4)
 
-## Subgroup C
+## Subgroup C \[Empirical\]
 
 ### Question to address
 
@@ -123,13 +127,12 @@ Does a more diverse forest in structure and composition have more Bryophites spe
 
 1.  Learn what is are Bryophytes, you can find a short description [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#species-1---bryophytes)
 2.  Get familiar with what Generalized Linear Models (GLMs), you can find a short description [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#generalized-linear-models-glms)
-3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
-4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-C_1)
-5.  Create a GLM model in R using the selected response variable and explanatory variables.  If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-C_1) including two models alternatives
-6. Explore the model. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-C_1). You can also try to understand the explanatory power of your model [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explanatory-power-of-the-model) and look at the model assumptions [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-assumptions)
+3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
+4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-C_1)
+5.  Create a GLM model in R using the selected response variable and explanatory variables. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-C_1) including two models alternatives
+6.  Explore the model. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-C_1). You can also try to understand the explanatory power of your model [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explanatory-power-of-the-model) and look at the model assumptions [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-assumptions)
 
-
-## Subgroup D
+## Subgroup D \[Empirical\]
 
 ### Question to address
 
@@ -139,10 +142,10 @@ Is the number of Bryophites species affected by forest management type and the f
 
 1.  Learn what is are Bryophytes, you can find a short description [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#species-1---bryophytes)
 2.  Get familiar with what Generalized Linear Models (GLMs), you can find a short description [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#generalized-linear-models-glms)
-3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
-4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_1)
-5.  Create a GLM model in R using the selected response variable and explanatory variables.  If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_1) including two models alternatives
-6. Explore the model. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_1). You can also try to understand the explanatory power of your model [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explanatory-power-of-the-model-1) and look at the model assumptions [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-assumptions-1)
+3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
+4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_1)
+5.  Create a GLM model in R using the selected response variable and explanatory variables. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_1) including two models alternatives
+6.  Explore the model. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_1). You can also try to understand the explanatory power of your model [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explanatory-power-of-the-model-1) and look at the model assumptions [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-assumptions-1)
 
 ------------------------------------------------------------------------
 
@@ -152,7 +155,7 @@ Is the number of Bryophites species affected by forest management type and the f
 
 The group should answer 4 questions during the exercises (A-D). Questions A-B addressing process-based modeling for Plot2, C-D addressing empirical modeling for bird species using GLMs. You should form four sub-groups of 3-4 people inside the group to address each of the questions.
 
-## Subgroup A
+## Subgroup A \[Process Based\]
 
 ### Question to address
 
@@ -160,23 +163,24 @@ How are biodiversity indices changing in time and across the simulated scenario(
 
 ### Step by step guide
 
-1.  Get familiar with the model [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
-2.  Get start with the exercise [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
-3.  Get familiar with the input files [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
-4.  Read information on model settings to consider [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
-5.  Run the model for the reference case [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
-6.  Create and run alternative scenario [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
-7.  Process model outputs [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
+1.  Get familiar with the model [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
+2.  Get start with the exercise [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
+3.  Get familiar with the input files [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
+4.  Read information on model settings to consider [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
+5.  Run the model for the reference case [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
+6.  Create and run alternative scenario [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
+7.  Process model outputs [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
 
+```{=html}
+<!-- -->
+```
 a.  Open R project file and open a new script and save it into your "code" folder, here you can start to work
-b.  Load the output files into R and read in the *tree* output table from the sqlite files both for reference simulations and scenario run(s) [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_2.1)
-c.  Study the output table and do some visualizations, e.g. plot the trees by locations in year=0 and year=100 coloring by species and making different size of circles based on dbh and compare reference and scenario runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_2.2)
-d.  Plot the time development of some variables (e.g. average dbh of the trees) and compare reference and scenario runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_2.3)
-e. Study how biodiversity changed over time during your simulations and compare reference and scenario runs. You can use species diversity index ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_2.4)), and also some structural diversity indices for which you can get familiar with Francesco's R package "treespat" ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_2.5))
-You can find R package documentation in the *documents* folder 
+b.  Load the output files into R and read in the *tree* output table from the sqlite files both for reference simulations and scenario run(s) [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_2.1)
+c.  Study the output table and do some visualizations, e.g. plot the trees by locations in year=0 and year=100 coloring by species and making different size of circles based on dbh and compare reference and scenario runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_2.2)
+d.  Plot the time development of some variables (e.g. average dbh of the trees) and compare reference and scenario runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_2.3)
+e.  Study how biodiversity changed over time during your simulations and compare reference and scenario runs. You can use species diversity index ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_2.4)), and also some structural diversity indices for which you can get familiar with Francesco's R package "treespat" ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_2.5)) You can find R package documentation in the *documents* folder
 
-
-## Subgroup B
+## Subgroup B \[Process Based\]
 
 ### Question to address
 
@@ -184,36 +188,39 @@ How are the species distribution and total living biomass C content changing in 
 
 ### Step by step guide
 
-1.  Get familiar with the model [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
-2.  Get start with the exercise [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
-3.  Get familiar with the input files [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
-4.  Read information on model settings to consider [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
-5.  Run the model for the reference case [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
-6.  Create and run alternative scenario [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
-7.  Process model outputs [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
+1.  Get familiar with the model [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
+2.  Get start with the exercise [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
+3.  Get familiar with the input files [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
+4.  Read information on model settings to consider [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
+5.  Run the model for the reference case [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
+6.  Create and run alternative scenario [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
+7.  Process model outputs [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
 
+```{=html}
+<!-- -->
+```
 a.  Open R project file and open a new script and save it into your "code" folder, here you can start to work.
-b.  Load the output files into R and read in the *landscape* output table from the sqlite files both for reference simulations and scenario run(s) [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_2.1)
-c.  Visualize model results for both reference and scenarios run(s) using the species specific outputs, for example total_carbon_kg (carbon content of living compartments) and count_ha (number of trees). You can also plot e.g. mean dbh change per species, or anything that you think is interesting. [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_2.2)
-d.  Calculate the carbon content of living compartments of the trees in year=0 and year=100 and compare them between different model runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_2.3)
-e. Study the species composition change based on carbon content, or volume. Which species remained there, disappeared of increased on decreased their proportions! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_2.4)
+b.  Load the output files into R and read in the *landscape* output table from the sqlite files both for reference simulations and scenario run(s) [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_2.1)
+c.  Visualize model results for both reference and scenarios run(s) using the species specific outputs, for example total_carbon_kg (carbon content of living compartments) and count_ha (number of trees). You can also plot e.g. mean dbh change per species, or anything that you think is interesting. [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_2.2)
+d.  Calculate the carbon content of living compartments of the trees in year=0 and year=100 and compare them between different model runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_2.3)
+e.  Study the species composition change based on carbon content, or volume. Which species remained there, disappeared of increased on decreased their proportions! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_2.4)
 
-## Subgroup C
+## Subgroup C \[Empirical\]
 
 ### Question to address
-Does a more diverse forest in structure and composition have more bird species?  
+
+Does a more diverse forest in structure and composition have more bird species?
 
 ### Step by step guide
+
 1.  I think you already know what birds are but if you do not, please find out now.
 2.  Get familiar with what Generalized Linear Models (GLMs), you can find a short description [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#generalized-linear-models-glms)
-3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
+3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
 4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-C_2)
-5.  Create a GLM model in R using the selected response variable and explanatory variables.  If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-C_2) including two models alternatives
-6. Explore the model. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-C_2). You can also try to understand the explanatory power of your model [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explanatory-power-of-the-model-2) and look at the model assumptions [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-assumptions-2)
+5.  Create a GLM model in R using the selected response variable and explanatory variables. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-C_2) including two models alternatives
+6.  Explore the model. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-C_2). You can also try to understand the explanatory power of your model [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explanatory-power-of-the-model-2) and look at the model assumptions [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-assumptions-2)
 
-
-
-## Subgroup D
+## Subgroup D \[Empirical\]
 
 ### Question to address
 
@@ -223,12 +230,10 @@ Is the number of bird species affected by forest management type and the forest 
 
 1.  I think you already know what birds are but if you do not, please find out now.
 2.  Get familiar with what Generalized Linear Models (GLMs), you can find a short description [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#generalized-linear-models-glms)
-3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
-4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_2)
-5.  Create a GLM model in R using the selected response variable and explanatory variables.  If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_2) including two models alternatives
-6. Explore the model. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_2). You can also try to understand the explanatory power of your model [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explanatory-power-of-the-model-3) and look at the model assumptions [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-assumptions-3)
-
-
+3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
+4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_2)
+5.  Create a GLM model in R using the selected response variable and explanatory variables. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_2) including two models alternatives
+6.  Explore the model. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-D_2). You can also try to understand the explanatory power of your model [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explanatory-power-of-the-model-3) and look at the model assumptions [following this instructions](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-assumptions-3)
 
 # GROUP3
 
@@ -236,7 +241,7 @@ Is the number of bird species affected by forest management type and the forest 
 
 The group should answer 4 questions during the exercises (A-D). Questions A-B addressing Plot 3, C-D addressing empirical modeling for the presence of the Great spotted woodpecker using BRT. You should form four sub-groups of 3-4 people inside the group to address each of the questions.
 
-## Subgroup A
+## Subgroup A \[Process Based\]
 
 ### Question to address
 
@@ -244,23 +249,24 @@ How are biodiversity indices changing in time and across the simulated scenario(
 
 ### Step by step guide
 
-1.  Get familiar with the model [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
-2.  Get start with the exercise [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
-3.  Get familiar with the input files [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
-4.  Read information on model settings to consider [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
-5.  Run the model for the reference case [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
-6.  Create and run alternative scenario [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
-7.  Process model outputs [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
+1.  Get familiar with the model [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
+2.  Get start with the exercise [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
+3.  Get familiar with the input files [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
+4.  Read information on model settings to consider [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
+5.  Run the model for the reference case [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
+6.  Create and run alternative scenario [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
+7.  Process model outputs [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
 
+```{=html}
+<!-- -->
+```
 a.  Open R project file and open a new script and save it into your "code" folder, here you can start to work
-b.  Load the output files into R and read in the *tree* output table from the sqlite files both for reference simulations and scenario run(s) [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_3.1)
-c.  Study the output table and do some visualizations, e.g. plot the trees by locations in year=0 and year=100 coloring by species and making different size of circles based on dbh and compare reference and scenario runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_3.2)
-d.  Plot the time development of some variables (e.g. average dbh of the trees) and compare reference and scenario runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_3.3)
-e. Study how biodiversity changed over time during your simulations and compare reference and scenario runs. You can use species diversity index ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_3.4)), and also some structural diversity indices for which you can get familiar with Francesco's R package "treespat" ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.5))
-You can find R package documentation in the *documents* folder 
+b.  Load the output files into R and read in the *tree* output table from the sqlite files both for reference simulations and scenario run(s) [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_3.1)
+c.  Study the output table and do some visualizations, e.g. plot the trees by locations in year=0 and year=100 coloring by species and making different size of circles based on dbh and compare reference and scenario runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_3.2)
+d.  Plot the time development of some variables (e.g. average dbh of the trees) and compare reference and scenario runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_3.3)
+e.  Study how biodiversity changed over time during your simulations and compare reference and scenario runs. You can use species diversity index ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_3.4)), and also some structural diversity indices for which you can get familiar with Francesco's R package "treespat" ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.5)) You can find R package documentation in the *documents* folder
 
-
-## Subgroup B
+## Subgroup B \[Process Based\]
 
 ### Question to address
 
@@ -268,21 +274,24 @@ How are the species distribution and total living biomass C content changing in 
 
 ### Step by step guide
 
-1.  Get familiar with the model [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
-2.  Get start with the exercise [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
-3.  Get familiar with the input files [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
-4.  Read information on model settings to consider [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
-5.  Run the model for the reference case [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
-6.  Create and run alternative scenario [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
-7.  Process model outputs [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
+1.  Get familiar with the model [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
+2.  Get start with the exercise [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
+3.  Get familiar with the input files [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
+4.  Read information on model settings to consider [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
+5.  Run the model for the reference case [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
+6.  Create and run alternative scenario [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
+7.  Process model outputs [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
 
+```{=html}
+<!-- -->
+```
 a.  Open R project file and open a new script and save it into your "code" folder, here you can start to work.
-b.  Load the output files into R and read in the *landscape* output table from the sqlite files both for reference simulations and scenario run(s) [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_3.1)
-c.  Visualize model results for both reference and scenarios run(s) using the species specific outputs, for example total_carbon_kg (carbon content of living compartments) and count_ha (number of trees). You can also plot e.g. mean dbh change per species, or anything that you think is interesting. [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_3.2)
-d.  Calculate the carbon content of living compartments of the trees in year=0 and year=100 and compare them between different model runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_3.3)
-e. Study the species composition change based on carbon content, or volume. Which species remained there, disappeared of increased on decreased their proportions! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_3.4)
+b.  Load the output files into R and read in the *landscape* output table from the sqlite files both for reference simulations and scenario run(s) [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_3.1)
+c.  Visualize model results for both reference and scenarios run(s) using the species specific outputs, for example total_carbon_kg (carbon content of living compartments) and count_ha (number of trees). You can also plot e.g. mean dbh change per species, or anything that you think is interesting. [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_3.2)
+d.  Calculate the carbon content of living compartments of the trees in year=0 and year=100 and compare them between different model runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_3.3)
+e.  Study the species composition change based on carbon content, or volume. Which species remained there, disappeared of increased on decreased their proportions! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_3.4)
 
-## Subgroup C:
+## Subgroup C \[Empirical\]
 
 ### Question to address
 
@@ -292,14 +301,13 @@ Is the presence of the Great spotted woodpecker affected by forest density?
 
 1.  You can learn a bit about the Great spotted woodpecker in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#species-2---great-spotted-woodpecker)
 2.  Get familiar with what Boosted Regression Trees (BRTs), you can find a short description [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-modelBRT)
-3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
-4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r)
-5.  Create a BRT model in R using the selected response variable and explanatory variables.  If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r). Please read this section carefully, you will have to manipulate the data in order to have enough observations. This is all explained in the link.
-6. Explore the model behaviour. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-behaviour).
-7. Explore the model output. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-output-analysis).
+3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
+4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r)
+5.  Create a BRT model in R using the selected response variable and explanatory variables. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r). Please read this section carefully, you will have to manipulate the data in order to have enough observations. This is all explained in the link.
+6.  Explore the model behaviour. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-behaviour).
+7.  Explore the model output. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-output-analysis).
 
-
-## Subgroup D
+## Subgroup D \[Empirical\]
 
 ### Question to address
 
@@ -309,19 +317,19 @@ Is the presence of the Great spotted woodpecker affected by forest diversity?
 
 1.  You can learn a bit about the Great spotted woodpecker in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#species-2---great-spotted-woodpecker)
 2.  Get familiar with what Boosted Regression Trees (BRTs), you can find a short description [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-modelBRT)
-3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
-4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-1)
-5.  Create a BRT model in R using the selected response variable and explanatory variables.  If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-1). Please read this section carefully, you will have to manipulate the data in order to have enough observations. This is all explained in the link.
-6. Explore the model behaviour. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-behaviour-1).
-7. Explore the model output. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-output-analysis-1).
+3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
+4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-1)
+5.  Create a BRT model in R using the selected response variable and explanatory variables. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-1). Please read this section carefully, you will have to manipulate the data in order to have enough observations. This is all explained in the link.
+6.  Explore the model behaviour. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-behaviour-1).
+7.  Explore the model output. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-output-analysis-1).
 
 # GROUP4
 
 ## Tasks
 
-The group should answer 4 questions during the exercises (A-D). Questions A-B addressing Plot 4, C-D addressing empirical modeling for the presence of the  Eurasian treecreeper using BRT. You should form four sub-groups of 3-4 people inside the group to address each of the questions.
+The group should answer 4 questions during the exercises (A-D). Questions A-B addressing Plot 4, C-D addressing empirical modeling for the presence of the Eurasian treecreeper using BRT. You should form four sub-groups of 3-4 people inside the group to address each of the questions.
 
-## Subgroup A:
+## Subgroup A \[Process Based\]
 
 ### Question to address
 
@@ -329,23 +337,24 @@ How are biodiversity indices changing in time and across the simulated scenario(
 
 ### Step by step guide
 
-1.  Get familiar with the model [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
-2.  Get start with the exercise [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
-3.  Get familiar with the input files [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
-4.  Read information on model settings to consider [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
-5.  Run the model for the reference case [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
-6.  Create and run alternative scenario [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
-7.  Process model outputs [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
+1.  Get familiar with the model [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
+2.  Get start with the exercise [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
+3.  Get familiar with the input files [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
+4.  Read information on model settings to consider [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
+5.  Run the model for the reference case [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
+6.  Create and run alternative scenario [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
+7.  Process model outputs [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
 
+```{=html}
+<!-- -->
+```
 a.  Open R project file and open a new script and save it into your "code" folder, here you can start to work
-b.  Load the output files into R and read in the *tree* output table from the sqlite files both for reference simulations and scenario run(s) [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_4.1)
-c.  Study the output table and do some visualizations, e.g. plot the trees by locations in year=0 and year=100 coloring by species and making different size of circles based on dbh and compare reference and scenario runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_4.2)
-d.  Plot the time development of some variables (e.g. average dbh of the trees) and compare reference and scenario runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_4.3)
-e. Study how biodiversity changed over time during your simulations and compare reference and scenario runs. You can use species diversity index ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_4.4)), and also some structural diversity indices for which you can get familiar with Francesco's R package "treespat" ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.5))
-You can find R package documentation in the *documents* folder 
+b.  Load the output files into R and read in the *tree* output table from the sqlite files both for reference simulations and scenario run(s) [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_4.1)
+c.  Study the output table and do some visualizations, e.g. plot the trees by locations in year=0 and year=100 coloring by species and making different size of circles based on dbh and compare reference and scenario runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_4.2)
+d.  Plot the time development of some variables (e.g. average dbh of the trees) and compare reference and scenario runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_4.3)
+e.  Study how biodiversity changed over time during your simulations and compare reference and scenario runs. You can use species diversity index ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_4.4)), and also some structural diversity indices for which you can get familiar with Francesco's R package "treespat" ([for help click here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-A_1.5)) You can find R package documentation in the *documents* folder
 
-
-## Subgroup B:
+## Subgroup B \[Process Based\]
 
 ### Question to address
 
@@ -353,22 +362,24 @@ How are the species distribution and total living biomass C content changing in 
 
 ### Step by step guide
 
-1.  Get familiar with the model [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
-2.  Get start with the exercise [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
-3.  Get familiar with the input files [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
-4.  Read information on model settings to consider [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
-5.  Run the model for the reference case [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
-6.  Create and run alternative scenario [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
-7.  Process model outputs [[click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
+1.  Get familiar with the model [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-iland)
+2.  Get start with the exercise [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-gs)
+3.  Get familiar with the input files [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-in)
+4.  Read information on model settings to consider [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-se)
+5.  Run the model for the reference case [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-run)
+6.  Create and run alternative scenario [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-as)
+7.  Process model outputs [\[click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-out):
 
+```{=html}
+<!-- -->
+```
 a.  Open R project file and open a new script and save it into your "code" folder, here you can start to work.
-b.  Load the output files into R and read in the *landscape* output table from the sqlite files both for reference simulations and scenario run(s) [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_4.1)
-c.  Visualize model results for both reference and scenarios run(s) using the species specific outputs, for example total_carbon_kg (carbon content of living compartments) and count_ha (number of trees). You can also plot e.g. mean dbh change per species, or anything that you think is interesting. [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_4.2)
-d.  Calculate the carbon content of living compartments of the trees in year=0 and year=100 and compare them between different model runs! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_4.3)
-e. Study the species composition change based on carbon content, or volume. Which species remained there, disappeared of increased on decreased their proportions! [[for help click here]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_4.4)
+b.  Load the output files into R and read in the *landscape* output table from the sqlite files both for reference simulations and scenario run(s) [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_4.1)
+c.  Visualize model results for both reference and scenarios run(s) using the species specific outputs, for example total_carbon_kg (carbon content of living compartments) and count_ha (number of trees). You can also plot e.g. mean dbh change per species, or anything that you think is interesting. [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_4.2)
+d.  Calculate the carbon content of living compartments of the trees in year=0 and year=100 and compare them between different model runs! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_4.3)
+e.  Study the species composition change based on carbon content, or volume. Which species remained there, disappeared of increased on decreased their proportions! [\[for help click here\]](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-B_4.4)
 
-
-## Subgroup C
+## Subgroup C \[Empirical\]
 
 ### Question to address
 
@@ -378,13 +389,13 @@ Is the presence of the Eurasian treecreeper affected by forest density?
 
 1.  You can learn a bit about the Great spotted woodpecker in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#species-3---eurasian-treecreeper)
 2.  Get familiar with what Boosted Regression Trees (BRTs), you can find a short description [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-modelBRT)
-3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
-4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-2)
-5.  Create a BRT model in R using the selected response variable and explanatory variables.  If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-2). Please read this section carefully, you will have to manipulate the data in order to have enough observations. This is all explained in the link.
-6. Explore the model behavior. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-behaviour-2).
-7. Explore the model output. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-output-analysis-2).
+3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
+4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-2)
+5.  Create a BRT model in R using the selected response variable and explanatory variables. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-2). Please read this section carefully, you will have to manipulate the data in order to have enough observations. This is all explained in the link.
+6.  Explore the model behavior. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-behaviour-2).
+7.  Explore the model output. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-output-analysis-2).
 
-## Subgroup D
+## Subgroup D \[Empirical\]
 
 ### Question to address
 
@@ -394,10 +405,8 @@ Is the presence of the Eurasian treecreeper affected by forest management?
 
 1.  You can learn a bit about the Great spotted woodpecker in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#species-3---eurasian-treecreeper)
 2.  Get familiar with what Boosted Regression Trees (BRTs), you can find a short description [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#sec-modelBRT)
-3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
-4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-3)
-5.  Create a BRT model in R using the selected response variable and explanatory variables.  If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-3). Please read this section carefully, you will have to manipulate the data in order to have enough observations. This is all explained in the link.
-6. Explore the model behavior. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-behaviour-3).
-7. Explore the model output. If you do not know how to do this, you can find some instructions in  [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-output-analysis-3).
-
-
+3.  Get familiar with the observed data available under the folder `data`. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#explore-the-data)
+4.  Select a response variable to answer your question. Select also explanatory variables that you think will help you to answer your question. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-3)
+5.  Create a BRT model in R using the selected response variable and explanatory variables. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#fitting-a-brt-in-r-3). Please read this section carefully, you will have to manipulate the data in order to have enough observations. This is all explained in the link.
+6.  Explore the model behavior. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-behaviour-3).
+7.  Explore the model output. If you do not know how to do this, you can find some instructions in [here](https://ites-fe.ethz.ch/rws/SS/exerciseSolutions.html#model-output-analysis-3).

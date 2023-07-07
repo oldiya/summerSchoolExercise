@@ -2,10 +2,21 @@
 title: Forest Modeling Exercise
 subtitle: Process-based and empirical modeling exercises
 format:
-   html:
-     toc: true
-     toc-depth: 3
-     toc-location: left
+  titlepage-pdf:
+    documentclass: scrbook
+    classoption: ["oneside", "open=any",  DIV=16, fontsize=11pt]
+    number-sections: true
+    toc: true
+    titlepage: "bg-image"
+    titlepage-bg-image: "images/logo3.jpg"
+    titlepage-logo: "images/logos_proclias_cost.jpg"
+    titlepage-header: ""
+    titlepage-footer: |
+      Interdisciplinary Summer School\
+      Ljubljana 2023\
+      [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)
+    titlepage-theme:
+      bg-image-size: 8cm
 author:
   - name: Olalla Díaz-Yáñez
     affiliations:
@@ -51,10 +62,9 @@ author:
 
 This document contains the instructions and solutions of the modeling group assignments. First, you will find the section for the process model approach (@sec-pb) and after that the section for the empirical modelling (@sec-em). This document is very long because it describes all the exercises and solutions step by step.
 
-You will work per groups in the four groups established at the beginning of the week. Each of the four groups will be divided internally in four subgroups (A-D). Each subgroup (A-D) inside each group (1-4) will address one question that will have to be answered using one approach. In the table below you can find a link to the section to each question e.g. group 1 subgroup A will answer the questions "**How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 1?**" using the approach based on the model iLand and will have the full instructions and solution in @sec-A_1. 
+You will work per groups in the four groups established at the beginning of the week. Each of the four groups will be divided internally in four subgroups (A-D). Each subgroup (A-D) inside each group (1-4) will address one question that will have to be answered using one approach. In the table below you can find a link to the section to each question e.g. group 1 subgroup A will answer the questions "**How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 1?**" using the approach based on the model iLand and will have the full instructions and solution in @sec-A_1.
 
-Please, always ask your coach if you do not know what is the section where you should be working in. 
-
+Please, always ask your coach if you do not know what is the section where you should be working in.
 
 | Group | Subgroup Question | Question                                                                                                    | Approach | Go to    |
 |---------------|---------------|---------------|---------------|---------------|
@@ -85,20 +95,18 @@ To do this exercise you first need to download the project folder. You can downl
 
 In this project you will find the following folders and files:
 
-* `summerSchoolExercise.Rproj`: this is the project file that you should open. This file contains various project options and is used as a shortcut for opening the project directly from the file system.
-* `code`: where you should save the R scripts . 
-* `data`: this contains the data used in the empirical modeling. 
-* `instructions`:  where you can find the pdf and qmd with the step by step instructions for the exercises without the solutions,  and all the extensions and images needed to compile the document
-* `model`:  where you will find the folder `iLand_simulations` with all the files needed to run the process based exercise
-* `solutions`:  where you can find this document in pdf and in the qmd and all the extensions and images needed to compile the document
+-   `summerSchoolExercise.Rproj`: this is the project file that you should open. This file contains various project options and is used as a shortcut for opening the project directly from the file system.
+-   `code`: where you should save the R scripts .
+-   `data`: this contains the data used in the empirical modeling.
+-   `instructions`: where you can find the pdf and qmd with the step by step instructions for the exercises without the solutions, and all the extensions and images needed to compile the document
+-   `model`: where you will find the folder `iLand_simulations` with all the files needed to run the process based exercise
+-   `solutions`: where you can find this document in pdf and in the qmd and all the extensions and images needed to compile the document
 
-Our recommendation is that you follow this folder structure and that you use the `summerSchoolExercise.Rproj` to open Rstudio.  If you decide to organize things in a different way then you will have to change all the relative paths in the codes provided in the solutions documentation. The folder you have downloaded should look like this:
+Our recommendation is that you follow this folder structure and that you use the `summerSchoolExercise.Rproj` to open Rstudio. If you decide to organize things in a different way then you will have to change all the relative paths in the codes provided in the solutions documentation. The folder you have downloaded should look like this:
 
 ![](images/folderStrucComplete.png){width="300"}
 
-
-This project is also available in a github repository. You can clone the project in [here \[2\]](https://github.com/oldiya/summerSchoolExercise) via git. However in github the data file ```data/observations.csv``` and the folder `model/iLand_simulations` are missing and have to be downloaded separately (read the README.md files in these folders to learn how to download them).
-
+This project is also available in a github repository. You can clone the project in [here \[2\]](https://github.com/oldiya/summerSchoolExercise) via git. However in github the data file `data/observations.csv` and the folder `model/iLand_simulations` are missing and have to be downloaded separately (read the README.md files in these folders to learn how to download them).
 
 # Process based {#sec-pb}
 
@@ -259,9 +267,9 @@ Set in project file:
  </initialization>
 ```
 
-Here we initialize trees taller than 4 meters. Trees smaller than 4m are handled as sapling cohorts in separated input file. Now we do not put there saplings and we do not have a sapling file. 
+Here we initialize trees taller than 4 meters. Trees smaller than 4m are handled as sapling cohorts in separated input file. Now we do not put there saplings and we do not have a sapling file.
 
-For the sake of simplicity we assume now no-management scenario for all simulations. 
+For the sake of simplicity we assume now no-management scenario for all simulations.
 
 NOTE: in the graphical interface you also wont see trees smaller than 4m, because they are not simulated as individuals rather in cohorts. But as regeneration will work, after a while as they grow above 4m, they become individual trees and we can see them also visually and they have own properties (dbh, height, age,...https://iland-model.org/tree+variables ). More details on saplings: https://iland-model.org/sapling+growth+and+competition
 
@@ -305,7 +313,7 @@ To answer the questions the most straight forward way is to look the *landscape*
 The output database has a *.sqlite* extension. You can explore outputs:
 
 -   Open and browse it in the *DB Browser* software that was on the software list. (https://sqlitebrowser.org/)
--   Load the file into R, where you can make additional data analyses needed to answer the questions in the exercise. 
+-   Load the file into R, where you can make additional data analyses needed to answer the questions in the exercise.
 
 ```{r ex8, eval=FALSE, message = FALSE, warning=FALSE}
 
@@ -366,25 +374,21 @@ DO NOT FORGET TO CHANGE THE OUTPUT FILE NAME AS WELL for your alternative scenar
 
 Running the alternative scenario follows the same steps as before.
 
-
 ### Settings to consider for the assessment of model results {#sec-se}
 
 #### No management
 
 We simulate stand development without management activities, which most likely generates accumulation of carbon and volume on the stands in this 100 years period. Generally iLand has a very sophisticated so called "agent based management engine" functionality for large landscapes, but also simple management activities are possible for stand-scale simulations. However, for the sake of simplicity in these examples we do not simulate any management activities.
 
-#### Initialization of trees 
+#### Initialization of trees
 
 iLand consider trees higher than 4m as individuals. All trees smaller than this size are simulated as cohorts. We initialize individual trees in year=0, but no regeneration layer, however the process of regeneration turned on, consequently trees are producing seeds and after the establishment they start to grow. It takes some 15-20-25 year to be able to see this effect on the outputs which we will study (that are based on individual trees). You can find more information here: https://iland-model.org/regeneration?highlight=regeneration
 
 #### Closed system
 
-We assume no external seed input to our stand. This is highly unrealistic, as seeds can enter to our 1 ha area from the surrounding forests and bring there species which are not there as individual trees in the beginning. Additionally, we are using the so-called torus mode so everything that escape on one side of the pixel, enters on the other side.
-In iLand there is an option to set background seed availability to different species assuming probabilities for establishment in the project file, which we turned off for now. In this way new species cannot appear on the stand during the simulation time.
+We assume no external seed input to our stand. This is highly unrealistic, as seeds can enter to our 1 ha area from the surrounding forests and bring there species which are not there as individual trees in the beginning. Additionally, we are using the so-called torus mode so everything that escape on one side of the pixel, enters on the other side. In iLand there is an option to set background seed availability to different species assuming probabilities for establishment in the project file, which we turned off for now. In this way new species cannot appear on the stand during the simulation time.
 
-Practically the probabilities can be set based on the knowledge about the potential natural vegetation in the region, or based on the knowledge of the surrounding area.
-You can try to set external seeds if you wish in the project file turning the *externalSeedEnabled* from false to true.
-And set some probabilities (really small numbers) at *externalSeedBackgroundInput* a bit below down:
+Practically the probabilities can be set based on the knowledge about the potential natural vegetation in the region, or based on the knowledge of the surrounding area. You can try to set external seeds if you wish in the project file turning the *externalSeedEnabled* from false to true. And set some probabilities (really small numbers) at *externalSeedBackgroundInput* a bit below down:
 
 ```{r ex10b, eval=FALSE, message = FALSE, warning=FALSE}
 
@@ -397,21 +401,17 @@ piab 0.00001 acps 0.00001</externalSeedBackgroundInput>
      
 ```
 
-More information on external seeds are here:
-https://iland-model.org/external+seeds?highlight=seed
+More information on external seeds are here: https://iland-model.org/external+seeds?highlight=seed
 
-
-
-### Question A - Group 1 {#sec-A_1}
+### Group 1 - Question A {#sec-A_1}
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 1?
 
 Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
-
 #### Read the tree output table {#sec-A_1.1}
 
-Read in the *tree* output table from two outputs you have for your plot: 
+Read in the *tree* output table from two outputs you have for your plot:
 
 ```{r ex11, eval=TRUE, message = FALSE, warning=FALSE}
 path1 <- "model/iLand_simulations/output/Output_plot1.sqlite"
@@ -456,12 +456,9 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 head(tree)
 ```
 
-
 #### Visualize trees in year 0 and year 100! {#sec-A_1.2}
 
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
-
-
 
 ```{r ex13, eval=TRUE, message = FALSE, warning=FALSE}
 tree0 <- tree |> dplyr::filter(year == 0)
@@ -484,7 +481,6 @@ gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 We can see that the species composition has changed and the forest become more dense. We can even identify the same trees at the same location.
 
-
 #### Visualize some changes in time! {#sec-A_1.3}
 
 ```{r ex14, eval=TRUE, message = FALSE, warning=FALSE}
@@ -506,17 +502,13 @@ We can see that there is an initial increase in mean dbh, then a drop after 20/2
 
 #### Species diversity {#sec-A_1.4}
 
-To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
-You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
+To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity. First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1). You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
 
 Shannon index is calculated as follows:
 
 $$S=-\sum{({p~i~} * log { (p~i~)})}$$
 
-Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
-Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees.
-We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
-
+Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand. Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees. We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
 
 ```{r ex15, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -590,13 +582,12 @@ ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
     ggplot2::theme_bw()
 
 ```
-We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the 4deg_20percdrier is more substantial than under the reference scenario. 
 
+We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the 4deg_20percdrier is more substantial than under the reference scenario.
 
 #### Spatial diversity {#sec-A_1.5}
 
-We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
-You can find a short description of the package here: *"documents/treespat_package.pdf"*
+We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com). You can find a short description of the package here: *"documents/treespat_package.pdf"*
 
 You can install the package using devtools:
 
@@ -606,17 +597,11 @@ devtools::install_gitlab('fchianucci/treespat')
 
 Then, we are ready to use it! Let's calculate these two indices:
 
--   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree.
-The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that
-neighboring trees have equal size.
+-   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree. The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that neighboring trees have equal size.
 
--   Mingling (Aguirre et al., 2003): One very intuitive extension of taxonomic species diversity (either richness or abundance) is considering spatial
-mingling, namely how plants of the same (con-specific neighbors) or different (hetero-specific neighbors) species are arranged in space.
-The mingling index calculates the proportion of the k nearest neighbors that do not belong to the same species as the reference tree.
-For example, with four neighbors, the mingling attribute can assume five values, ranging from 0 (all trees are of the same species) to 1 (all trees belong to different species).
+-   Mingling (Aguirre et al., 2003): One very intuitive extension of taxonomic species diversity (either richness or abundance) is considering spatial mingling, namely how plants of the same (con-specific neighbors) or different (hetero-specific neighbors) species are arranged in space. The mingling index calculates the proportion of the k nearest neighbors that do not belong to the same species as the reference tree. For example, with four neighbors, the mingling attribute can assume five values, ranging from 0 (all trees are of the same species) to 1 (all trees belong to different species).
 
-Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
-The max.k parameter is telling how many neighboring trees we want to account for.
+Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses. The max.k parameter is telling how many neighboring trees we want to account for.
 
 ```{r ex20, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -685,11 +670,9 @@ ggplot2::ggplot(indices, ggplot2::aes(x = year, y = value, color = run)) +
     ggplot2::theme_bw() 
 ```
 
-The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first 20/25 years, after which it steeply increases due to the occurrence of ingrowth and then the values are stabilized. The values for the reference climate scenario are slightly higher than for the climate change scenario indicating slower growth under drier and warmer conditions and/or the differences in tree species composition (proportion of tree species).
-The mingling index is studying the neighboring trees regarding their species. In both development there is a decrease in the index after the occurrence of regeneration. Using the climate change scenario the index shows steeper decrease.
+The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first 20/25 years, after which it steeply increases due to the occurrence of ingrowth and then the values are stabilized. The values for the reference climate scenario are slightly higher than for the climate change scenario indicating slower growth under drier and warmer conditions and/or the differences in tree species composition (proportion of tree species). The mingling index is studying the neighboring trees regarding their species. In both development there is a decrease in the index after the occurrence of regeneration. Using the climate change scenario the index shows steeper decrease.
 
-
-### Question B - Group 1 {#sec-B_1}
+### Group 1 - Question B {#sec-B_1}
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 1? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
@@ -738,9 +721,7 @@ landscape <- rbind(landscape1 |> dplyr::mutate(run = name1),
 head(landscape)
 ```
 
-
 #### Visualize changes in time {#sec-B_1.2}
-
 
 We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the beginning. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
 
@@ -792,17 +773,15 @@ g3 <- ggplot2::ggplot(landscape,
 print(g3)
 ```
 
-
 Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model start to handle them as individual trees and including in these outputs which we are looking now.
 
 At the end of the simulated 100 years, the total simulated carbon stock in living biomass under climate change scenario was slightly higher than under the reference climate. The proportion of beech and pine increased under drier and warmer climate, while the proportion of spruce was lower, since spruce is in general more susceptible to dry conditions. The changes in the number of trees of individual tree species were more substantial than the changes in carbon stock. The number of spruce trees was substantially reduced under climate change, while under reference climate it was doubled after 30 years and then remain stable until the end of simulation. In contrast, the number of beech trees increased under both scenarios, but the increase was more pronounced under climate change scenario due to the reduction of spruce trees.
 
 Mean dbh of individual species reflected the development of the number of trees. The increase in the number of trees caused the reduction of mean dbh, e.g. of beech under both scenarios between 20 and 35 simulation years. The species-specific graphs for mean dbh indicates that some species do not have successful regeneration under the climate change scenario. Spruce and pine dbh decreased only under reference scenario, when we observed the increase of the number of trees, while under climate change scenario the mean dbh of spruce or pine was growing indicating the growth of remaining trees of the species at the plot. In the case of fir, we observed the continuous increase of dbh due to the more or less stable number of trees at the plots. While the mean dbh of fir was growing during the whole simulation period, under drier and warmer climate mean dbh of fir did not substantially change after 70 years.
 
-#### Assess the stored carbon amount {#sec-B_1.3} 
+#### Assess the stored carbon amount {#sec-B_1.3}
 
-
- Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
+Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
 ```{r ex25, eval=TRUE, message = FALSE, warning=FALSE}
 livingC0 <-
@@ -844,9 +823,7 @@ species.livingC100 <-
 print(species.livingC100)
 ```
 
-
-#### Assess the species proportions {#sec-B_1.4} 
-
+#### Assess the species proportions {#sec-B_1.4}
 
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
@@ -892,16 +869,14 @@ ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = spec.prop,
 
 The living C stock tripled over 100 years due to the accumulation of biomass in trees and no management interventions. Moreover, the proportion of individual tree species changed with fir substantially increasing its share. The living C stock of pine was reduced under the reference climate or remained unchanged under the climate change scenario.
 
-
-
-### Question A - Group 2 {#sec-A_2}
+### Group 2 - Question A  {#sec-A_2}
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 2?
 
 Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
-
 #### Read the tree output table {#sec-A_2.1}
+
 Read in the *tree* output table from two outputs you have for your plot:
 
 ```{r ex29, eval=TRUE, message = FALSE, warning=FALSE}
@@ -948,7 +923,6 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 head(tree)
 ```
 
-
 #### Visualize trees in year 0 and year 100! {#sec-A_2.2}
 
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
@@ -974,7 +948,6 @@ gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 We can see that the species composition has changed and the dbh of the trees seems to be larger, than in the initial year. We can even identify the same trees at the same location.
 
-
 #### Visualize some changes in time! {#sec-A_2.3}
 
 Visualize some changes in time, for example the mean diameter of the trees!
@@ -997,17 +970,13 @@ We can see that there is an initial increase in mean dbh, then a drop after 20/2
 
 #### Species diversity {#sec-A_2.4}
 
-
-To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
-You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
+To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity. First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1). You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
 
 Shannon index is calculated as follows:
 
 $$S=-\sum{({p~i~} * log { (p~i~)})}$$
 
-Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
-Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees.
-We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
+Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand. Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees. We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
 
 ```{r ex33, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -1081,12 +1050,12 @@ ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
     ggplot2::theme_bw()
 
 ```
-We see that the values of Shannon index are first increasing and then tend to decrease, while the reduction under the 4deg_20percdrier is starting later than under the reference scenario. 
+
+We see that the values of Shannon index are first increasing and then tend to decrease, while the reduction under the 4deg_20percdrier is starting later than under the reference scenario.
 
 #### Spatial diversity {#sec-A_2.5}
 
-We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
-You can find a short description of the package here: *"documents/treespat_package.pdf"*
+We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com). You can find a short description of the package here: *"documents/treespat_package.pdf"*
 
 You can install the package using devtools:
 
@@ -1096,17 +1065,11 @@ devtools::install_gitlab('fchianucci/treespat')
 
 Then, we are ready to use it! Let's calculate these two indices:
 
--   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree.
-The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that
-neighboring trees have equal size.
+-   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree. The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that neighboring trees have equal size.
 
--   Mingling (Aguirre et al., 2003): One very intuitive extension of taxonomic species diversity (either richness or abundance) is considering spatial
-mingling, namely how plants of the same (con-specific neighbors) or different (hetero-specific neighbors) species are arranged in space.
-The mingling index calculates the proportion of the k nearest neighbors that do not belong to the same species as the reference tree.
-For example, with four neighbors, the mingling attribute can assume five values, ranging from 0 (all trees are of the same species) to 1 (all trees belong to different species).
+-   Mingling (Aguirre et al., 2003): One very intuitive extension of taxonomic species diversity (either richness or abundance) is considering spatial mingling, namely how plants of the same (con-specific neighbors) or different (hetero-specific neighbors) species are arranged in space. The mingling index calculates the proportion of the k nearest neighbors that do not belong to the same species as the reference tree. For example, with four neighbors, the mingling attribute can assume five values, ranging from 0 (all trees are of the same species) to 1 (all trees belong to different species).
 
-Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
-The max.k parameter is telling how many neighboring trees we want to account for.
+Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses. The max.k parameter is telling how many neighboring trees we want to account for.
 
 ```{r ex38, eval=TRUE, message = FALSE, warning=FALSE}
 library(treespat)
@@ -1152,19 +1115,15 @@ ggplot2::ggplot(indices, ggplot2::aes(x = year, y = value, color = run)) +
     ggplot2::theme_bw() 
 ```
 
-The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first circa 10 years, after which it steeply increases due to the occurrence of ingrowth and then the values are stabilized. The increase is not that steep for the climate change sceanario that is in accordance with the mean dbh graph. The values for the reference climate scenario are higher than for the climate change scenario indicating slower growth under drier and warmer conditions and/or the differences in tree species composition (proportion of tree species).
-The mingling index is studying the neighboring trees regarding their species. In both development there is a decrease in the index after the occurrence of regeneration. Using the climate change scenario the index shows steeper decrease and ending up at lower values after 100 years.
+The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first circa 10 years, after which it steeply increases due to the occurrence of ingrowth and then the values are stabilized. The increase is not that steep for the climate change sceanario that is in accordance with the mean dbh graph. The values for the reference climate scenario are higher than for the climate change scenario indicating slower growth under drier and warmer conditions and/or the differences in tree species composition (proportion of tree species). The mingling index is studying the neighboring trees regarding their species. In both development there is a decrease in the index after the occurrence of regeneration. Using the climate change scenario the index shows steeper decrease and ending up at lower values after 100 years.
 
-
-### Question B - Group 2 {#sec-B_2}
+### Group 2 - Question B {#sec-B_2}
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 2? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
 Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
-
 #### Read the landscape output table {#sec-B_2.1}
- 
 
 Read in the *landscape* output table from two outputs you have for your plot:
 
@@ -1258,14 +1217,11 @@ g3 <-
 print(g3)
 ```
 
-
 Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model start to handle them as individual trees and including in these outputs which we are looking now.
 
-*Castanea sativa* gradually decreased during the simulation period under both scenarios. The reduction resulted from the mortality of chestnut trees, indicating their aging. By the end of the simulation period, chestnut almost completely disappeared from the stand due to the increased number of trees of other species at the plot, and hence higher inter-tree competition, especially under the reference climate, which hindered the chestnut regeneration and its survival.
-Mean dbh of chestnut is zero at the end of the simulation period under the reference climate indicating that the species completely disappeared from the stand due to the high stand density, and inter-tree competition.
+*Castanea sativa* gradually decreased during the simulation period under both scenarios. The reduction resulted from the mortality of chestnut trees, indicating their aging. By the end of the simulation period, chestnut almost completely disappeared from the stand due to the increased number of trees of other species at the plot, and hence higher inter-tree competition, especially under the reference climate, which hindered the chestnut regeneration and its survival. Mean dbh of chestnut is zero at the end of the simulation period under the reference climate indicating that the species completely disappeared from the stand due to the high stand density, and inter-tree competition.
 
-#### Assess the stored carbon amount {#sec-B_2.3} 
-
+#### Assess the stored carbon amount {#sec-B_2.3}
 
 Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
@@ -1351,10 +1307,9 @@ ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = spec.prop,
 
 ```
 
-The living carbon stock doubled over 100 years due to the accumulation of biomass at the plot irrespective of the climate scenario. The comparison of the results between the two climate scenarios showed the differemnce in the tree species share. The living C stock of spruce was lower under the climate change reflecting its susceptibility to dry conditions, while the living C stock of Quercus pubescens, Fagus sylvatica and Pinus sylvestris were higher.
-Additionally, we see a significant increase in the share of the shade-tolerant beech at the expense of light-demanding chestnut.
+The living carbon stock doubled over 100 years due to the accumulation of biomass at the plot irrespective of the climate scenario. The comparison of the results between the two climate scenarios showed the differemnce in the tree species share. The living C stock of spruce was lower under the climate change reflecting its susceptibility to dry conditions, while the living C stock of Quercus pubescens, Fagus sylvatica and Pinus sylvestris were higher. Additionally, we see a significant increase in the share of the shade-tolerant beech at the expense of light-demanding chestnut.
 
-### Question A - Group 3 {#sec-A_3}
+### Group 3 - Question A {#sec-A_3}
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 3?
 
@@ -1408,9 +1363,7 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 head(tree)
 ```
 
-
 #### Visualize trees in year 0 and year 100! {#sec-A_3.2}
-
 
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
@@ -1437,7 +1390,6 @@ We can see that the species composition is somewhat changed and the forest becom
 
 #### Visualize some changes in time! {#sec-A_3.3}
 
-
 Visualize some changes in time, for example the mean diameter of the trees!
 
 ```{r ex50, eval=TRUE, message = FALSE, warning=FALSE}
@@ -1456,19 +1408,15 @@ ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
 
 We can see that there is an initial increase in mean dbh, then a drop after 12/15 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts. After the stand canopy became closed, the mean DBH started to increase again until the end of the simulation period.
 
-
 #### Species diversity {#sec-A_3.4}
 
-To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
-You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
+To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity. First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1). You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
 
 Shannon index is calculated as follows:
 
 $$S=-\sum{({p~i~} * log { (p~i~)})}$$
 
-Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
-Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees.
-We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
+Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand. Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees. We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
 
 ```{r ex51, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -1542,13 +1490,12 @@ ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
     ggplot2::theme_bw()
 
 ```
-We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the 4deg_20percdrier is more substantial than under the reference scenario. 
 
+We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the 4deg_20percdrier is more substantial than under the reference scenario.
 
 #### Spatial diversity {#sec-A_3.5}
 
-We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
-You can find a short description of the package here: *"documents/treespat_package.pdf"*
+We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com). You can find a short description of the package here: *"documents/treespat_package.pdf"*
 
 You can install the package using devtools:
 
@@ -1558,17 +1505,11 @@ devtools::install_gitlab('fchianucci/treespat')
 
 Then, we are ready to use it! Let's calculate these two indices:
 
--   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree.
-The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that
-neighboring trees have equal size.
+-   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree. The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that neighboring trees have equal size.
 
--   Mingling (Aguirre et al., 2003): One very intuitive extension of taxonomic species diversity (either richness or abundance) is considering spatial
-mingling, namely how plants of the same (con-specific neighbors) or different (hetero-specific neighbors) species are arranged in space.
-The mingling index calculates the proportion of the k nearest neighbors that do not belong to the same species as the reference tree.
-For example, with four neighbors, the mingling attribute can assume five values, ranging from 0 (all trees are of the same species) to 1 (all trees belong to different species).
+-   Mingling (Aguirre et al., 2003): One very intuitive extension of taxonomic species diversity (either richness or abundance) is considering spatial mingling, namely how plants of the same (con-specific neighbors) or different (hetero-specific neighbors) species are arranged in space. The mingling index calculates the proportion of the k nearest neighbors that do not belong to the same species as the reference tree. For example, with four neighbors, the mingling attribute can assume five values, ranging from 0 (all trees are of the same species) to 1 (all trees belong to different species).
 
-Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
-The max.k parameter is telling how many neighboring trees we want to account for.
+Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses. The max.k parameter is telling how many neighboring trees we want to account for.
 
 ```{r ex56, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -1616,12 +1557,9 @@ ggplot2::ggplot(indices, ggplot2::aes(x = year, y = value, color = run)) +
     ggplot2::theme_bw() 
 ```
 
+The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first circa 12 years, after which it steeply increases due to the occurrence of ingrowth and then the values are stabilized. The values of Shannon index differed between the scenarios only at the end of the simulation period, when the calculated Shannon index under the climate change scenario was slightly lower than under the reference climate. The mingling index is studying the neighboring trees regarding their species. In both development there is a decrease in the index after the occurrence of regeneration, because the number of trees increased four times. Using the climate change scenario the index shows greater decrease since the spruce share was substantially reduced (see Figures in Question B - Group 3, @sec-B_3.2).
 
-The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first circa 12 years, after which it steeply increases due to the occurrence of ingrowth and then the values are stabilized. The values of Shannon index differed between the scenarios only at the end of the simulation period, when the calculated Shannon index under the climate change scenario was slightly lower than under the reference climate.
-The mingling index is studying the neighboring trees regarding their species. In both development there is a decrease in the index after the occurrence of regeneration, because the number of trees increased four times. Using the climate change scenario the index shows greater decrease since the spruce share was substantially reduced (see Figures in Question B - Group 3, @sec-B_3.2).
-
-
-### Question B - Group 3 {#sec-B_3}
+### Group 3 - Question B {#sec-B_3}
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 3? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
@@ -1670,7 +1608,6 @@ head(landscape)
 ```
 
 #### Visualize changes in time {#sec-B_3.2}
-
 
 We can see that the output is given for each year and each species in our 1ha area. Plot the living carbon (total_carbon_kg) in time, coloring by species. We give a unified species coloring in the beginning. Plot number of trees and mean diameter. Carbon and number of trees can be plotted in an additive way, but for mean dbh we do line plot per species.
 
@@ -1725,16 +1662,13 @@ g3 <-
 print(g3)
 ```
 
-
 Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model start to handle them as individual trees and including in these outputs which we are looking now.
 
-Beech profited from drier and warmer conditions at the expense of spruce. *Acer pseudoplatanus* and *Tilia cordata* also slightly increased their proportion in the living C stock and number of trees.
-The increase of the number of trees indicates the success of the regeneration under reference conditions, however this increase is much slower under the climate change scenario.
+Beech profited from drier and warmer conditions at the expense of spruce. *Acer pseudoplatanus* and *Tilia cordata* also slightly increased their proportion in the living C stock and number of trees. The increase of the number of trees indicates the success of the regeneration under reference conditions, however this increase is much slower under the climate change scenario.
 
 Mean dbh of individual species reflected the development of the number of trees. The increase in the number of trees caused the reduction of mean dbh, e.g. of beech under both scenarios between 20 and 35 simulation years. The species-specific graphs for mean dbh indicates that some species do not have successful regeneration under the climate change scenario. Spruce dbh decreased only under reference scenario, when we observed the increase of the number of trees, while under climate change scenario the mean dbh of spruce was growing indicating the growth of remaining trees of the species at the plot.
 
-#### Assess the stored carbon amount {#sec-B_3.3} 
-
+#### Assess the stored carbon amount {#sec-B_3.3}
 
 Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
@@ -1776,8 +1710,7 @@ species.livingC100 <-
 print(species.livingC100)
 ```
 
-#### Assess the species proportions {#sec-B_3.4} 
-
+#### Assess the species proportions {#sec-B_3.4}
 
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
@@ -1823,10 +1756,9 @@ ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = spec.prop,
 
 ```
 
-The living C stock more than doubled over 100 years due to the accumulation of biomass in trees and no management interventions. Moreover, the proportion of individual tree species changed depending on the driving climatic conditions. Under reference conditions the proportion of spruce has grown, under climate change the proportion of beech. 
+The living C stock more than doubled over 100 years due to the accumulation of biomass in trees and no management interventions. Moreover, the proportion of individual tree species changed depending on the driving climatic conditions. Under reference conditions the proportion of spruce has grown, under climate change the proportion of beech.
 
-
-### Question A - Group 4 {#sec-A_4}
+### Group 4 - Question A {#sec-A_4}
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 4?
 
@@ -1877,6 +1809,7 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 
 head(tree)
 ```
+
 #### Visualize trees in year 0 and year 100! {#sec-A_4.2}
 
 To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
@@ -1923,16 +1856,13 @@ We can see that there is an initial increase in mean dbh, then a drop after 30/4
 
 #### Species diversity {#sec-A_4.4}
 
-To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity.  First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1).
-You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
+To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity. First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1). You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
 
 Shannon index is calculated as follows:
 
 $$S=-\sum{({p~i~} * log { (p~i~)})}$$
 
-Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand.
-Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees.
-We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
+Where ${p~i~}$ is the relative abundance of the species *i*, calculated as the ratio of the abundance of the species i and the abundance of all species. Shannon-index is 0 when we have only one species at the stand. Here we calculate the abundance based on the number of trees, but can be calculate based on the volume to give more weight to larger trees. We add N as the number of records in the summarizing process below, but we can sum up the volume_m3 column and prepare the table for the speciesdiv function based on the volume (or any other variable, e.g. basal area).
 
 ```{r ex69, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -2006,13 +1936,12 @@ ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
     ggplot2::theme_bw()
 
 ```
-We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the *4deg_20percdrier* scenario is slightly greater than under the reference scenario due to the more pronounced dominance of beech (see Figures in Question B - Group 4, @sec-B_4.2).
 
+We see that the values of Shannon index are first stable and then tend to decrease, while the reduction under the *4deg_20percdrier* scenario is slightly greater than under the reference scenario due to the more pronounced dominance of beech (see Figures in Question B - Group 4, @sec-B_4.2).
 
 #### Spatial diversity {#sec-A_4.5}
 
-We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com).
-You can find a short description of the package here: *"documents/treespat_package.pdf"*
+We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com). You can find a short description of the package here: *"documents/treespat_package.pdf"*
 
 You can install the package using devtools:
 
@@ -2022,17 +1951,11 @@ devtools::install_gitlab('fchianucci/treespat')
 
 Then, we are ready to use it! Let's calculate these two indices:
 
--   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree.
-The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that
-neighboring trees have equal size.
+-   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree. The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that neighboring trees have equal size.
 
--   Mingling (Aguirre et al., 2003): One very intuitive extension of taxonomic species diversity (either richness or abundance) is considering spatial
-mingling, namely how plants of the same (con-specific neighbors) or different (hetero-specific neighbors) species are arranged in space.
-The mingling index calculates the proportion of the k nearest neighbors that do not belong to the same species as the reference tree.
-For example, with four neighbors, the mingling attribute can assume five values, ranging from 0 (all trees are of the same species) to 1 (all trees belong to different species).
+-   Mingling (Aguirre et al., 2003): One very intuitive extension of taxonomic species diversity (either richness or abundance) is considering spatial mingling, namely how plants of the same (con-specific neighbors) or different (hetero-specific neighbors) species are arranged in space. The mingling index calculates the proportion of the k nearest neighbors that do not belong to the same species as the reference tree. For example, with four neighbors, the mingling attribute can assume five values, ranging from 0 (all trees are of the same species) to 1 (all trees belong to different species).
 
-Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses.
-The max.k parameter is telling how many neighboring trees we want to account for.
+Calculate the indices based on the reference run, then based on the scenario. For each index we add extra columns with the index name, and run name for further analyses. The max.k parameter is telling how many neighboring trees we want to account for.
 
 ```{r ex74, eval=TRUE, message = FALSE, warning=FALSE}
 # diameter differentiation:
@@ -2077,11 +2000,9 @@ ggplot2::ggplot(indices, ggplot2::aes(x = year, y = value, color = run)) +
     ggplot2::theme_bw() 
 ```
 
+The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first 15/20 years, after which increase due to the occurrence of ingrowth and then the values are reduced again to their minima in 37/50 years, after which they again slightly increase. The values for the reference climate scenario are slightly lower than for the climate change scenario indicating slower growth. The mingling index is studying the neighboring trees regarding their species. No substantial difference in species mingling between scenarios was detected.
 
-The diameter differentiation increases with the increasing average difference in diameter between neighboring trees. The value 0 indicates that neighboring trees have equal diameters. The development shows that the index values decrease during the first 15/20 years, after which increase due to the occurrence of ingrowth and then the values are reduced again to their minima in 37/50 years, after which they again slightly increase. The values for the reference climate scenario are slightly lower than for the climate change scenario indicating slower growth.
-The mingling index is studying the neighboring trees regarding their species. No substantial difference in species mingling between scenarios was detected.
-
-### Question B - Group 4 {#sec-B_4}
+### Group 4 - Question B {#sec-B_4}
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 4? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
 
@@ -2185,16 +2106,13 @@ g3 <-
 print(g3)
 ```
 
-
 Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model start to handle them as individual trees and including in these outputs which we are looking now.
 
 At the end of the simulated 100 years, the total simulated carbon stock in living biomass under climate change scenario was slightly higher than under the reference climate. The proportion of beech has increased under both simulations. The number of trees increased in both cases after circa 25 years, but the increase was steeper under reference conditions. This increase was caused by the regeneration. However, at the end of the simulation period, the number of remaining trees was slightly higher under climate change scenario than the reference one, indicating much higher tree mortality.
 
-Mean dbh of individual species reflected the development of the number of trees. The increase in the number of trees caused the reduction of mean dbh, e.g. of beech under both scenarios between 20 and 35 simulation years. 
-The species-specific graphs for mean dbh indicates that some species do not have successful regeneration under the climate change scenario. Pine dbh decreased only under reference scenario, when we observed the increase of the number of trees, while under climate change scenario the mean dbh of pine was growing indicating the growth of remaining trees of the species at the plot. The small proportion of chestnut almost decrease to 0 under both scenarios, its dbh development does not show any successful regeneration processes.
+Mean dbh of individual species reflected the development of the number of trees. The increase in the number of trees caused the reduction of mean dbh, e.g. of beech under both scenarios between 20 and 35 simulation years. The species-specific graphs for mean dbh indicates that some species do not have successful regeneration under the climate change scenario. Pine dbh decreased only under reference scenario, when we observed the increase of the number of trees, while under climate change scenario the mean dbh of pine was growing indicating the growth of remaining trees of the species at the plot. The small proportion of chestnut almost decrease to 0 under both scenarios, its dbh development does not show any successful regeneration processes.
 
-#### Assess the stored carbon amount {#sec-B_4.3} 
-
+#### Assess the stored carbon amount {#sec-B_4.3}
 
 Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
 
@@ -2235,7 +2153,7 @@ species.livingC100 <-
 print(species.livingC100)
 ```
 
-#### Assess the species proportions {#sec-B_4.4} 
+#### Assess the species proportions {#sec-B_4.4}
 
 Calculate the species proportions based on the stored C amount in the initial year (year==0) and the last year (year==100) For this we need the total C amount and the species-specific C amount.
 
@@ -2393,8 +2311,7 @@ We also highly recommend that you storage any Rscript that you create in the fol
 
 ### Find the data
 
-If you followed the instructions in @sec-projFolder you should have the file `observations.csv` inside the folder `data`of your project file: 
-
+If you followed the instructions in @sec-projFolder you should have the file `observations.csv` inside the folder `data`of your project file:
 
 ### Explore the data
 
@@ -2458,7 +2375,7 @@ plot(
 )
 ```
 
-### Question C - Group 1 {#sec-C_1}
+### Group 1 - Question C {#sec-C_1}
 
 -   Does a more diverse forest in structure and composition have more Bryophytes species?
 
@@ -2534,7 +2451,7 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have time to continuou in this exercise.
 
-### Question D - Group 1 {#sec-D_1}
+### Group 1 - Question D {#sec-D_1}
 
 -   Is the number of Briophites species affected by forest management type and the forest structural diversity?
 
@@ -2610,7 +2527,7 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have to continue in this exercise.
 
-### Question C - Group 2 {#sec-C_2}
+### Group 2 - Question C {#sec-C_2}
 
 -   Does a more diverse forest in structure and composition have more bird species?
 
@@ -2686,7 +2603,7 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have time to continuou in this exercise.
 
-### Question D - Group 2 {#sec-D_2}
+### Group 2 - Question D {#sec-D_2}
 
 -   Is the number of bird species affected by forest management type and the forest structural diversity?
 
@@ -2762,7 +2679,7 @@ plot(simResids)
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have to continuou in this exercise.
 
-### Question C - Group 3 {#sec-C_3}
+### Group 3 - Question C {#sec-C_3}
 
 -   Is the presence of the Great spotted woodpecker affected by forest density?
 
@@ -2778,8 +2695,7 @@ Then you need to select some variables of interest, after you have explored the 
 
 -   `volAllha` that is the total volume in the plot, as a proxy of how dense the plot is. Higher volumes will mean that the forest is more dense.
 
--   `GiniDBH` showing how homogeneous the plot is in trees diameters. A value closer to 1 indicate  a more structural heterogeneity, lower values indicate more homogeneous plots.
-
+-   `GiniDBH` showing how homogeneous the plot is in trees diameters. A value closer to 1 indicate a more structural heterogeneity, lower values indicate more homogeneous plots.
 
 You can create a vector `selVar` in which you add the names of the selected variables. Then you only take those variables from the data that you will use to create the model.
 
@@ -2945,7 +2861,7 @@ dismo::gbm.perspec(modelBRT, 3, 4)
 
 Here we can see that both increasing bird diversity and forest density provides the highest probabilities for finding the Great spotted woodpecker.
 
-### Question D - Group 3 {#sec-D_3}
+### Group 3 - Question D {#sec-D_3}
 
 -   Is the presence of the Great spotted woodpecker affected by forest diversity?
 
@@ -2962,7 +2878,6 @@ Then you need to select some variables of interest, after you have explored the 
 -   `volAllha` that is the total volume in the plot, as a proxy of how dense the plot is. Higher volumes will mean that the forest is more dense.
 
 -   `GiniDBH` showing how homogeneous the plot is in trees diameters. A value closer to 1 will mean that indicate more structural heterogeneity, lower values indicate more homogeneous plots.
-
 
 You can create a vector `selVar` in which you add the names of the selected variables. Then you only take those variables from the data that you will use to create the model.
 
@@ -3130,7 +3045,7 @@ dismo::gbm.perspec(modelBRT, 3, 5)
 
 Here we can not see a very clear combined behavior between forest diversity and forest structural diversity in respect to the probabilities for finding the Great spotted woodpecker.
 
-### Question C - Group 4 {#sec-C_4}
+### Group 4 - Question C {#sec-C_4}
 
 -   Is the presence of the Eurasian treecreeper affected by forest density?
 
@@ -3314,7 +3229,7 @@ dismo::gbm.perspec(modelBRT, 3, 5)
 
 It seems that the highest chances to see a Eurasian treecreeper is in dense forests with highest tree diversity.
 
-### Question D - Group 4 {#sec-D_4}
+### Group 4 - Question D {#sec-D_4}
 
 -   Is the presence of the Eurasian treecreeper affected by forest management?
 
@@ -3500,24 +3415,21 @@ It seems that there are not clear patterns in the combined effect of forest stru
 
 # References and further reading {#sec-ref}
 
-Aguirre, O., Hui, G., von Gadow, K. and Jiménez, J., 2003. An analysis of spatial forest structure using
-neighbourhood-based variables. Forest ecology and management, 183 (1-3), pp.137-145. 
+Aguirre, O., Hui, G., von Gadow, K. and Jiménez, J., 2003. An analysis of spatial forest structure using neighbourhood-based variables. Forest ecology and management, 183 (1-3), pp.137-145.
 
-Elith, J., J. R. Leathwick, and T. Hastie. 2008. “A Working Guide to Boosted RegressionTrees.”Journal of Animal Ecology77 (4): 802–13.https://doi.org/10.1111/j.1365-2656.2008.01390.x.
+Elith, J., J. R. Leathwick, and T. Hastie. 2008. "A Working Guide to Boosted RegressionTrees."Journal of Animal Ecology77 (4): 802--13.https://doi.org/10.1111/j.1365-2656.2008.01390.x.
 
-Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. n.d. “ADDITIVE LOGISTICREGRESSION: A STATISTICAL VIEW OF BOOSTING.”
+Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. n.d. "ADDITIVE LOGISTICREGRESSION: A STATISTICAL VIEW OF BOOSTING."
 
 Gadow, K.V., Zhang, C.Y., Wehenkel, C., Pommerening, A., Corral-Rivas, J., Korol, M., Myklush, S., Hui, G.Y., Kiviste, A. and Zhao, X.H., 2012. Forest structure and diversity. Continuous cover forestry, pp.29-83.
 
-Hošek, Jan. n.d. “Forest Structure and Dead Wood Properties in Six Representative Forest Areas in the Czech Republic.”165
-
-
+Hošek, Jan. n.d. "Forest Structure and Dead Wood Properties in Six Representative Forest Areas in the Czech Republic."165
 
 On iLand model:
 
 Seidl, R., Rammer, W., Scheller, R.M., Spies, T.A., 2012. An individual-based process model to simulate landscape-scale forest ecosystem dynamics. Ecol. Model. 231, 87-100.
 
-Seidl, R., Rammer, W., Blennow, K. 2014 Simulating wind disturbance impacts on forest landscapes: Tree-level heterogeneity matters. Environmental Modelling and Software 51, 1-11. 
+Seidl, R., Rammer, W., Blennow, K. 2014 Simulating wind disturbance impacts on forest landscapes: Tree-level heterogeneity matters. Environmental Modelling and Software 51, 1-11.
 
 Rammer, W., Seidl, R., 2015 Coupling human and natural systems: Simulating adaptive management agents in dynamically changing forest landscapes. Global Environmental Change, 35, 475-485.
 
@@ -3525,46 +3437,37 @@ Rammer, W., Seidl, R., 2015 Coupling human and natural systems: Simulating adapt
 
 On Applications:
 
-Thom, D., Rammer, W., Garstenauer, R., & Seidl, R. ,2018 Legacies of past land use have a stronger effect on forest carbon exchange than future climate change in a temperate forest landscape. Biogeosciences, 15(18), 5699–5713.
+Thom, D., Rammer, W., Garstenauer, R., & Seidl, R. ,2018 Legacies of past land use have a stronger effect on forest carbon exchange than future climate change in a temperate forest landscape. Biogeosciences, 15(18), 5699--5713.
 
-Silva Pedro, M., Rammer, W., & Seidl, R., 2017 Disentangling the effects of compositional and structural diversity on forest productivity. Journal of Vegetation Science, 28(3), 649–658.
+Silva Pedro, M., Rammer, W., & Seidl, R., 2017 Disentangling the effects of compositional and structural diversity on forest productivity. Journal of Vegetation Science, 28(3), 649--658.
 
-Dobor, L., Hlásny, T., Rammer, W., Barka, I., Trombik, J., Pavlenda, P., Seidl, R., 2018 Post-disturbance recovery of forest carbon in a temperate forest landscape under climate change. Agricultural and Forest Meteorology, 263, 308–322. 
+Dobor, L., Hlásny, T., Rammer, W., Barka, I., Trombik, J., Pavlenda, P., Seidl, R., 2018 Post-disturbance recovery of forest carbon in a temperate forest landscape under climate change. Agricultural and Forest Meteorology, 263, 308--322.
 
-Albrich, K., Rammer, W., Thom, D., & Seidl, R., 2018 Trade-offs between temporal stability and level of forest ecosystem services provisioning under climate change. Ecological Applications, 28(7), 1884–1896.
+Albrich, K., Rammer, W., Thom, D., & Seidl, R., 2018 Trade-offs between temporal stability and level of forest ecosystem services provisioning under climate change. Ecological Applications, 28(7), 1884--1896.
 
 Dobor, L., Hlásny, T., Rammer, W., Zimová, S., Barka, I., & Seidl, R., 2020 Spatial configuration matters when removing windfelled trees to manage bark beetle disturbances in Central European forest landscapes. Journal of Environmental Management, 254
 
-Honkaniemi, J., Rammer, W., & Seidl, R. (2020). Norway spruce at the trailing edge: the effect of landscape configuration and composition on climate resilience. Landscape Ecology, 35(3), 591–606.
+Honkaniemi, J., Rammer, W., & Seidl, R. (2020). Norway spruce at the trailing edge: the effect of landscape configuration and composition on climate resilience. Landscape Ecology, 35(3), 591--606.
 
-Sommerfeld, A., Rammer, W., Heurich, M., Hilmers, T., Müller, J., & Seidl, R. (2020). Do bark beetle outbreaks amplify or dampen future bark beetle disturbances in Central Europe? Journal of Ecology, July, 1–13.
-
-
+Sommerfeld, A., Rammer, W., Heurich, M., Hilmers, T., Müller, J., & Seidl, R. (2020). Do bark beetle outbreaks amplify or dampen future bark beetle disturbances in Central Europe? Journal of Ecology, July, 1--13.
 
 # Appendix - Initialize trees for the model based on inventory data {#sec-app}
 
 ## Inventory data
 
-We had inventory data prior the summer school.
-These plots were established in 2007 for monitoring of urban forest Rožnik. Those four plots were already remeasured by NFI teams (for yearly training) at the beginning of April 2023. The radius of the plots is 13.8m and trees dbh>=10 were measured.
-
+We had inventory data prior the summer school. These plots were established in 2007 for monitoring of urban forest Rožnik. Those four plots were already remeasured by NFI teams (for yearly training) at the beginning of April 2023. The radius of the plots is 13.8m and trees dbh\>=10 were measured.
 
 ## iLand needs
 
-We need to produce tree list with tree positions, species, dbh and height for a 1ha area, that is the smallest unit in the model that can be individually simulated.
-We will use a so called "torus" when the simulation space is treated as a torus, where any influence (e.g. a light influence pattern) leaving on one side again enters at the opposite site. This is especially useful for small simulated areas to provide a continuous environment without edge effects.
+We need to produce tree list with tree positions, species, dbh and height for a 1ha area, that is the smallest unit in the model that can be individually simulated. We will use a so called "torus" when the simulation space is treated as a torus, where any influence (e.g. a light influence pattern) leaving on one side again enters at the opposite site. This is especially useful for small simulated areas to provide a continuous environment without edge effects.
 
 Idea: use the measured trees as the middle of our 1ha area, keep the trees and locations as they are, but populate the rest of the 1ha randomly based on the characteristics of the measured plot.
 
-
-This script is using these input files which are placed here: iLand_simulations/init/trees/
--testPlot_data_Roznik.xlsx
--species_names.csv
+This script is using these input files which are placed here: iLand_simulations/init/trees/ -testPlot_data_Roznik.xlsx -species_names.csv
 
 And making outputs as text files for each four plots with tree lists that are directly can go into model iLand as initialization file.
 
-
-### Read in the inventory data to R visualize it. Read also a table with species latin names and short names in iLand. 
+### Read in the inventory data to R visualize it. Read also a table with species latin names and short names in iLand.
 
 ```{r app1, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -3603,9 +3506,7 @@ g1 <- ggplot2::ggplot(a, ggplot2::aes(X, Y, color = iLand_name)) +
 
 print(g1)
 
-```  
-
-
+```
 
 ### Calculate some statistics for populating remaining areas
 
@@ -3650,13 +3551,11 @@ hdratios$mean.hdratio[hdratios$iLand_name == "abal"] <- 80
 print(hdratios)
 ```
 
-
-
 ### Generate trees for each plot
 
-* Using the number of trees/ha as required number of trees.
-* Generate dbh that normally distributed using mean dbh and stdev
-* Randomly placed: x,y coordinates -50m -> 50m. (inventory data had 0,0 coordinate in the middle, so we kept this "coordinate system" for now)
+-   Using the number of trees/ha as required number of trees.
+-   Generate dbh that normally distributed using mean dbh and stdev
+-   Randomly placed: x,y coordinates -50m -\> 50m. (inventory data had 0,0 coordinate in the middle, so we kept this "coordinate system" for now)
 
 ```{r app3, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -3723,8 +3622,6 @@ print(g3)
 
 ```
 
-
-
 ### Lets remove the trees in the middle, and put back the real trees from the inventory
 
 ```{r app4, eval=TRUE, message = FALSE, warning=FALSE}
@@ -3771,7 +3668,6 @@ g5 <-  ggplot2::ggplot(trees.circle,  ggplot2::aes(X, Y, color = species)) +
 all.trees <- rbind(trees.circle, cutted.tree.list)
 ```
 
-
 ### Give height and plot final layout
 
 ```{r app5, eval=TRUE, message = FALSE, warning=FALSE}
@@ -3796,13 +3692,11 @@ g6 <- ggplot2::ggplot(all.trees, ggplot2::aes(X, Y, color = species)) +
     )
   
 ```
- 
- 
+
 ### Make files for iLand
-  
-Coordinates need to be shifted: 0, 0 is the bottom left corner.
-So we shift everything back by 50m.
-  
+
+Coordinates need to be shifted: 0, 0 is the bottom left corner. So we shift everything back by 50m.
+
 ```{r app6, eval=TRUE, message = FALSE, warning=FALSE}
 # Make the tree list for iLand:
 #https://iland-model.org/initialize+trees
@@ -3848,4 +3742,4 @@ for (i in 1:4) {
     
 }
 
-```  
+```
