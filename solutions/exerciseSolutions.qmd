@@ -2,21 +2,10 @@
 title: Forest Modeling Exercise
 subtitle: Process-based and empirical modeling exercises
 format:
-  titlepage-pdf:
-    documentclass: scrbook
-    classoption: ["oneside", "open=any",  DIV=16, fontsize=11pt]
-    number-sections: true
-    toc: true
-    titlepage: "bg-image"
-    titlepage-bg-image: "images/logo3.jpg"
-    titlepage-logo: "images/logos_proclias_cost.jpg"
-    titlepage-header: ""
-    titlepage-footer: |
-      Interdisciplinary Summer School\
-      Ljubljana 2023\
-      [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)
-    titlepage-theme:
-      bg-image-size: 8cm
+    html:
+      toc: true
+      toc-depth: 3
+      toc-location: left
 author:
   - name: Olalla Díaz-Yáñez
     affiliations:
@@ -91,7 +80,7 @@ We provide all data, model and scripts for the exercises. However if you will us
 
 ### The project folder {#sec-projFolder}
 
-To do this exercise you first need to download the project folder. You can download the complete project folder from this [link https://polybox.ethz.ch/index.php/s/Q8iFpTcJFd7nDBy](https://polybox.ethz.ch/index.php/s/Q8iFpTcJFd7nDBy).
+To do this exercise you first need to download the project folder. You can download the complete project folder from [this link https://drive.google.com/drive/u/0/folders/1IXfJNIXw32lp1q4AmEZzt0nqgE3HDRIx](https://drive.google.com/drive/u/0/folders/1IXfJNIXw32lp1q4AmEZzt0nqgE3HDRIx).
 
 In this project you will find the following folders and files:
 
