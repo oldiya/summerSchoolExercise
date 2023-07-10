@@ -2,10 +2,21 @@
 title: Forest Modeling Exercise
 subtitle: Process-based and empirical modeling exercises
 format:
-    html:
-      toc: true
-      toc-depth: 3
-      toc-location: left
+   titlepage-pdf:
+     documentclass: scrbook
+     classoption: ["oneside", "open=any",  DIV=16, fontsize=11pt]
+     number-sections: true
+     toc: true
+     titlepage: "bg-image"
+     titlepage-bg-image: "images/logo3.jpg"
+     titlepage-logo: "images/logos_proclias_cost.jpg"
+     titlepage-header: ""
+     titlepage-footer: |
+       Interdisciplinary Summer School\
+       Ljubljana 2023\
+       [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)
+     titlepage-theme:
+       bg-image-size: 8cm
 author:
   - name: Olalla Díaz-Yáñez
     affiliations:
@@ -55,24 +66,24 @@ You will work per groups in the four groups established at the beginning of the 
 
 Please, always ask your coach if you do not know what is the section where you should be working in.
 
-| Group | Subgroup Question | Question                                                                                                    | Approach | Go to    |
+| Group | Subgroup Question | Question                                                                                                   | Approach | Go to    |
 |---------------|---------------|---------------|---------------|---------------|
-| 1     | A                 | How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 1?               | iLand    | @sec-A_1 |
-| 1     | B                 | How the species distribution and total living biomass C content changing in time on Plot 1?                 | iLand    | @sec-A_2 |
-| 1     | C                 | Does a more diverse forest in structure and composition have more Bryophites species?                       | GLM      | @sec-C_1 |
-| 1     | D                 | Is the number of Bryophites species affected by forest management type and the forest structural diversity? | GLM      | @sec-D_1 |
-| 2     | A                 | How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 2?               | iLand    | @sec-A_2 |
-| 2     | B                 | How the species distribution and total living biomass C content changing in time on Plot 2?                 | iLand    | @sec-B_2 |
-| 2     | C                 | Does a more diverse forest in structure and composition have more bird species?                             | GLM      | @sec-C_2 |
-| 2     | D                 | Is the number of bird species affected by forest management type and the forest structural diversity?       | GLM      | @sec-D_2 |
-| 3     | A                 | How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 3?               | iLand    | @sec-A_3 |
-| 3     | B                 | How the species distribution and total living biomass C content changing in time on Plot 3?                 | iLand    | @sec-B_3 |
-| 3     | C                 | Is the presence of the Great spotted woodpecker affected by forest density?                                 | BRT      | @sec-C_3 |
-| 3     | D                 | Is the presence of the Great spotted woodpecker affected by forest diversity?                               | BRT      | @sec-D_3 |
-| 4     | A                 | How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 4?               | iLand    | @sec-A_4 |
-| 4     | B                 | How the species distribution and total living biomass C content changing in time on Plot 4?                 | iLand    | @sec-B_4 |
-| 4     | C                 | Is the presence of the Eurasian treecreeper affected by forest density?                                     | BRT      | @sec-C_4 |
-| 4     | D                 | Is the presence of the Eurasian treecreeper affected by forest management?                                  | BRT      | @sec-D_4 |
+| 1     | A                 | How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 1?              | iLand    | @sec-A_1 |
+| 1     | B                 | How the species distribution and total living biomass C content changing in time on Plot 1?                | iLand    | @sec-A_2 |
+| 1     | C                 | Does a more diverse forest in structure and composition have more Bryophyte species?                       | GLM      | @sec-C_1 |
+| 1     | D                 | Is the number of Bryophyte species affected by forest management type and the forest structural diversity? | GLM      | @sec-D_1 |
+| 2     | A                 | How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 2?              | iLand    | @sec-A_2 |
+| 2     | B                 | How the species distribution and total living biomass C content changing in time on Plot 2?                | iLand    | @sec-B_2 |
+| 2     | C                 | Does a more diverse forest in structure and composition have more bird species?                            | GLM      | @sec-C_2 |
+| 2     | D                 | Is the number of bird species affected by forest management type and the forest structural diversity?      | GLM      | @sec-D_2 |
+| 3     | A                 | How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 3?              | iLand    | @sec-A_3 |
+| 3     | B                 | How the species distribution and total living biomass C content changing in time on Plot 3?                | iLand    | @sec-B_3 |
+| 3     | C                 | Is the presence of the Great spotted woodpecker affected by forest density?                                | BRT      | @sec-C_3 |
+| 3     | D                 | Is the presence of the Great spotted woodpecker affected by forest diversity?                              | BRT      | @sec-D_3 |
+| 4     | A                 | How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 4?              | iLand    | @sec-A_4 |
+| 4     | B                 | How the species distribution and total living biomass C content changing in time on Plot 4?                | iLand    | @sec-B_4 |
+| 4     | C                 | Is the presence of the Eurasian treecreeper affected by forest density?                                    | BRT      | @sec-C_4 |
+| 4     | D                 | Is the presence of the Eurasian treecreeper affected by forest management?                                 | BRT      | @sec-D_4 |
 
 ## Data and model {#sec-policy}
 
@@ -576,7 +587,7 @@ We see that the values of Shannon index are first stable and then tend to decrea
 
 #### Spatial diversity {#sec-A_1.5}
 
-We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com). You can find a short description of the package here: *"documents/treespat_package.pdf"*
+We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com). You can find more information about this R package following this \[link\](https://www.biorxiv.org/content/10.1101/2023.05.22.541683v1.full).
 
 You can install the package using devtools:
 
@@ -584,7 +595,7 @@ You can install the package using devtools:
 devtools::install_gitlab('fchianucci/treespat')
 ```
 
-Then, we are ready to use it! Let's calculate these two indices:
+Then, we are ready to use it. Let's calculate these two indices:
 
 -   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree. The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that neighboring trees have equal size.
 
@@ -858,7 +869,7 @@ ggplot2::ggplot(LC, ggplot2::aes(fill = species, y = spec.prop,
 
 The living C stock tripled over 100 years due to the accumulation of biomass in trees and no management interventions. Moreover, the proportion of individual tree species changed with fir substantially increasing its share. The living C stock of pine was reduced under the reference climate or remained unchanged under the climate change scenario.
 
-### Group 2 - Question A  {#sec-A_2}
+### Group 2 - Question A {#sec-A_2}
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 2?
 
@@ -2470,7 +2481,7 @@ bryoModel2 <- glm(bryophitaNumObs ~ forestManagementType,
 summary(bryoModel2)
 ```
 
-The intercept here tells us the estimated value of the response variable when the reference groups in our grouping (categorical) variables (here for retention clear-cutting). We then also have coefficients describing the slope of the relationship with our continuous explanatory variables, and coefficients giving the estimated difference in the response variable for non-reference groupings. We can see here that number of bryophites species appears to show a negative relationship with simple clearcutting, and appears to have a positive relationship with unmanaged and retention clear-cutting.
+The intercept here tells us the estimated value of the response variable when the reference groups in our grouping (categorical) variables (here for retention clear-cutting). We then also have coefficients describing the slope of the relationship with our continuous explanatory variables, and coefficients giving the estimated difference in the response variable for non-reference groupings. We can see here that number of Bryophyte species appears to show a negative relationship with simple clearcutting, and appears to have a positive relationship with unmanaged and retention clear-cutting.
 
 The type simple clearcutting appears to be non significant, which only tells us about the pairwise differences between the levels. To test whether the categorical predictor, as a whole, is significant is equivalent to testing whether there is any heterogeneity in the means of the levels of the predictor. When there are no other predictors in the model, this is a classical [ANOVA](http://en.wikipedia.org/wiki/Analysis_of_variance) problem.
 
