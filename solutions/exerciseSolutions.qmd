@@ -2,21 +2,10 @@
 title: Forest Modeling Exercise
 subtitle: Process-based and empirical modeling exercises
 format:
-   titlepage-pdf:
-     documentclass: scrbook
-     classoption: ["oneside", "open=any",  DIV=16, fontsize=11pt]
-     number-sections: true
-     toc: true
-     titlepage: "bg-image"
-     titlepage-bg-image: "images/logo3.jpg"
-     titlepage-logo: "images/logos_proclias_cost.jpg"
-     titlepage-header: ""
-     titlepage-footer: |
-       Interdisciplinary Summer School\
-       Ljubljana 2023\
-       [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)
-     titlepage-theme:
-       bg-image-size: 8cm
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
 author:
   - name: Olalla Díaz-Yáñez
     affiliations:
@@ -26,7 +15,7 @@ author:
       - name: dobor@fld.czu.cz (CZU Prague)
   - name: Katarina Merganicova
     affiliations:
-      - name: merganicova@fld.czu.cz (CZU Prague)
+      - name: merganicova@fld.czu.cz (CZU Prague | SAV Nitra)
   - name: Mats Nieberg
     affiliations:
       - name: mats.nieberg@pik-potsdam.de (PIK Potsdam | EFI)
@@ -67,9 +56,9 @@ You will work per groups in the four groups established at the beginning of the 
 Please, always ask your coach if you do not know what is the section where you should be working in.
 
 | Group | Subgroup Question | Question                                                                                                   | Approach | Go to    |
-|---------------|---------------|---------------|---------------|---------------|
+|--------|------------|-------------------|---------------|----------|
 | 1     | A                 | How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 1?              | iLand    | @sec-A_1 |
-| 1     | B                 | How the species distribution and total living biomass C content changing in time on Plot 1?                | iLand    | @sec-A_2 |
+| 1     | B                 | How the species distribution and total living biomass C content changing in time on Plot 1?                | iLand    | @sec-B_1 |
 | 1     | C                 | Does a more diverse forest in structure and composition have more Bryophyte species?                       | GLM      | @sec-C_1 |
 | 1     | D                 | Is the number of Bryophyte species affected by forest management type and the forest structural diversity? | GLM      | @sec-D_1 |
 | 2     | A                 | How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 2?              | iLand    | @sec-A_2 |
@@ -87,38 +76,46 @@ Please, always ask your coach if you do not know what is the section where you s
 
 ## Data and model {#sec-policy}
 
-We provide all data, model and scripts for the exercises. However if you will use the model iLand for your research in the future please get in contact with the model developers at the Technical University Münich: Werner Rammer (werner.rammer\@tum.de) and Rupert Seidl (rupert.seidl\@tum.de). Regarding the biodiversity data used in the empirical modeling processed in the empirical modeling part, in case of further usage please contact Jeňýk Hofmeister at the Czech University of Life Sciences Prague (jenyk.hofmeister\@email.cz).
+We provide all data, model and scripts for the exercises. However if you will use the model iLand for your research in the future please get in contact with the model developers at the Technical University Münich: Werner Rammer (werner.rammer\@tum.de) and Rupert Seidl (rupert.seidl\@tum.de). Regarding the biodiversity data used in the empirical modeling part please contact Jeňýk Hofmeister at the Czech University of Life Sciences Prague (jenyk.hofmeister\@email.cz) if you are interested in using this data further.
 
 ### The project folder {#sec-projFolder}
 
-To do this exercise you first need to download the project folder. You can download the complete project folder from [this link https://drive.google.com/drive/u/0/folders/1IXfJNIXw32lp1q4AmEZzt0nqgE3HDRIx](https://drive.google.com/drive/u/0/folders/1IXfJNIXw32lp1q4AmEZzt0nqgE3HDRIx).
+To do this exercise you first need to download the project folder. You can download the complete project folder from [this link:](https://drive.google.com/drive/folders/1IXfJNIXw32lp1q4AmEZzt0nqgE3HDRIx?usp=drive_link)
+
+<https://drive.google.com/drive/folders/1IXfJNIXw32lp1q4AmEZzt0nqgE3HDRIx?usp=drive_link>.
 
 In this project you will find the following folders and files:
 
--   `summerSchoolExercise.Rproj`: this is the project file that you should open. This file contains various project options and is used as a shortcut for opening the project directly from the file system.
--   `code`: where you should save the R scripts .
--   `data`: this contains the data used in the empirical modeling.
--   `instructions`: where you can find the pdf and qmd with the step by step instructions for the exercises without the solutions, and all the extensions and images needed to compile the document
--   `model`: where you will find the folder `iLand_simulations` with all the files needed to run the process based exercise
--   `solutions`: where you can find this document in pdf and in the qmd and all the extensions and images needed to compile the document
+-   `summerSchoolExercise.Rproj`: this is the RStudio project file that you should open. This file contains various project options and is used as a shortcut for opening the project directly from the file system.
+-   `code`: this folder is where you should save the R scripts .
+-   `data`: this folder contains the data used in the empirical modeling.
+-   `instructions`: this folder is where you can find the pdf and qmd (source code document used to compile the pdf) with the step by step instructions for the exercises without the solutions; this folder also contains all the extensions and images needed to compile the document.
+-   `model`: this folder is where you will find the folder `iLand_simulations` with all the files needed to run the process based exercise.
+-   `solutions`: this folder is where you can find this document in pdf and in the qmd; this folder also contains all the extensions and images needed to compile the document
 
-Our recommendation is that you follow this folder structure and that you use the `summerSchoolExercise.Rproj` to open Rstudio. If you decide to organize things in a different way then you will have to change all the relative paths in the codes provided in the solutions documentation. The folder you have downloaded should look like this:
+Our recommendation is that you follow this folder structure and that you use the `summerSchoolExercise.Rproj` to open RStudio. If you decide to organize things in a different way then you will have to change all the relative paths in the codes provided in the solutions documentation. The folder you have downloaded should look like this:
 
 ![](images/folderStrucComplete.png){width="300"}
 
-This project is also available in a github repository. You can clone the project in [here \[2\]](https://github.com/oldiya/summerSchoolExercise) via git. However in github the data file `data/observations.csv` and the folder `model/iLand_simulations` are missing and have to be downloaded separately (read the README.md files in these folders to learn how to download them).
+This project is also available in a github repository. You can clone via git the project in [here](https://github.com/oldiya/summerSchoolExercise):
 
-# Process based {#sec-pb}
+<https://github.com/oldiya/summerSchoolExercise>
+
+However in github the data file `data/observations.csv` and the folder `model/iLand_simulations` are missing and have to be downloaded separately (read the README.md files in these folders to learn how to download them).
+
+# Process-based modeling {#sec-pb}
 
 ## iLand model {#sec-iland}
 
 ### General
 
-iLand is an ecosystem model that simulates forest landscape dynamics, including growth and regeneration, disturbance dynamics, and management in a spatially explicit manner. The main entity in the model is a tree, for which the demographic processes are simulated. Processes at the stand and landscape scale constrain the dynamics of individual trees and thus allow for the scaling of tree-scale processes to large areas. The model explicitly simulates tree competition for resources such as light, water, and nutrients. A light use efficiency approach is used to simulate the production physiology. Carbon starvation is used as a process oriented indicator of tree stress, which can result from competition for resources as well as suboptimal environmental conditions for tree growth (e.g., drought).
+iLand is an ecosystem model that simulates forest landscape dynamics, including growth, regeneration, disturbance dynamics, and management in a spatially explicit manner. The main entity in the model is a tree, for which the demographic processes are simulated. Processes at the stand and landscape scale constrain the dynamics of individual trees and thus allow for the scaling of tree-scale processes to large areas. The model explicitly simulates tree competition for resources such as light, water, and nutrients. A light use efficiency approach is used to simulate the production physiology. Carbon starvation is used as a process oriented indicator of tree stress, which can result from competition for resources as well as suboptimal environmental conditions for tree growth (e.g., drought).
 
 iLand's mechanistic representation of forest disturbances and vegetation dynamics, as well as the climatic sensitivity of these processes, makes it well suited for the research of disturbance dynamics under climate change. Additionally, flexible implementation of management operations, which include planting after harvests or natural disturbances, thinning, harvesting, and post-disturbance salvaging, allows for testing the effects of various disturbance management strategies.
 
-A detailed model documentation is availabe on iLand WIKI page: https://iland-model.org/iLand+Hub
+A detailed model documentation is available on iLand WIKI page:
+
+https://iland-model.org/iLand+Hub
 
 ### Inputs and outputs of iLand
 
@@ -134,15 +131,15 @@ The output of the model is an sqlite database file. The output produced by the m
 
 Simulations are driven by one xml file, the project file. After starting iland.exe, we should call the project file, load the initial forest and then run the simulation for the required length of period. iLand comes with a graphical interface where you can visualize single trees and many other things: https://iland-model.org/iLand+viewer
 
-## Excercises
+## Exercises
 
 Your group will work with the plot which you measured and worked with in the previous days (Plot1-Plot4). The 2 process based subgroups will do the same modeling experiment, just addressing different questions based on the results (see the 2 questions below).
 
 You will simulate the growth and development using the process-based model, iLand. The task is to simulate your study plot for 100 years under reference conditions and one/two simplified scenarios that you could define upon your ideas. You can define scenarios assuming different temperature, precipitation and CO2 concentration levels (see more details how to do it later below). The questions that you should address forming 2 sub-groups are the following:
 
-A)  How biodiversity indices are changing in time and across the simulated scenario(s)? (Calculate indices)
+A)  How are biodiversity indices changing in time and across the simulated scenario(s)?
 
-B)  How the species distribution and total living biomass C content changing in time? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
+B)  How are the species distribution and total living biomass C content changing in time? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)
 
 ### Getting started {#sec-gs}
 
@@ -165,7 +162,7 @@ The xml file structure follows a tree structure, e.g:
 The iLand project file consists of five main sections:
 
 -   system: settings like file path, database locations, or logging
--   model:main settings of the models: extent (world), site specific setting, used climate, model initialization and management
+-   model: main settings of the models: extent (world), site specific setting, used climate, model initialization and management
 -   modules: settings related to the disturbance modules of iLand
 -   output: definition of which outputs should be created by the model
 -   user: this section can be used for user-defined settings
@@ -186,7 +183,7 @@ Set in project file:
 
  <path>
  <home></home>
- <database>database</database> <!-------- HERE 
+ <database>database</database> < -------- HERE 
       <lip>lip</lip>
       <temp>temp</temp>
       <script>scripts</script>
@@ -195,7 +192,7 @@ Set in project file:
     </path>
     …
      <database>
-      <in>species_param_europe.sqlite</in>  <!-------- HERE 
+      <in>species_param_europe.sqlite</in>  < -------- HERE 
       <out>Output_plot1_4deg_30percdrier.sqlite</out>        
       <climate>E-OBSv27_Roznik_46.05_14.45_1961-1990.sqlite</climate>
     </database>
@@ -211,7 +208,7 @@ Set in project file:
      <database>
       <in>species_param_europe.sqlite</in>                  
       <out>Output_plot1_4deg_30percdrier.sqlite</out>        
-      <climate>E-OBSv27_Roznik_46.05_14.45_1961-1990.sqlite</climate> <!---- HERE
+      <climate>E-OBSv27_Roznik_46.05_14.45_1961-1990.sqlite</climate> < ---- HERE
     </database>
 ```
 
@@ -224,8 +221,8 @@ For example: if we set here "model.site.pctSand", the model will use this sand %
   <model>   
     …
         <site>
-              <availableNitrogen>84</availableNitrogen> <!-- kg/ha/yr -->
-	 <soilDepth>38</soilDepth> <!-- in cm -->
+              <availableNitrogen>84</availableNitrogen> < -- kg/ha/yr -->
+	 <soilDepth>38</soilDepth> < -- in cm -->
 	 <pctSand>9</pctSand> 
 	 <pctSilt>53</pctSilt> 
 	 <pctClay>38</pctClay> 
@@ -241,16 +238,16 @@ Set in project file:
 ```{r ex4, eval=FALSE, message = FALSE, warning=FALSE}
 
 	 <environmentGrid>gis/environment_grid.asc</environmentGrid>
-	 <environmentFile>gis/Environment.txt</environmentFile> <!---- HERE
+	 <environmentFile>gis/Environment.txt</environmentFile> < ---- HERE
 ```
 
--   Environment grid: gis/environment_grid.asc This would specify the map of different environments. Now we have only 1 pixel, with the id of 1. In the previous file we had also id column, this specifys we want to use that environment for our pixel.
+-   Environment grid: gis/environment_grid.asc This would specify the map of different environments. Now we have only 1 pixel, with the id of 1. In the previous file we had also id column, this specifies we want to use that environment for our pixel.
 
 Set in project file:
 
 ```{r ex5, eval=FALSE, message = FALSE, warning=FALSE}
 
-	 <environmentGrid>gis/environment_grid.asc</environmentGrid> <!---- HERE
+	 <environmentGrid>gis/environment_grid.asc</environmentGrid> < ---- HERE
 	 <environmentFile>gis/Environment.txt</environmentFile> 
 ```
 
@@ -261,7 +258,7 @@ Set in project file:
 	 <type>single</type>
 	 <mode>unit</mode> 
 	 ...
- <file>Tree_init_plot_1.txt</file> <!---- HERE
+ <file>Tree_init_plot_1.txt</file> < ---- HERE
 	 <saplingFile></saplingFile>
  ...
  </initialization>
@@ -271,11 +268,11 @@ Here we initialize trees taller than 4 meters. Trees smaller than 4m are handled
 
 For the sake of simplicity we assume now no-management scenario for all simulations.
 
-NOTE: in the graphical interface you also wont see trees smaller than 4m, because they are not simulated as individuals rather in cohorts. But as regeneration will work, after a while as they grow above 4m, they become individual trees and we can see them also visually and they have own properties (dbh, height, age,...https://iland-model.org/tree+variables ). More details on saplings: https://iland-model.org/sapling+growth+and+competition
+NOTE: in the graphical interface you also will not see trees smaller than 4m, because they are not simulated as individuals rather in cohorts. But as regeneration will work, after a while as they grow above 4m, they become individual trees and we can see them also visually and they have own properties (dbh, height, age,...https://iland-model.org/tree+variables ). More details on saplings: https://iland-model.org/sapling+growth+and+competition
 
 Setting the output tables: In the output section you can set which tables you want to enable. Here you can find more info on the structure and variables of each table: https://iland-model.org/Outputs
 
-To answer the questions the most straight forward way is to look the *landscape* output and use the *total_carbon_kg* column (total carbon in living biomass (aboveground compartments and roots) of all living trees (including regeneration layer) (kg/ha) ). This output table aggregates on the level of landscape x species. Values are always aggregated per hectare. The output is created after the growth of the year. We pre-set the project file to have this output. Additionally we will work with the *tree* output, where individual trees are recorded with position.
+To answer the questions the most straight forward way is to look the *landscape* output and use the *total_carbon_kg* column (total carbon in living biomass (aboveground compartments and roots) of all living trees (including regeneration layer) (kg/ha)). This output table aggregates on the level of landscape x species. Values are always aggregated per hectare. The output is created after the growth of the year. We pre-set the project file to have this output. Additionally we will work with the *tree* output, where individual trees are recorded with position.
 
 ```{r ex7, eval=FALSE, message = FALSE, warning=FALSE}
 
@@ -301,7 +298,7 @@ To answer the questions the most straight forward way is to look the *landscape*
 -   Double click on iland.exe and wait until the graphical interface opens.
 -   Load the required project file on the left-hand-side under *iLand project file* by browsing on your computer after clicking on the folder icon next to the box.
 -   After you selected a project file, click on the "Create Model" on the top-left part of the window with an icon of a Globe.
--   Wait until the simulation area shown in the middle.
+-   Wait until the simulation area is shown in the middle.
 -   Try out some visualizations on the right hand-side "Visualization options". e.g individual trees + color by species. Here you can explore the initial stage of the 1 ha simulation area.
 -   To run the model click on Run Model icon on the top and give 100 years to simulate.
 -   On the bottom of the window you can follow how fast the model is running and see if it is finished.
@@ -317,7 +314,11 @@ The output database has a *.sqlite* extension. You can explore outputs:
 
 ```{r ex8, eval=FALSE, message = FALSE, warning=FALSE}
 
-
+# you should change the name of the file according to your group, e.g. 
+# Group 1 is Output_plot1.sqlite
+# Group 2 is Output_plot2.sqlite
+# Group 3 is Output_plot3.sqlite
+# Group 4 is Output_plot4.sqlite
 file <-
     here::here("model/iLand_simulations/output/Output_plot1.sqlite")
 
@@ -339,20 +340,20 @@ There are different output tables in iLand and all have specific structure, colu
 
 ### Run alternative scenarios {#sec-as}
 
-The prepared simulation is using the 30years climate of 1961-1990, and repeating during the simulation. (The model copy paste the 30year time series after each other to fill up the simulation period) For CO2 concentration 400ppm is given. Your task is to run 1-2 extra alternative scenarios where you modify the output data. For example assuming 800ppm, and 4degree warming, or keep CO2 on 400ppm and decrease precipitation by 20%.
+The prepared simulation is using the 30years climate of 1961-1990, and repeating during the simulation. (The model copy-paste the 30year time series after each other to fill up the simulation period). For CO2 concentration 400ppm is given. Your task is to run 1-2 extra alternative scenarios to modify the output data. For example assuming a CO2 concentration in the air of 800ppm, and 4degree warming, or keep CO2 on 400ppm and decrease precipitation by 20%.
 
-All of these modification can be done in the project file directly, you do not need to modify input data files!
+All of these modifications can be done in the project file directly, you do not need to modify input data files
 
-For this, go to the climate section and modify the values there, and save as the project file as your alternative scenario.
+For this, go to the climate section and modify the values there, and save the project file with your alternative scenario.
 
 ```{r ex9, eval=FALSE, message = FALSE, warning=FALSE}
 
  <climate> 
- <co2concentration>400</co2concentration> <!-------- HERE 
+ <co2concentration>400</co2concentration> < -------- HERE 
  	 <tableName>Roznik</tableName>
  <batchYears>30</batchYears> 
-	 <temperatureShift>4</temperatureShift> <!-------- HERE 
-	 <precipitationShift>0.8</precipitationShift> <!-------- HERE 
+	 <temperatureShift>4</temperatureShift> < -------- HERE 
+	 <precipitationShift>0.8</precipitationShift> < -------- HERE 
 	 <randomSamplingEnabled>false</randomSamplingEnabled>
 		 <randomSamplingList></randomSamplingList> 
  </climate>
@@ -367,7 +368,7 @@ DO NOT FORGET TO CHANGE THE OUTPUT FILE NAME AS WELL for your alternative scenar
 
  <database>
  <in>species_param_europe.sqlite</in> 
- <out>Output_plot1_4deg_20percdrier.sqlite</out> <!-------- HERE 
+ <out>Output_plot1_4deg_20percdrier.sqlite</out> < -------- HERE 
  <climate>E-OBSv27_Roznik_46.05_14.45_1961-1990.sqlite</climate>
  </database>
 ```
@@ -382,11 +383,11 @@ We simulate stand development without management activities, which most likely g
 
 #### Initialization of trees
 
-iLand consider trees higher than 4m as individuals. All trees smaller than this size are simulated as cohorts. We initialize individual trees in year=0, but no regeneration layer, however the process of regeneration turned on, consequently trees are producing seeds and after the establishment they start to grow. It takes some 15-20-25 year to be able to see this effect on the outputs which we will study (that are based on individual trees). You can find more information here: https://iland-model.org/regeneration?highlight=regeneration
+iLand considers trees higher than 4m as individuals. All trees smaller than this size are simulated as cohorts. We initialize individual trees in year=0, but no regeneration layer, however the process of regeneration is turned on, consequently trees are producing seeds and after the establishment they start to grow. It takes some 15-20-25 years to be able to see this regeneration effect on the outputs which we will study (that are based on individual trees). You can find more information here: https://iland-model.org/regeneration?highlight=regeneration
 
 #### Closed system
 
-We assume no external seed input to our stand. This is highly unrealistic, as seeds can enter to our 1 ha area from the surrounding forests and bring there species which are not there as individual trees in the beginning. Additionally, we are using the so-called torus mode so everything that escape on one side of the pixel, enters on the other side. In iLand there is an option to set background seed availability to different species assuming probabilities for establishment in the project file, which we turned off for now. In this way new species cannot appear on the stand during the simulation time.
+We assume no external seed input to our stand. This is highly unrealistic, as seeds can enter to our 1 ha area from the surrounding forests and bring species which are not there as individual trees in the beginning. Additionally, we are using the so-called torus mode so everything that escapes on one side of the pixel, enters on the other side. In iLand there is an option to set background seed availability to different species assuming probabilities for establishment in the project file, which we turned off for now. In this way new species cannot appear on the stand during the simulation time.
 
 Practically the probabilities can be set based on the knowledge about the potential natural vegetation in the region, or based on the knowledge of the surrounding area. You can try to set external seeds if you wish in the project file turning the *externalSeedEnabled* from false to true. And set some probabilities (really small numbers) at *externalSeedBackgroundInput* a bit below down:
 
@@ -407,7 +408,7 @@ More information on external seeds are here: https://iland-model.org/external+se
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 1?
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 #### Read the tree output table {#sec-A_1.1}
 
@@ -446,7 +447,7 @@ RSQLite::dbDisconnect(db2)
 
 ```
 
-Merge the data from the two files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+Merge the data from the two files together and make a column caller run which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
 ```{r ex12, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -456,9 +457,9 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 head(tree)
 ```
 
-#### Visualize trees in year 0 and year 100! {#sec-A_1.2}
+#### Visualize trees in year 0 and year 100  {#sec-A_1.2}
 
-To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
+To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
 ```{r ex13, eval=TRUE, message = FALSE, warning=FALSE}
 tree0 <- tree |> dplyr::filter(year == 0)
@@ -481,7 +482,7 @@ gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 We can see that the species composition has changed and the forest become more dense. We can even identify the same trees at the same location.
 
-#### Visualize some changes in time! {#sec-A_1.3}
+#### Visualize some changes in time  {#sec-A_1.3}
 
 ```{r ex14, eval=TRUE, message = FALSE, warning=FALSE}
 sum.table <- tree |> dplyr::group_by(year, run) |>
@@ -498,7 +499,7 @@ ggplot2::ggplot(sum.table, ggplot2::aes(x = year,
     ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
 ```
 
-We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
+We can see that there is an initial increase in mean dbh, then a drop after 20/25 years. This is due to the growing regeneration layer that is produced the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees grow up to higher than 4 m they are not appearing in the individual *tree* output as they are handled in cohorts.
 
 #### Species diversity {#sec-A_1.4}
 
@@ -558,21 +559,6 @@ div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
 We merge them all together and make a plot based on Shannon index.
 
 ```{r ex18, eval=TRUE, message = FALSE, warning=FALSE}
-
-tlong2 <- tree2 |>
-    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
-    tidyr::pivot_wider(
-        id_cols = 'year',
-        names_from = 'species',
-        values_from = 'N',
-        values_fill = 0
-    ) |>
-    dplyr::ungroup() |>
-    dplyr::select(-year)
-
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
-    dplyr::mutate(year = unique(tree2$year), run = name2)
-
 div <- rbind(div1, div2)
 
 ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
@@ -645,7 +631,7 @@ indices1 <- rbind(diff |> dplyr::rename(value = DIFF),
                   ming |> dplyr::rename(value = MINGLING))
 ```
 
-We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
+We calculated each index as a separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
 
 ```{r ex21, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -674,9 +660,9 @@ The diameter differentiation increases with the increasing average difference in
 
 ### Group 1 - Question B {#sec-B_1}
 
--   How are the species distribution and total living biomass C content changing in time on Plot 1? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
+-   How are the species distribution and total living biomass C content changing in time on Plot 1? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 #### Read the landscape output table {#sec-B_1.1}
 
@@ -711,7 +697,7 @@ RSQLite::dbDisconnect(db2)
 
 ```
 
-Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+Merge the data from the two files together and make a column caller run which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
 ```{r ex23, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -773,7 +759,7 @@ g3 <- ggplot2::ggplot(landscape,
 print(g3)
 ```
 
-Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model start to handle them as individual trees and including in these outputs which we are looking now.
+Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model starts to handle them as individual trees and including in these outputs which we are looking now.
 
 At the end of the simulated 100 years, the total simulated carbon stock in living biomass under climate change scenario was slightly higher than under the reference climate. The proportion of beech and pine increased under drier and warmer climate, while the proportion of spruce was lower, since spruce is in general more susceptible to dry conditions. The changes in the number of trees of individual tree species were more substantial than the changes in carbon stock. The number of spruce trees was substantially reduced under climate change, while under reference climate it was doubled after 30 years and then remain stable until the end of simulation. In contrast, the number of beech trees increased under both scenarios, but the increase was more pronounced under climate change scenario due to the reduction of spruce trees.
 
@@ -781,7 +767,7 @@ Mean dbh of individual species reflected the development of the number of trees.
 
 #### Assess the stored carbon amount {#sec-B_1.3}
 
-Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
+Calculate the stored C amount in the initial year (year==0) and the last year (year==100)
 
 ```{r ex25, eval=TRUE, message = FALSE, warning=FALSE}
 livingC0 <-
@@ -842,7 +828,7 @@ print(LC100)
 
 ```
 
-Put the two tables together and visualize the results!
+Put the two tables together and visualize the results
 
 ```{r ex28, eval=TRUE, message = FALSE, warning=FALSE}
 LC <- rbind(LC0, LC100)
@@ -873,7 +859,7 @@ The living C stock tripled over 100 years due to the accumulation of biomass in 
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 2?
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 #### Read the tree output table {#sec-A_2.1}
 
@@ -913,7 +899,7 @@ RSQLite::dbDisconnect(db2)
 
 ```
 
-Merge the data from the two files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+Merge the data from the two files together and make a column caller run which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
 ```{r ex30, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -923,9 +909,9 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 head(tree)
 ```
 
-#### Visualize trees in year 0 and year 100! {#sec-A_2.2}
+#### Visualize trees in year 0 and year 100  {#sec-A_2.2}
 
-To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
+To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
 ```{r ex31, eval=TRUE, message = FALSE, warning=FALSE}
 tree0 <- tree |> dplyr::filter(year == 0)
@@ -948,9 +934,9 @@ gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 We can see that the species composition has changed and the dbh of the trees seems to be larger, than in the initial year. We can even identify the same trees at the same location.
 
-#### Visualize some changes in time! {#sec-A_2.3}
+#### Visualize some changes in time  {#sec-A_2.3}
 
-Visualize some changes in time, for example the mean diameter of the trees!
+Visualize some changes in time, for example the mean diameter of the trees
 
 ```{r ex32, eval=TRUE, message = FALSE, warning=FALSE}
 sum.table <- tree |> dplyr::group_by(year, run) |>
@@ -1027,20 +1013,6 @@ We merge them all together and make a plot based on Shannon index.
 
 ```{r ex36, eval=TRUE, message = FALSE, warning=FALSE}
 
-tlong2 <- tree2 |>
-    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
-    tidyr::pivot_wider(
-        id_cols = 'year',
-        names_from = 'species',
-        values_from = 'N',
-        values_fill = 0
-    ) |>
-    dplyr::ungroup() |>
-    dplyr::select(-year)
-
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
-    dplyr::mutate(year = unique(tree2$year), run = name2)
-
 div <- rbind(div1, div2)
 
 ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
@@ -1063,7 +1035,7 @@ You can install the package using devtools:
 devtools::install_gitlab('fchianucci/treespat')
 ```
 
-Then, we are ready to use it! Let's calculate these two indices:
+Then, we are ready to use it Let's calculate these two indices:
 
 -   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree. The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that neighboring trees have equal size.
 
@@ -1090,7 +1062,7 @@ indices1<-rbind(diff |> dplyr::rename(value=DIFF),
  ming |> dplyr::rename(value=MINGLING ) )
 ```
 
-We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
+We calculated each index as a separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
 
 ```{r ex39, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -1119,9 +1091,9 @@ The diameter differentiation increases with the increasing average difference in
 
 ### Group 2 - Question B {#sec-B_2}
 
--   How are the species distribution and total living biomass C content changing in time on Plot 2? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
+-   How are the species distribution and total living biomass C content changing in time on Plot 2? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 #### Read the landscape output table {#sec-B_2.1}
 
@@ -1155,7 +1127,7 @@ RSQLite::dbDisconnect(db2)
 
 ```
 
-Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+Merge the data from the two files together and make a column caller run which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
 ```{r ex41, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -1217,13 +1189,13 @@ g3 <-
 print(g3)
 ```
 
-Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model start to handle them as individual trees and including in these outputs which we are looking now.
+Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model starts to handle them as individual trees and including in these outputs which we are looking now.
 
 *Castanea sativa* gradually decreased during the simulation period under both scenarios. The reduction resulted from the mortality of chestnut trees, indicating their aging. By the end of the simulation period, chestnut almost completely disappeared from the stand due to the increased number of trees of other species at the plot, and hence higher inter-tree competition, especially under the reference climate, which hindered the chestnut regeneration and its survival. Mean dbh of chestnut is zero at the end of the simulation period under the reference climate indicating that the species completely disappeared from the stand due to the high stand density, and inter-tree competition.
 
 #### Assess the stored carbon amount {#sec-B_2.3}
 
-Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
+Calculate the stored C amount in the initial year (year==0) and the last year (year==100)
 
 ```{r ex43, eval=TRUE, message = FALSE, warning=FALSE}
 livingC0 <- data.frame(
@@ -1282,7 +1254,7 @@ print(LC100)
 
 ```
 
-Put the two tables together and visualize the results!
+Put the two tables together and visualize the results
 
 ```{r ex46, eval=TRUE, message = FALSE, warning=FALSE}
 LC <- rbind(LC0, LC100)
@@ -1313,7 +1285,7 @@ The living carbon stock doubled over 100 years due to the accumulation of biomas
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 3?
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*.We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*.We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 #### Read the tree output table {#sec-A_3.1}
 
@@ -1353,7 +1325,7 @@ RSQLite::dbDisconnect(db2)
 
 ```
 
-Merge the data from the two files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+Merge the data from the two files together and make a column caller run which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
 ```{r ex48, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -1363,9 +1335,9 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 head(tree)
 ```
 
-#### Visualize trees in year 0 and year 100! {#sec-A_3.2}
+#### Visualize trees in year 0 and year 100  {#sec-A_3.2}
 
-To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
+To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
 ```{r ex49, eval=TRUE, message = FALSE, warning=FALSE}
 tree0 <- tree |> dplyr::filter(year == 0)
@@ -1388,9 +1360,9 @@ gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 We can see that the species composition is somewhat changed and the forest become more dense. We can even identify the same trees at the same location.
 
-#### Visualize some changes in time! {#sec-A_3.3}
+#### Visualize some changes in time  {#sec-A_3.3}
 
-Visualize some changes in time, for example the mean diameter of the trees!
+Visualize some changes in time, for example the mean diameter of the trees
 
 ```{r ex50, eval=TRUE, message = FALSE, warning=FALSE}
 sum.table <- tree |> dplyr::group_by(year, run) |>
@@ -1467,20 +1439,6 @@ We merge them all together and make a plot based on Shannon index.
 
 ```{r ex54, eval=TRUE, message = FALSE, warning=FALSE}
 
-tlong2 <- tree2 |>
-    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
-    tidyr::pivot_wider(
-        id_cols = 'year',
-        names_from = 'species',
-        values_from = 'N',
-        values_fill = 0
-    ) |>
-    dplyr::ungroup() |>
-    dplyr::select(-year)
-
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
-    dplyr::mutate(year = unique(tree2$year), run = name2)
-
 div <- rbind(div1, div2)
 
 ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
@@ -1503,7 +1461,7 @@ You can install the package using devtools:
 devtools::install_gitlab('fchianucci/treespat')
 ```
 
-Then, we are ready to use it! Let's calculate these two indices:
+Then, we are ready to use it Let's calculate these two indices:
 
 -   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree. The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that neighboring trees have equal size.
 
@@ -1529,7 +1487,7 @@ indices1<-rbind(diff |> dplyr::rename(value=DIFF),
  ming |> dplyr::rename(value=MINGLING ) )
 ```
 
-We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
+We calculated each index as a separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
 
 ```{r ex57, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -1561,9 +1519,9 @@ The diameter differentiation increases with the increasing average difference in
 
 ### Group 3 - Question B {#sec-B_3}
 
--   How are the species distribution and total living biomass C content changing in time on Plot 3? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
+-   How are the species distribution and total living biomass C content changing in time on Plot 3? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 #### Read the landscape output table {#sec-B_3.1}
 
@@ -1597,7 +1555,7 @@ RSQLite::dbDisconnect(db2)
 
 ```
 
-Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+Merge the data from the two files together and make a column caller run which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
 ```{r ex59, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -1662,7 +1620,7 @@ g3 <-
 print(g3)
 ```
 
-Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model start to handle them as individual trees and including in these outputs which we are looking now.
+Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model starts to handle them as individual trees and including in these outputs which we are looking now.
 
 Beech profited from drier and warmer conditions at the expense of spruce. *Acer pseudoplatanus* and *Tilia cordata* also slightly increased their proportion in the living C stock and number of trees. The increase of the number of trees indicates the success of the regeneration under reference conditions, however this increase is much slower under the climate change scenario.
 
@@ -1670,7 +1628,7 @@ Mean dbh of individual species reflected the development of the number of trees.
 
 #### Assess the stored carbon amount {#sec-B_3.3}
 
-Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
+Calculate the stored C amount in the initial year (year==0) and the last year (year==100)
 
 ```{r ex61, eval=TRUE, message = FALSE, warning=FALSE}
 livingC0 <- data.frame(
@@ -1730,7 +1688,7 @@ print(LC100)
 
 ```
 
-Put the two tables together and visualize the results!
+Put the two tables together and visualize the results
 
 ```{r ex64, eval=TRUE, message = FALSE, warning=FALSE}
 LC <- rbind(LC0, LC100)
@@ -1762,7 +1720,7 @@ The living C stock more than doubled over 100 years due to the accumulation of b
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 4?
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 Read in the *tree* output table from two outputs you have for your plot:
 
@@ -1800,7 +1758,7 @@ RSQLite::dbDisconnect(db2)
 
 ```
 
-Merge the data from the two files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+Merge the data from the two files together and make a column caller run which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
 ```{r ex66, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -1810,9 +1768,9 @@ tree <- rbind(tree1 |> dplyr::mutate(run = name1) ,
 head(tree)
 ```
 
-#### Visualize trees in year 0 and year 100! {#sec-A_4.2}
+#### Visualize trees in year 0 and year 100  {#sec-A_4.2}
 
-To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation! For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
+To explore a bit the simulation, plot the tree locations at the beginning and the end of the simulation For plotting we use the colors for the species, and the size of a circles to show dbh differences. Here we divided dbh with the value 20 just for visualization, not to have too huge circles shading each others completely, but still see the trees.
 
 ```{r ex67, eval=TRUE, message = FALSE, warning=FALSE}
 tree0 <- tree |> dplyr::filter(year == 0)
@@ -1835,9 +1793,9 @@ gridExtra::grid.arrange(g1, g2, ncol = 1)
 
 We can see that the species composition is somewhat changed and the forest become more dense. We can even identify the same trees at the same location.
 
-#### Visualize some changes in time! {#sec-A_4.3}
+#### Visualize some changes in time  {#sec-A_4.3}
 
-Visualize some changes in time, for example the mean diameter of the trees!
+Visualize some changes in time, for example the mean diameter of the trees
 
 ```{r ex68, eval=TRUE, message = FALSE, warning=FALSE}
 sum.table <- tree |> dplyr::group_by(year, run) |>
@@ -1852,7 +1810,7 @@ ggplot2::ggplot(sum.table, ggplot2::aes(x = year, y = MD, color = run)) +
     ggplot2::ylab("Mean diameter [cm]") + ggplot2::theme_bw()
 ```
 
-We can see that there is an initial increase in mean dbh, then a drop after 30/40 years followed by a less steep increase until the end of the simulation period. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees are less than 4 m tall, they do not appear in the individual *tree* output as they are handled in cohorts. When the canopy closes around the age 30/40, no more massive ingrowth occurs and mean DBH starts to grow again.
+We can see that there is an initial increase in mean dbh, then a drop after 15/20 years followed by a less steep increase until the end of the simulation period. This is due to the growing regeneration layer that is produced by the seeds of the existing trees. In the initial year we do not have regeneration layer in the simulations (it is possible to put there, but we do not have it now). And until the small trees are less than 4 m tall, they do not appear in the individual *tree* output as they are handled in cohorts. When the canopy closes around the age 30/40, no more massive ingrowth occurs and mean DBH starts to grow again.
 
 #### Species diversity {#sec-A_4.4}
 
@@ -1913,20 +1871,6 @@ We merge them all together and make a plot based on Shannon index.
 
 ```{r ex72, eval=TRUE, message = FALSE, warning=FALSE}
 
-tlong2 <- tree2 |>
-    dplyr::group_by(year, species) |> dplyr::summarise(N = dplyr::n()) |>
-    tidyr::pivot_wider(
-        id_cols = 'year',
-        names_from = 'species',
-        values_from = 'N',
-        values_fill = 0
-    ) |>
-    dplyr::ungroup() |>
-    dplyr::select(-year)
-
-div2 <- data.frame(adiv::speciesdiv(tlong2)) |>
-    dplyr::mutate(year = unique(tree2$year), run = name2)
-
 div <- rbind(div1, div2)
 
 ggplot2::ggplot(div, ggplot2::aes(year, Shannon , color = run)) +
@@ -1949,7 +1893,7 @@ You can install the package using devtools:
 devtools::install_gitlab('fchianucci/treespat')
 ```
 
-Then, we are ready to use it! Let's calculate these two indices:
+Then, we are ready to use it Let's calculate these two indices:
 
 -   Diameter differentiation (Gadow, 1993): Spatial size inequality defined as the mean of the ratio of smaller and larger plant sizes in the nearest neighbors of a tree. The value of the index increases with increasing average size difference between neighboring trees. 0 is implying that neighboring trees have equal size.
 
@@ -1974,7 +1918,7 @@ indices1<-rbind(diff |> dplyr::rename(value=DIFF),
  ming |> dplyr::rename(value=MINGLING ) )
 ```
 
-We calculated each index as separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
+We calculated each index as a separate variable and then merged them into indices1. Here I renamed the column names to have it all "value", for easier plotting later on. (each line has the information on which run and which index is the value) We do the same for the scenario simulation, we merge them together and make the plotting.
 
 ```{r ex75, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -2004,9 +1948,9 @@ The diameter differentiation increases with the increasing average difference in
 
 ### Group 4 - Question B {#sec-B_4}
 
--   How are the species distribution and total living biomass C content changing in time on Plot 4? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)!
+-   How are the species distribution and total living biomass C content changing in time on Plot 4? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)
 
-Run the model as it is described in the previous chapters to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
 
 #### Read the landscape output table {#sec-B_4.1}
 
@@ -2040,7 +1984,7 @@ RSQLite::dbDisconnect(db2)
 
 ```
 
-Merge the data from the three files together and make a column which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
+Merge the data from the two files together and make a column caller run which tells which comes from which simulation, and study the table. The column "run" will support the plotting where we can use facets in ggplot.
 
 ```{r ex77, eval=TRUE, message = FALSE, warning=FALSE}
 
@@ -2106,7 +2050,7 @@ g3 <-
 print(g3)
 ```
 
-Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model start to handle them as individual trees and including in these outputs which we are looking now.
+Note that we do not have management intervention, and in the model trees shorter than 4m are not included in these outputs. However as they grow taller than 4m, model starts to handle them as individual trees and including in these outputs which we are looking now.
 
 At the end of the simulated 100 years, the total simulated carbon stock in living biomass under climate change scenario was slightly higher than under the reference climate. The proportion of beech has increased under both simulations. The number of trees increased in both cases after circa 25 years, but the increase was steeper under reference conditions. This increase was caused by the regeneration. However, at the end of the simulation period, the number of remaining trees was slightly higher under climate change scenario than the reference one, indicating much higher tree mortality.
 
@@ -2114,7 +2058,7 @@ Mean dbh of individual species reflected the development of the number of trees.
 
 #### Assess the stored carbon amount {#sec-B_4.3}
 
-Calculate the stored C amount in the initial year (year==0) and the last year (year==100)!
+Calculate the stored C amount in the initial year (year==0) and the last year (year==100)
 
 ```{r ex79, eval=TRUE, message = FALSE, warning=FALSE}
 livingC0 <- data.frame(
@@ -2172,7 +2116,7 @@ print(LC100)
 
 ```
 
-Put the two tables together and visualize the results!
+Put the two tables together and visualize the results
 
 ```{r ex82, eval=TRUE, message = FALSE, warning=FALSE}
 LC <- rbind(LC0, LC100)
@@ -2202,13 +2146,13 @@ The living C stock tripled over 100 years due to the accumulation of biomass in 
 
 # Empirical modeling {#sec-em}
 
-In the empirical modelling we will cover two examples of creating two models based on observed data. We will use two approaches Generalized Linear Models (GLMs) and Boosted Regression trees (BRTs). Please take all the results with a grain of salt, we are making very generalized statements from a limited data set, and we are not getting into the details of how each of the models should be assessed; the goal here is that you learn how observed data can be used to create models that help you to understand the data and relationships better.
+In the empirical modelling we will cover two examples of creating two models based on observed data. We will use two approaches Generalized Linear Models (GLMs) and Boosted Regression trees (BRTs). Please take all the results with a grain of salt, we are making very generalized statements from a limited data set, and we are not getting into the details of how each of the models should be assessed;. the goal here is that you learn how observed data can be used to create models that help you to understand the data and relationships better.
 
 ## Data
 
 We will work with one dataset derived from the inventory developed to assess forest structure and deadwood properties of six representative forest areas in the Czech Republic (Hošek, 2022). This dataset collects observations of the presence /absence of certain species of biodiversity importance across 99 plots.
 
-The data was collected from square sampling plots (2500 m2 each) in six forested Czech Republic regions. These regions are representative of the main bio-regions and elevation range of forests, considering their importance in territorial representation, forestry, and ecology. The inventory sampled for biodiversity variables such as the presence/absence of different species of birds, Tracheophyta, bryophytes, fungi, lichens, and beetles.
+The data was collected from square sampling plots (2500 m2 each) in six forested Czech Republic regions. These regions are representative of the main bio-regions and elevation range of forests, considering their importance in territorial representation, forestry, and ecology. The inventory sampled for biodiversity variables such as the presence/absence of different species of birds, Tracheophyta, Bryophyte, fungi, lichens, and beetles.
 
 The dataset has been generously provided by Jeňýk Hofmeister at the Czech University of Life Sciences Prague (jenyk.hofmeister\@email.cz) to be used in the context of this exercise. It should not be used for other purposes or be further distributed. If you want to use this data or learn more about it, please get in touch with Jeňýk Hofmeisterhere: jenyk.hofmeister\@email.cz.
 
@@ -2253,37 +2197,37 @@ These are the variables available in the data
 -   `ShannonIndexTreeSpp`: The Shannon index is way to measure the diversity of tree species in the plot
 -   `Tracheophyta_rich`: Species richness across Tracheophyta species
 -   `Birds_rich`: Species richness across Birds species
--   `Bryophytes_rich` : Species richness across Bryophytes species
+-   `Bryophytes_rich` : Species richness across Bryophyte species
 -   `Fungi_rich`: Species richness across Fungi species
 -   `Lichens_rich`: Species richness across Lichens species
 -   `Beetles_rich`: Species richness across Beetles species
--   `dendrocoposMajor`: presence / absence of Dendrocopos major
--   `certhia`: presence / absence of Certhia familiaris
--   `bryophitaNumObs`: number of observed Bryophytes species
+-   `dendrocoposMajor`: presence / absence of Great spotted woodpecker (*Dendrocopos major*)
+-   `certhia`: presence / absence of Eurasian treecreeper (*Certhia familiaris*)
+-   `bryophyteNumObs`: number of observed Bryophyte species
 -   `birdNumObs`: number of observed Bird species
 -   `PlotID`: ID number for the plot
 
 ## Species description
 
-### Species 1 - Bryophytes
+### Species 1 - Bryophyte
 
-Bryophytes constitute an important and permanent component of the forest flora and diversity. They colonize various substrates, which are unsuitable for vascular plants, because of low light intensity or low nutrient level, such as deadwood, bark, rocks, and open soil. They provide shelter habitats, food, and nest material for many animals.
+Bryophyte constitute an important and permanent component of the forest flora and diversity. They colonize various substrates, which are unsuitable for vascular plants, because of low light intensity or low nutrient level, such as deadwood, bark, rocks, and open soil. They provide shelter habitats, food, and nest material for many animals.
 
-In forests, different ecological guilds of Bryophytes can be distinguished by the substrate on which they are growing, including terricolous, lignicolous, corticolous and saxicolous species that occur on soil, deadwood, bark of living trees and shrubs, or rocks, respectively. As diversity and quality of these substrates is affected by forest management, Bryophytes are suitable indicators for the effect of management on forest conditions. Especially typical woodland Bryophytes, which are strictly depending on forest conditions. It is interesting to better understand the relation of forest management effects on Bryophytes and some studies have already demonstrated their sensitivity to management practices.
+In forests, different ecological guilds of Bryophyte can be distinguished by the substrate on which they are growing, including terricolous, lignicolous, corticolous and saxicolous species that occur on soil, deadwood, bark of living trees and shrubs, or rocks, respectively. As diversity and quality of these substrates is affected by forest management, Bryophyte are suitable indicators for the effect of management on forest conditions. Especially typical woodland Bryophyte, which are strictly depending on forest conditions. It is interesting to better understand the relation of forest management effects on Bryophyte and some studies have already demonstrated their sensitivity to management practices.
 
 ### Species 2 - Great spotted woodpecker
 
-The great spotted woodpecker (*Dendrocopos major*) is a medium-sized woodpecker with pied black and white plumage and a red patch on the lower belly. It is found in a wide variety of woodlands, broadleaf, coniferous or mixed forests. The great spotted woodpecker spends much of its time climbing trees. It a quite generalist bird species.
+The great spotted woodpecker (*Dendrocopos major*) is a medium-sized woodpecker with pied black and white plumage and a red patch on the lower belly. It is found in a wide variety of woodlands, broadleaf, coniferous or mixed forests. The great spotted woodpecker spends much of its time climbing trees. It is a generalist bird species.
 
 ### Species 3 - Eurasian treecreeper
 
-The Eurasian treecreeper or common treecreeper (*Certhia familiaris*) is a small passerine bird. It prefers mature trees, and in most of Europe, it tends to be found mainly in coniferous forest, especially spruce and fir.
+The Eurasian treecreeper (*Certhia familiaris*) is a small passerine bird. It prefers mature trees, and in most of Europe, it tends to be found mainly in coniferous forest, especially spruce and fir.
 
 ## Models
 
 ### Generalized Linear Models (GLMs)
 
-We propose to use a generalized linear model (GLM) to understand the abundance of different Bryophytes species in the 99 plots. Count data often conform to a Poisson distribution; in this case, we have a count of the number of species recorded at each plot.
+We propose to use a generalized linear model (GLM) to understand the abundance of different Bryophyte and birds species in the 99 plots. Count data often conform to a Poisson distribution; in this case, we have a count of the number of species recorded at each plot.
 
 Fitting a Poisson GLM in R is similar to analyzing covariance (or linear model), except that we now need to use the glm function. To run a GLM, we need to provide one extra piece of information beyond that required for a linear model: the family of models we want to use. In this case, we want a Poisson family, family=poisson.
 
@@ -2295,7 +2239,7 @@ The BRT model calibration is defined by four parameters:
 
 -   the `learning rate` (or shrinkage parameter): The learning rate determines the contribution of each new tree to the growing model, and it is always substantially lower than 1, higher values being related to faster learning.
 
--   the `bag fraction`: The bag fraction provides in- formation on which fraction of the entire data should be drawn randomly to fit the new tree. This parameter includes a random probabilistic component, making each run model different, and is aimed at improving model accuracy, speed of model creation, and the reduction of overfitting (Friedman et al., 2008).
+-   the `bag fraction`: The bag fraction provides information on which fraction [0-1] of the entire data should be drawn randomly to fit the new tree. This parameter includes a random probabilistic component, making each run model different, and is aimed at improving model accuracy, speed of model creation, and the reduction of overfitting (Friedman et al., 2008).
 
 -   the `tree complexity`: Tree complexity controls the number of fitted interactions among variables, and determines the number of splits in each tree; for example, a value of 1 will present only one split, meaning that the model does not consider interactions; a value of 2 will result in two splits, and two interactions.
 
@@ -2357,55 +2301,55 @@ par(mfrow = c(1, 2), oma = c(0, 2, 0, 0))
 par(mar = c(4, 4, 2, 2))
 # Histogram and Scatterplot
 hist(
-    observations$bryophitaNumObs,
+    observations$bryophyteNumObs,
     main = "",
     breaks = 10,
     col = rgb(0.3, 0.5, 1, 0.4) ,
-    xlab = "Number of observed bryophita"
+    xlab = "Number of observed Bryophyte"
 )
 plot(
-    y = observations$bryophitaNumObs,
+    y = observations$bryophyteNumObs,
     x = observations$GiniDBH,
     main = "" ,
     pch = 20,
     cex = 0.4,
     col = rgb(0.3, 0.5, 1, 0.4),
-    xlab = "Ginni index",
-    ylab = "Number of observed bryophita"
+    xlab = "Gini index",
+    ylab = "Number of observed Bryophyte"
 )
 ```
 
 ### Group 1 - Question C {#sec-C_1}
 
--   Does a more diverse forest in structure and composition have more Bryophytes species?
+-   Does a more diverse forest in structure and composition have more Bryophyte species?
 
 #### Fitting a Poisson GLM in R {#sec-C_1_fit}
 
-During your data exploration, you should have selected your response variable, `bryophitaNumObs`. In this case, since we are trying to understand forest structure and composition, you should also choose explanatory variables for that, such as `GiniDBH,` which indicates the forest structural diversity in diameter sizes; higher values indicate more structural heterogeneity, and lower values indicate more homogeneous stands, or the `ShannonIndexTreeSpp` which assesses the diversity of tree species in the plot.
+During your data exploration, you should have selected your response variable, `bryophyteNumObs`. In this case, since we are trying to understand forest structure and composition, you should also choose explanatory variables for that, such as `GiniDBH,` which indicates the forest structural diversity in diameter sizes; higher values indicate more structural heterogeneity, and lower values indicate more homogeneous stands, or the `ShannonIndexTreeSpp` which assesses the diversity of tree species in the plot.
 
-We could start by only looking at how the forest structural diversity affects the number of Bryophyte species that we have in a plot. You can create a GLM model with `bryophitaNumObs` as the response variable and `GiniDBH` as an explanatory variable. You will use the function glm in R and the `family = poisson`. You can see how to create and see this model here:
+We could start by only looking at how the forest structural diversity affects the number of Bryophyte species that we have in a plot. You can create a GLM model with `bryophyteNumObs` as the response variable and `GiniDBH` as an explanatory variable. You will use the function glm in R and the `family = poisson`. You can see how to create and see this model here:
 
 ```{r fit glm struct11}
-bryoModel1 <- glm(bryophitaNumObs ~ GiniDBH,
+bryoModel1 <- glm(bryophyteNumObs ~ GiniDBH,
                   family = poisson,
                   data = observations)
 
 summary(bryoModel1)
 ```
 
-Here you can see that the coefficient table produced by a GLM is very similar to a linear model. The intercept tells us the estimated value of the response variable when the continuous explanatory variables (here, just the Gini index) has a value of 0. We then also have coefficients describing the slope of the relationship with our continuous explanatory variables. We can see here that the number of Bryophytes species appears to show a positive relationship with the Gini index, which means that increasing structural diversity in tree diameter sizes has a positive relationship with the number of Bryophytes species in the plot.
+Here you can see that the coefficient table produced by a GLM is very similar to a linear model. The intercept tells us the estimated value of the response variable when the continuous explanatory variables (here, just the Gini index) has a value of 0. We then also have coefficients describing the slope of the relationship with our continuous explanatory variables. We can see here that the number of Bryophyte species appears to show a positive relationship with the Gini index, which means that increasing structural diversity in tree diameter sizes has a positive relationship with the number of Bryophyte species in the plot.
 
-We are also interested in understanding the relationship of the number of Bryophytes species and the tree species diversity; we can now try to add this variable into the model and see if it helps us to understand things. You can do that by adding the variable `ShannonIndexTreeSpp` to the model:
+We are also interested in understanding the relationship of the number of Bryophyte species and the tree species diversity; we can now try to add this variable into the model and see if it helps us to understand things. You can do that by adding the variable `ShannonIndexTreeSpp` to the model:
 
 ```{r fit glm struct12}
-bryoModel2 <- glm(bryophitaNumObs ~ GiniDBH + ShannonIndexTreeSpp,
+bryoModel2 <- glm(bryophyteNumObs ~ GiniDBH + ShannonIndexTreeSpp,
                   family = poisson,
                   data = observations)
 
 summary(bryoModel2)
 ```
 
-Here we can see that the variable Shannon index also has a positive relationship with the number of Bryophytes species in the plot, but its effect is much smaller. We can also observe that this variable is not significant. This does not mean it is wrong to add this variable because we want to understand its effect, but keeping this variable in the model depends on what you're trying to do and what "reality" is. Adding variables that are not significant will not help your model (particularly your estimates) but also might not matter much (e.g., predictions). However, removing actual variables can create a useless model even if they don't meet significance.
+Here we can see that the variable Shannon index also has a positive relationship with the number of Bryophyte species in the plot, but its effect is much smaller. We can also observe that this variable is not significant. This does not mean it is wrong to add this variable because we want to understand its effect, but keeping this variable in the model depends on what you're trying to do and what "reality" is. Adding variables that are not significant will not help your model (particularly your estimates) but also might not matter much (e.g., predictions). However, removing actual variables can create a useless model even if they don't meet significance.
 
 Variable selection is a long and complicated topic. Some general rules of thumb include: (1) Include the variable if it is of interest, (2) Include the variable if you have some prior knowledge that it should be relevant. This can be misleading because it's a confirmation bias, but in most cases, this makes sense. (3) If you want a model that can generalize many cases, you should favor fewer variables.
 
@@ -2429,7 +2373,7 @@ dev.explained
 
 ```
 
-Variability in forest structure (Gini index) explain 15% of the variation in Bryophytes species richness in this study. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness for Bryophytes and we are attempting to explain everything with just one variable).
+Variability in forest structure (Gini index) explain 15% of the variation in Bryophyte species richness in this study. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness for Bryophyte and we are attempting to explain everything with just one variable).
 
 #### Model Assumptions
 
@@ -2449,7 +2393,9 @@ simResids <- DHARMa::simulateResiduals(bryoModel1)
 plot(simResids)
 ```
 
-These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have time to continuou in this exercise.
+In these plots the outliers are highlighted in red (if they are any). To provide a visual aid in detecting deviations from uniformity in y-direction, the plot function calculates a quantile regression of the residuals, by default for the 0.25, 0.5 and 0.75 quantiles. As the residuals should be uniformly distributed for a correctly specified model, the theoretical expectations for these regressions are straight lines at 0.25, 0.5 and 0.75, which are displayed as dashed black lines on the plot. Some deviations from these expectations are to be expected by chance, however, even for a perfect model, especially if the sample size is small. The function therefore tests if deviation of the fitted quantile regression from the expectation is significant, using testQuantiles. If so, the significant quantile regression will be highlighted as red, and a warning will be displayed in the plot.
+
+In these plots we can see that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have time to continuou in this exercise.
 
 ### Group 1 - Question D {#sec-D_1}
 
@@ -2459,29 +2405,29 @@ These plots show us that this model is not behaving as we would expect in terms 
 
 Fitting a Poisson GLM in R is very similar to fitting an analysis of covariance (or linear model), except that now we need to use the glm function. To run a GLM, we need to provide one extra piece of information beyond that needed for a linear model: the family of model we want to use. In this case, we want a Poisson family.
 
-We could start by only looking at how the forest structural diversity affects the number Bryophytes species that we have in a plot. You can do this by creating a GLM model which has `bryophitaNumObs` as response variable and `GiniDBH` as explanatory variable. For that you will use the function `glm` in R and use the `family = poisson`. You can see how to create and see this model here:
+We could start by only looking at how the forest structural diversity affects the number Bryophyte species that we have in a plot. You can do this by creating a GLM model which has `bryophyteNumObs` as response variable and `GiniDBH` as explanatory variable. For that you will use the function `glm` in R and use the `family = poisson`. You can see how to create and see this model here:
 
 ```{r fit glm struct21}
-bryoModel1 <- glm(bryophitaNumObs ~ GiniDBH,
+bryoModel1 <- glm(bryophyteNumObs ~ GiniDBH,
                   family = poisson,
                   data = observations)
 
 summary(bryoModel1)
 ```
 
-Here you can see that the coefficient table produced by a GLM is very similar to a linear model. The intercept tells us the estimated value of the response variable when the continuous explanatory variables (here just Gini index) have a value of 0. We then also have coefficients describing the slope of the relationship with our continuous explanatory variables. We can see here that the bryophita numbers appears to show a positive relationship with Gini index, which means that increasing structural diversity in trees diameter sizes has a positive relationship with the number of bryophita species in the plot.
+Here you can see that the coefficient table produced by a GLM is very similar to a linear model. The intercept tells us the estimated value of the response variable when the continuous explanatory variables (here just Gini index) have a value of 0. We then also have coefficients describing the slope of the relationship with our continuous explanatory variables. We can see here that the bryophyte numbers appears to show a positive relationship with Gini index, which means that increasing structural diversity in trees diameter sizes has a positive relationship with the number of Bryophyte species in the plot.
 
-We are also interested in understanding the relationship of the number of observed Bryophytes species and forest management, we can now try to add this variable into the model.
+We are also interested in understanding the relationship of the number of observed Bryophyte species and forest management, we can now try create a new model considering this variable.
 
 ```{r fit glm struct22}
-bryoModel2 <- glm(bryophitaNumObs ~ forestManagementType,
+bryoModel2 <- glm(bryophyteNumObs ~ forestManagementType,
                   family = poisson,
                   data = observations)
 
 summary(bryoModel2)
 ```
 
-The intercept here tells us the estimated value of the response variable when the reference groups in our grouping (categorical) variables (here for retention clear-cutting). We then also have coefficients describing the slope of the relationship with our continuous explanatory variables, and coefficients giving the estimated difference in the response variable for non-reference groupings. We can see here that number of Bryophyte species appears to show a negative relationship with simple clearcutting, and appears to have a positive relationship with unmanaged and retention clear-cutting.
+The intercept here tells us the estimated value of the response variable when the reference groups in our grouping (categorical) variables (here for retention clear-cutting). We can see here that number of Bryophyte species appears to show a negative relationship with simple clearcutting, and appears to have a positive relationship with unmanaged and retention clear-cutting.
 
 The type simple clearcutting appears to be non significant, which only tells us about the pairwise differences between the levels. To test whether the categorical predictor, as a whole, is significant is equivalent to testing whether there is any heterogeneity in the means of the levels of the predictor. When there are no other predictors in the model, this is a classical [ANOVA](http://en.wikipedia.org/wiki/Analysis_of_variance) problem.
 
@@ -2505,7 +2451,7 @@ dev.explained
 
 ```
 
-Variability in forest structure (Gini index) explains 15% of the variation in bryophita species richness in this study system. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness of bryophitas and we are attempting to explain everything with one variable).
+Variability in forest structure (Gini index) explains 15% of the variation in Bryophyte species richness in this study system. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness of Bryophyte and we are attempting to explain everything with one variable).
 
 #### Model Assumptions
 
@@ -2524,6 +2470,8 @@ simResids <- DHARMa::simulateResiduals(bryoModel1)
 # Generate plots to compare the model residuals to expectations
 plot(simResids)
 ```
+
+In these plots the outliers are highlighted in red (if they are any). To provide a visual aid in detecting deviations from uniformity in y-direction, the plot function calculates a quantile regression of the residuals, by default for the 0.25, 0.5 and 0.75 quantiles. As the residuals should be uniformly distributed for a correctly specified model, the theoretical expectations for these regressions are straight lines at 0.25, 0.5 and 0.75, which are displayed as dashed black lines on the plot. Some deviations from these expectations are to be expected by chance, however, even for a perfect model, especially if the sample size is small. The function therefore tests if deviation of the fitted quantile regression from the expectation is significant, using testQuantiles. If so, the significant quantile regression will be highlighted as red, and a warning will be displayed in the plot. You can find more information about this graphs in the [package instructions here](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html).
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have to continue in this exercise.
 
@@ -2601,6 +2549,8 @@ simResids <- DHARMa::simulateResiduals(birdModel1)
 plot(simResids)
 ```
 
+In these plots the outliers are highlighted in red (if they are any). To provide a visual aid in detecting deviations from uniformity in y-direction, the plot function calculates a quantile regression of the residuals, by default for the 0.25, 0.5 and 0.75 quantiles. As the residuals should be uniformly distributed for a correctly specified model, the theoretical expectations for these regressions are straight lines at 0.25, 0.5 and 0.75, which are displayed as dashed black lines on the plot. Some deviations from these expectations are to be expected by chance, however, even for a perfect model, especially if the sample size is small. The function therefore tests if deviation of the fitted quantile regression from the expectation is significant, using testQuantiles. If so, the significant quantile regression will be highlighted as red, and a warning will be displayed in the plot. You can find more information about this graphs in the [package instructions here](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html).
+
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have time to continuou in this exercise.
 
 ### Group 2 - Question D {#sec-D_2}
@@ -2623,7 +2573,7 @@ summary(birdModel1)
 
 Here you can see that the coefficient table produced by a GLM is very similar to a linear model. The intercept tells us the estimated value of the response variable when the continuous explanatory variables (here just Gini index) have a value of 0. We then also have coefficients describing the slope of the relationship with our continuous explanatory variables. We can see here that the bird numbers appears to show a positive relationship with Gini index, which means that increasing structural diversity in trees diameter sizes has a positive relationship with the number of bird species in the plot.
 
-We are also interested in understanding the relationship of the number of observed bird species and forest management, we can now try to add this variable into the model.
+We are also interested in understanding the relationship of the number of observed bird species and forest management, we can now try to to create a new model with this variable.
 
 ```{r fit glm struct42}
 birdModel2 <- glm(birdNumObs ~ forestManagementType,
@@ -2633,7 +2583,7 @@ birdModel2 <- glm(birdNumObs ~ forestManagementType,
 summary(birdModel2)
 ```
 
-The intercept here tells us the estimated value of the response variable when the reference groups in our grouping (categorical) variables (here for retention clear-cutting). We then also have coefficients describing the slope of the relationship with our continuous explanatory variables, and coefficients giving the estimated difference in the response variable for non-reference groupings. We can see here that number of bird species appears to show a negative relationship with simple clearcutting, unmanaged and a positive relationship with retention clear-cutting.
+The intercept here tells us the estimated value of the response variable when the reference groups in our grouping (categorical) variables (here for retention clear-cutting). We can see here that number of bird species appears to show a negative relationship with simple clearcutting, unmanaged and a positive relationship with retention clear-cutting.
 
 The type simple clearcutting and unmanaged appear to be no significant, which only tell us about the pairwise differences between the levels. To test whether the categorical predictor, as a whole, is significant is equivalent to testing whether there is any heterogeneity in the means of the levels of the predictor. When there are no other predictors in the model, this is a classical [ANOVA](http://en.wikipedia.org/wiki/Analysis_of_variance) problem.
 
@@ -2657,7 +2607,7 @@ dev.explained
 
 ```
 
-Variability in forest structure (Gini index) explain 15% of the variation in bird species richness in this study system. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness and we are attempting to explain everything with one variable).
+Variability in forest structure (Gini index) explain 8% of the variation in bird species richness in this study system. That is an ok explanatory power for a very simple model of a complex ecological system (many factors determine the species richness and we are attempting to explain everything with one variable).
 
 #### Model Assumptions
 
@@ -2676,6 +2626,8 @@ simResids <- DHARMa::simulateResiduals(birdModel1)
 # Generate plots to compare the model residuals to expectations
 plot(simResids)
 ```
+
+In these plots the outliers are highlighted in red (if they are any). To provide a visual aid in detecting deviations from uniformity in y-direction, the plot function calculates a quantile regression of the residuals, by default for the 0.25, 0.5 and 0.75 quantiles. As the residuals should be uniformly distributed for a correctly specified model, the theoretical expectations for these regressions are straight lines at 0.25, 0.5 and 0.75, which are displayed as dashed black lines on the plot. Some deviations from these expectations are to be expected by chance, however, even for a perfect model, especially if the sample size is small. The function therefore tests if deviation of the fitted quantile regression from the expectation is significant, using testQuantiles. If so, the significant quantile regression will be highlighted as red, and a warning will be displayed in the plot. You can find more information about this graphs in the [package instructions here](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html).
 
 These plots show us that this model is not behaving as we would expect in terms of homogeneity of variance and distribution of residuals. A follow up to this would be to try alternatives to deal with over-dispersed count data in GLMs such as fit a quasi-Poisson GLM or a negative binomial GLM. Unfortunately we do not have to continuou in this exercise.
 
@@ -2715,7 +2667,7 @@ modelDataSel <- observations[, colnames(observations) %in% selVar]
 
 ```
 
-Unfortunately the amount of that we have in this dataset it is not enough to fit a BRT model for these variables. We are going to do an obviously wrong thing for the shake of being able to demonstrate how to fit a BRT model. In the next code you are going to repeat the same dataset multiple times:
+Unfortunately the amount of observations that we have in this dataset it is not enough to fit a BRT model for these variables. We are going to do an obviously wrong thing for the sake of being able to demonstrate how to fit a BRT model. In the next code you are going to repeat the same dataset multiple times:
 
 ```{r data repetition}
 modelDataSel <- rbind(modelDataSel, modelDataSel, modelDataSel, 
@@ -2727,7 +2679,7 @@ Now it is important to assess if the variables have the right categories. Variab
 ```{r check data}
 summary(modelDataSel)
 
-# Two variables are character, we assign to factor instead:
+# One variables is a character, we assign to factor instead:
 modelDataSel$forestManagementType <-
     as.factor(modelDataSel$forestManagementType)
 
@@ -2761,11 +2713,11 @@ modelBRT <- dismo::gbm.step(
 
 ```
 
-Running a model such as that described above writes progress reports to the screen, makes a graph, and returns an object containing a number of components. The R console results reports a brief model summary all the values are also retained in the model object.
+Running a model such as that described above writes progress reports to the screen, makes a graph, and returns an object containing a number of components. The R console reports a brief model summary, all the model summary values are retained in the model object.
 
 The model is built with the default 10-fold cross-validation (CV). In the plotted graph the solid black curve is the mean, and the dotted curves 1 standard error, for the changes in predictive deviance (i.e., as measured on the excluded folds of the CV). The red line shows the minimum of the mean, and the green line the number of trees at which that occurs. The final model that is returned in the model object is built on the full data set, using the number of trees identified as optimal.
 
-Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
+Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the sake of limited timing, we will only test here the default values.
 
 #### Model behaviour
 
@@ -2851,7 +2803,7 @@ gbm::plot.gbm(modelBRT, i.var = 3, type = "response",
               ylab = "Probability of finding a Great spotted woodpecker ")
 ```
 
-It seems that there is an increase in probability of finding a Great spotted woodpecker with higher forest densities, but the trend it is not very clear. We could also analyse the interaction effects, of density and for example overall bird richness. The model predictions can be obtained for each pair of predictor variables, setting all other predictors to their means.
+It seems that there is an increase in probability of finding a Great spotted woodpecker with higher forest densities, but the trend it is not very clear. We could also analyse the interaction effects, of density and for example the Gini index. The model predictions can be obtained for each pair of predictor variables, setting all other predictors to their means.
 
 To plot this pairwise interactions we have to do:
 
@@ -2897,7 +2849,7 @@ modelDataSel <- observations[, colnames(observations) %in% selVar]
 
 ```
 
-Unfortunately the amount of that we have in this dataset it is not enough to fit a BRT model for these variables. We are going to do an obviously wrong thing for the shake of being able to demonstrate how to fit a BRT model. In the next code you are going to repeat the same dataset multiple times:
+Unfortunately the amount of observations observations that we have in this dataset it is not enough to fit a BRT model for these variables. We are going to do an obviously wrong thing for the sake of being able to demonstrate how to fit a BRT model. In the next code you are going to repeat the same dataset multiple times:
 
 ```{r data repetition6}
 modelDataSel <- rbind(modelDataSel, modelDataSel, modelDataSel, modelDataSel,
@@ -2909,7 +2861,7 @@ Now it is important to assess if the variables have the right categories. Variab
 ```{r check data6}
 summary(modelDataSel)
 
-# Two variables are character, we assign to factor instead:
+# One variable are character, we assign to factor instead:
 modelDataSel$forestManagementType <-
     as.factor(modelDataSel$forestManagementType)
 
@@ -2940,15 +2892,15 @@ modelBRT <- dismo::gbm.step(
     tree.complexity = tc,
     learning.rate = lr,
     bag.fraction = bag
-)  
+) 
 
 ```
 
-Running a model such as that described above writes progress reports to the screen, makes a graph, and returns an object containing a number of components. The R console results reports a brief model summary all the values are also retained in the model object.
+Running a model such as that described above writes progress reports to the screen, makes a graph, and returns an object containing a number of components. The R console reports a brief model summary, all the model summary values are retained in the model object.
 
 The model is built with the default 10-fold cross-validation (CV). In the plotted graph the solid black curve is the mean, and the dotted curves 1 standard error, for the changes in predictive deviance (i.e., as measured on the excluded folds of the CV). The red line shows the minimum of the mean, and the green line the number of trees at which that occurs. The final model that is returned in the model object is built on the full data set, using the number of trees identified as optimal.
 
-Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
+Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the sake of limited timing, we will only test here the default values.
 
 #### Model behaviour
 
@@ -3026,7 +2978,7 @@ dismo::gbm.plot(
 )
 ```
 
-In this partial dependence plots the predictions are on the scale of f(x). In this case, for the Bernoulli loss the returned value is on the log odds scale. You can see how this plot will look by plotting with the function from the package `gbm` and using the type "response". Since we are interesting in finding out if the forest diversity has an impact in the presence of the Great spotted woodpecker we can have a look to the plot density variable `volAllha` :
+In this partial dependence plots the predictions are on the scale of f(x). In this case, for the Bernoulli loss the returned value is on the log odds scale. You can see how this plot will look by plotting with the function from the package `gbm` and using the type "response". Since we are interesting in finding out if the forest diversity has an impact in the presence of the Great spotted woodpecker we can have a look to the plot density variable `Shannon index` :
 
 ```{r, response6}
 gbm::plot.gbm(modelBRT,
@@ -3081,7 +3033,7 @@ modelDataSel <- observations[, colnames(observations) %in% selVar]
 
 ```
 
-Unfortunately the amount of that we have in this dataset it is not enough to fit a BRT model for these variables. We are going to do an obviously wrong thing for the shake of being able to demonstrate how to fit a BRT model. In the next code you are going to repeat the same dataset multiple times:
+Unfortunately the amount of observations that we have in this dataset it is not enough to fit a BRT model for these variables. We are going to do an obviously wrong thing for the sake of being able to demonstrate how to fit a BRT model. In the next code you are going to repeat the same dataset multiple times:
 
 ```{r data repetition7}
 modelDataSel <- rbind(modelDataSel, modelDataSel, modelDataSel, modelDataSel,
@@ -3093,7 +3045,7 @@ Now it is important to assess if the variables have the right categories. Variab
 ```{r check data7}
 summary(modelDataSel)
 
-# Two variables are character, we assign to factor instead:
+# One variable is a character, we assign to factor instead:
 modelDataSel$forestManagementType <-
     as.factor(modelDataSel$forestManagementType)
 
@@ -3128,11 +3080,11 @@ modelBRT <- dismo::gbm.step(
 
 ```
 
-Running a model such as that described above writes progress reports to the screen, makes a graph, and returns an object containing a number of components. The R console results reports a brief model summary all the values are also retained in the model object.
+Running a model such as that described above writes progress reports to the screen, makes a graph, and returns an object containing a number of components. The R console reports a brief model summary, all the model summary values are retained in the model object.
 
 The model is built with the default 10-fold cross-validation (CV). In the plotted graph the solid black curve is the mean, and the dotted curves 1 standard error, for the changes in predictive deviance (i.e., as measured on the excluded folds of the CV). The red line shows the minimum of the mean, and the green line the number of trees at which that occurs. The final model that is returned in the model object is built on the full data set, using the number of trees identified as optimal.
 
-Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
+Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the sake of limited timing, we will only test here the default values.
 
 #### Model behaviour
 
@@ -3197,7 +3149,7 @@ modelBRT$contributions
 
 ```
 
-Here we can see that the two variables with the highest influence in the response are `GiniDBH` and `volAllhsa`.
+Here we can see that the two variables with the highest influence in the response are `GiniDBH` and `latitude`.
 
 Now we can evaluate the model behavior via partial dependence plots, showing the effect of each of the variables on the response by accounting for the average effects of all other predictors in the model:
 
@@ -3210,13 +3162,13 @@ dismo::gbm.plot(
 )
 ```
 
-In this partial dependence plots the predictions are on the scale of f(x). In this case, for the Bernoulli loss the returned value is on the log odds scale. You can see how this plot will look by plotting with the function from the package `gbm` and using the type "response". Since we are interesting in finding out if the forest density has an impact in the presence of the Eurasian treecreeper affected we can have a look to the plot density variable `volAllha` :
+In this partial dependence plots the predictions are on the scale of f(x). In this case, for the Bernoulli loss the returned value is on the log odds scale. You can see how this plot will look by plotting with the function from the package `gbm` and using the type "response". Since we are interesting in finding out if the forest management type has an impact in the presence of the Eurasian treecreeper affected we can have a look to the plot density variable `forestManagementType` :
 
 ```{r, response7}
 gbm::plot.gbm(modelBRT,
               i.var = 3,
               type = "response",
-              ylab = "Probability of finding a Common redstart")
+              ylab = "Probability of finding a Eurasian treecreeper")
 ```
 
 It seems that there is an increase in probability of finding a Eurasian treecreeper with higher forest densities. We could also analyse the interaction effects, of forest diversity and for example forest density. The model predictions can be obtained for each pair of predictor variables, setting all other predictors to their means.
@@ -3265,7 +3217,7 @@ modelDataSel <- observations[, colnames(observations) %in% selVar]
 
 ```
 
-Unfortunately the amount of that we have in this dataset it is not enough to fit a BRT model for these variables. We are going to do an obviously wrong thing for the shake of being able to demonstrate how to fit a BRT model. In the next code you are going to repeat the same dataset multiple times:
+Unfortunately the amount of observations that we have in this dataset it is not enough to fit a BRT model for these variables. We are going to do an obviously wrong thing for the sake of being able to demonstrate how to fit a BRT model. In the next code you are going to repeat the same dataset multiple times:
 
 ```{r data repetition8}
 modelDataSel <- rbind(modelDataSel, modelDataSel, modelDataSel, modelDataSel,
@@ -3277,7 +3229,7 @@ Now it is important to assess if the variables have the right categories. Variab
 ```{r check data8}
 summary(modelDataSel)
 
-# Two variables are character, we assign to factor instead:
+# One variable is a character, we assign to factor instead:
 modelDataSel$forestManagementType <-
     as.factor(modelDataSel$forestManagementType)
 
@@ -3312,11 +3264,11 @@ modelBRT <- dismo::gbm.step(
 
 ```
 
-Running a model such as that described above writes progress reports to the screen, makes a graph, and returns an object containing a number of components. The R console results reports a brief model summary all the values are also retained in the model object.
+Running a model such as that described above writes progress reports to the screen, makes a graph, and returns an object containing a number of components. The R console reports a brief model summary, all the model summary values are retained in the model object.
 
 The model is built with the default 10-fold cross-validation (CV). In the plotted graph the solid black curve is the mean, and the dotted curves 1 standard error, for the changes in predictive deviance (i.e., as measured on the excluded folds of the CV). The red line shows the minimum of the mean, and the green line the number of trees at which that occurs. The final model that is returned in the model object is built on the full data set, using the number of trees identified as optimal.
 
-Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the shake of limited timing, we will only test here the default values.
+Ideally, you should invest time in modifying the parameters and find the parameters that provide the models with the minimum deviance resulting from the best combination of bag, tree complexity and learning rate values. For the sake of limited timing, we will only test here the default values.
 
 #### Model behaviour
 
@@ -3394,7 +3346,7 @@ dismo::gbm.plot(
 )
 ```
 
-In this partial dependence plots the predictions are on the scale of f(x). In this case, for the Bernoulli loss the returned value is on the log odds scale. You can see how this plot will look by plotting with the function from the package `gbm` and using the type "response". Since we are interesting in finding out if the forest density has an impact in the presence of the Eurasian treecreeper affected we can have a look to the plot density variable `volAllha` :
+In this partial dependence plots the predictions are on the scale of f(x). In this case, for the Bernoulli loss the returned value is on the log odds scale. You can see how this plot will look by plotting with the function from the package `gbm` and using the type "response". Since we are interestedg in finding out if the forest density has an impact in the presence of the Eurasian treecreeper affected we can have a look to the plot density variable `volAllha` :
 
 ```{r, response8}
 gbm::plot.gbm(modelBRT,
@@ -3455,7 +3407,10 @@ Sommerfeld, A., Rammer, W., Heurich, M., Hilmers, T., Müller, J., & Seidl, R. (
 
 ## Inventory data
 
-We had inventory data prior the summer school. These plots were established in 2007 for monitoring of urban forest Rožnik. Those four plots were already remeasured by NFI teams (for yearly training) at the beginning of April 2023. The radius of the plots is 13.8m and trees dbh\>=10 were measured.
+We had inventory data prior the summer school. These plots were established in 2007 for monitoring of urban forest Rožnik. Those four plots were already remeasured by NFI teams (for yearly training) at the beginning of April 2023. The radius of the plots is 13.8m and trees dbh\>=10cm were measured.
+
+The original number of these plots are 3, 4, 8, 9 but in this exercise this are respectively: plot 1, plot 2, plot 3 and plot 4. 
+
 
 ## iLand needs
 
@@ -3553,8 +3508,8 @@ print(hdratios)
 
 ### Generate trees for each plot
 
--   Using the number of trees/ha as required number of trees.
--   Generate dbh that normally distributed using mean dbh and stdev
+-   Using the number of trees/ha
+-   Generate dbh of individual trees based on a normal distribution using mean dbh and stdev
 -   Randomly placed: x,y coordinates -50m -\> 50m. (inventory data had 0,0 coordinate in the middle, so we kept this "coordinate system" for now)
 
 ```{r app3, eval=TRUE, message = FALSE, warning=FALSE}
@@ -3714,7 +3669,7 @@ plotids <- unique(all.trees2$plotID)
 for (i in 1:4) {
     d <- all.trees2 |> dplyr::filter(plotID == plotids[i])
     
-    # order them by dbh!
+    # order them by dbh 
     d <- d[order(d$dbh, decreasing = T), ]
     
     dat <-
