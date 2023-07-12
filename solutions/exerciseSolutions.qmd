@@ -2,10 +2,21 @@
 title: Forest Modeling Exercise
 subtitle: Process-based and empirical modeling exercises
 format:
- html:
-   toc: true
-   toc-depth: 3
-   toc-location: left
+  titlepage-pdf:
+    documentclass: scrbook
+    classoption: ["oneside", "open=any",  DIV=16, fontsize=11pt]
+    number-sections: true
+    toc: true
+    titlepage: "bg-image"
+    titlepage-bg-image: "images/logo3.jpg"
+    titlepage-logo: "images/logos_proclias_cost.jpg"
+    titlepage-header: ""
+    titlepage-footer: |
+      Interdisciplinary Summer School\
+      Ljubljana 2023\
+      [Repository available in GitHub](https://github.com/oldiya/summerSchoolExercise)
+    titlepage-theme:
+      bg-image-size: 8cm
 author:
   - name: Olalla Díaz-Yáñez
     affiliations:
@@ -2397,7 +2408,7 @@ In these plots we can see that this model is not behaving as we would expect in 
 
 ### Group 1 - Question D {#sec-D_1}
 
--   Is the number of Briophites species affected by forest management type and the forest structural diversity?
+-   Is the number of Bryophyte species affected by forest management type and the forest structural diversity?
 
 #### Fitting a Poisson GLM in R {#sec-D_1_fit}
 
