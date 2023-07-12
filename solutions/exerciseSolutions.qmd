@@ -2,10 +2,10 @@
 title: Forest Modeling Exercise
 subtitle: Process-based and empirical modeling exercises
 format:
-  html:
-    toc: true
-    toc-depth: 3
-    toc-location: left
+ html:
+   toc: true
+   toc-depth: 3
+   toc-location: left
 author:
   - name: Olalla Díaz-Yáñez
     affiliations:
@@ -115,13 +115,13 @@ iLand's mechanistic representation of forest disturbances and vegetation dynamic
 
 A detailed model documentation is available on iLand WIKI page:
 
-https://iland-model.org/iLand+Hub
+[https://iland-model.org/iLand+Hub](https://iland-model.org/iLand+Hub)
 
 ### Inputs and outputs of iLand
 
-iLand needs information in specific formats about environment (mainly climate and soil) and trees. Daily climate data is needed (https://iland-model.org/ClimateData) for minimum, maximum temperature, precipitation, vapor pressure deficit and radiation. Soil depth and soil texture (sand, silt, clay %) information are needed. The soil is represented as a one-layer bucket, no depth-dependent information is needed. The model needs species-specific parameters (https://iland-model.org/species+parameter) that are describing the behavior of each tree species (growth, mortality, competition etc.). Currently there are 31 species parametrizied for iLand, and the species specific parameters are stored in a database that is an input for the model. The parameters were previously calibrated for European conditions (species_param_europe.sqlite). iLand uses short codes for species derived from the latin names (e.g. Picea Abies - piab, Fagus Sylvatica - fasy, ..) Information on the initial forest is also required to start a simulation.
+iLand needs information in specific formats about environment (mainly climate and soil) and trees. Daily climate data is needed ([https://iland-model.org/ClimateData](https://iland-model.org/ClimateData)) for minimum, maximum temperature, precipitation, vapor pressure deficit and radiation. Soil depth and soil texture (sand, silt, clay %) information are needed. The soil is represented as a one-layer bucket, no depth-dependent information is needed. The model needs species-specific parameters ([https://iland-model.org/species+parameter](https://iland-model.org/species+parameter)) that are describing the behavior of each tree species (growth, mortality, competition etc.). Currently there are 31 species parametrizied for iLand, and the species specific parameters are stored in a database that is an input for the model. The parameters were previously calibrated for European conditions (species_param_europe.sqlite). iLand uses short codes for species derived from the latin names (e.g. Picea Abies - piab, Fagus Sylvatica - fasy, ..) Information on the initial forest is also required to start a simulation.
 
-As iLand is a landscape scale model, both climate, soil and tree information need to be set spatially. For larger areas environmental maps can be set using a 100x100m resolution grid, a so called resource grid with resource units, and tree information can be set by maximum 10x10m resolution grid on a stand grid using stand IDs. There are more options how to initialize a landscape in iLand depending on our spatial scales and available data (https://iland-model.org/initialization).
+As iLand is a landscape scale model, both climate, soil and tree information need to be set spatially. For larger areas environmental maps can be set using a 100x100m resolution grid, a so called resource grid with resource units, and tree information can be set by maximum 10x10m resolution grid on a stand grid using stand IDs. There are more options how to initialize a landscape in iLand depending on our spatial scales and available data ([https://iland-model.org/initialization](https://iland-model.org/initialization)).
 
 In our case now we will use iLand in a stand-scale mode (called torus), where we simulate only one 100x100m pixel, 1 ha forest area. We will use single-tree initialization method, where we set the x-y coordinates of the trees inside the 100x100m area, tree species, dbh and height of each tree. From inventory we have data for the a circle with 13.82m radius. We generated trees for the 1ha area based on the plot-data. See details in the Appendix [@sec-app] on this document.
 
@@ -129,7 +129,7 @@ The output of the model is an sqlite database file. The output produced by the m
 
 ### How to work with the model
 
-Simulations are driven by one xml file, the project file. After starting iland.exe, we should call the project file, load the initial forest and then run the simulation for the required length of period. iLand comes with a graphical interface where you can visualize single trees and many other things: https://iland-model.org/iLand+viewer
+Simulations are driven by one xml file, the project file. After starting iland.exe, we should call the project file, load the initial forest and then run the simulation for the required length of period. iLand comes with a graphical interface where you can visualize single trees and many other things: [https://iland-model.org/iLand+viewer]( https://iland-model.org/iLand+viewer)
 
 ## Exercises
 
@@ -143,9 +143,7 @@ B)  How are the species distribution and total living biomass C content changing
 
 ### Getting started {#sec-gs}
 
-Navigate to this folder and download the materials for the process-based modeling exercise: https://drive.google.com/drive/folders/1o2_K3ZN-SnPR44UzZoHj9lFZQu-vU3wg?usp=drive_link
-
-Go to the *iLand_simulations* folder. Here you will find several folders that are the part of the model, others are containing input data for the model and one folder is dedicated for the outputs. Additionally, you will find *iland.exe* and *.xml* files. The *.xml* file is called *project file*. This file is driving the settings of simulations, such as input/output file names, output variables and many other settings. This file is what you need to run in the model.
+Go to the `model/iLand_simulations` folder inside the project folder. Here you will find several folders that are the part of the model, others are containing input data for the model and one folder is dedicated for the outputs. Additionally, you will find `iland.exe` and `.xml` files. The `.xml` file is called `project file`. This file is driving the settings of simulations, such as input/output file names, output variables and many other settings. This file is what you need to run in the model.
 
 The xml file structure follows a tree structure, e.g:
 
@@ -167,15 +165,15 @@ The iLand project file consists of five main sections:
 -   output: definition of which outputs should be created by the model
 -   user: this section can be used for user-defined settings
 
-More details about the project file structure and meaning of each record can be found here: https://iland-model.org/project+file
+More details about the project file structure and meaning of each record can be found here: [https://iland-model.org/project+file](https://iland-model.org/project+file)
 
-We prepared one project file for each group (for each simulation plot). You can right away run it, and then copy-paste and modify it to specify your own scenarios for alternative simulations. You can open a project file in any text editor, but we recommend to use Notepad++ for this (https://notepad-plus-plus.org/downloads/).
+We prepared one project file for each group (for each simulation plot). You can right away run it, and then copy-paste and modify it to specify your own scenarios for alternative simulations. You can open a project file in any text editor, but we recommend to use Notepad++ for this ([https://notepad-plus-plus.org/downloads/](https://notepad-plus-plus.org/downloads/)).
 
 ### Explore input files {#sec-in}
 
 The following input files are needed and prepared for you to run the model: This is all prepared, YOU DO NOT HAVE TO CHANGE ANYTHING:
 
--   Species parameter file: database/species_param_europe.sqlite Containing the parameters for each species that are driving growth, mortality, establishment and other processes. https://iland-model.org/species+parameter
+-   Species parameter file: database/species_param_europe.sqlite Containing the parameters for each species that are driving growth, mortality, establishment and other processes. [https://iland-model.org/species+parameter](https://iland-model.org/species+parameter)
 
 Set in project file:
 
@@ -199,8 +197,8 @@ Set in project file:
     
 ```
 
--   Climate file: database/E-OBSv27_Roznik_46.05_14.45_1961-1990.sqlite\
-    Daily climate data for the area based on the E-OBS dataset. https://iland-model.org/ClimateData https://surfobs.climate.copernicus.eu/dataaccess/access_eobs.php#datafiles We are using the same climate input for all plots. The E-OBS data is representative for a 0.1x0.1 degree resolution gridbox
+-   Climate file: `database/E-OBSv27_Roznik_46.05_14.45_1961-1990.sqlite`
+    Daily climate data for the area based on the E-OBS dataset. [https://iland-model.org/ClimateData](https://iland-model.org/ClimateData) [https://surfobs.climate.copernicus.eu/dataaccess/access_eobs.php#datafiles](https://surfobs.climate.copernicus.eu/dataaccess/access_eobs.php#dat) We are using the same climate input for all plots. The E-OBS data is representative for a 0.1x0.1 degree resolution gridbox
 
 Set in project file:
 
@@ -212,10 +210,10 @@ Set in project file:
     </database>
 ```
 
--   Enviromental file: gis/Environment.txt\
+-   Enviromental file: `gis/Environment.txt`
     The structure of this file is very flexible, more or less columns can be set. If we would have a landscape with larger area with different environments, we could set more lines into this file. For now we have only one simulation pixel with 1ha area. Here we set which climate table to use from the climate file (there could be more tables, but now we have only one), what is the soil texture, soil depth. The column names are referring to specific lines in the project file.
 
-For example: if we set here "model.site.pctSand", the model will use this sand % value instead of the value that we have in the project file under:
+For example: if we set here `model.site.pctSand`, the model will use this sand % value instead of the value that we have in the project file under:
 
 ```{r ex3, eval=FALSE, message = FALSE, warning=FALSE}
   <model>   
@@ -241,7 +239,7 @@ Set in project file:
 	 <environmentFile>gis/Environment.txt</environmentFile> < ---- HERE
 ```
 
--   Environment grid: gis/environment_grid.asc This would specify the map of different environments. Now we have only 1 pixel, with the id of 1. In the previous file we had also id column, this specifies we want to use that environment for our pixel.
+-   Environment grid: `gis/environment_grid.asc` This would specify the map of different environments. Now we have only 1 pixel, with the id of 1. In the previous file we had also id column, this specifies we want to use that environment for our pixel.
 
 Set in project file:
 
@@ -251,7 +249,7 @@ Set in project file:
 	 <environmentFile>gis/Environment.txt</environmentFile> 
 ```
 
--   Tree initialization file: init/Tree_init_plot_1.txt This is the list of the tree with x,y coordinates, species, dbh, height and optionally with age. (age=0 means, there is no data on age, model will generate) There are other options to set initial trees/landscape (e.g. using distributions, number of trees in a given dbh range, or using outputs of another simulation) More details: https://iland-model.org/initialize+trees
+-   Tree initialization file: `init/Tree_init_plot_1.txt` This is the list of the tree with x,y coordinates, species, dbh, height and optionally with age. (age=0 means, there is no data on age, model will generate) There are other options to set initial trees/landscape (e.g. using distributions, number of trees in a given dbh range, or using outputs of another simulation). More details: [https://iland-model.org/initialize+trees](https://iland-model.org/initialize+trees)
 
 ```{r ex6, eval=FALSE, message = FALSE, warning=FALSE}
 	 <initialization>
@@ -268,9 +266,9 @@ Here we initialize trees taller than 4 meters. Trees smaller than 4m are handled
 
 For the sake of simplicity we assume now no-management scenario for all simulations.
 
-NOTE: in the graphical interface you also will not see trees smaller than 4m, because they are not simulated as individuals rather in cohorts. But as regeneration will work, after a while as they grow above 4m, they become individual trees and we can see them also visually and they have own properties (dbh, height, age,...https://iland-model.org/tree+variables ). More details on saplings: https://iland-model.org/sapling+growth+and+competition
+NOTE: in the graphical interface you also will not see trees smaller than 4m, because they are not simulated as individuals rather in cohorts. But as regeneration will work, after a while as they grow above 4m, they become individual trees and we can see them also visually and they have own properties (dbh, height, age,...[https://iland-model.org/tree+variables](https://iland-model.org/tree+variables). More details on saplings: [https://iland-model.org/sapling+growth+and+competition](https://iland-model.org/sapling+growth+and+competition)
 
-Setting the output tables: In the output section you can set which tables you want to enable. Here you can find more info on the structure and variables of each table: https://iland-model.org/Outputs
+Setting the output tables: In the output section you can set which tables you want to enable. Here you can find more info on the structure and variables of each table: [https://iland-model.org/Outputs](https://iland-model.org/Outputs)
 
 To answer the questions the most straight forward way is to look the *landscape* output and use the *total_carbon_kg* column (total carbon in living biomass (aboveground compartments and roots) of all living trees (including regeneration layer) (kg/ha)). This output table aggregates on the level of landscape x species. Values are always aggregated per hectare. The output is created after the growth of the year. We pre-set the project file to have this output. Additionally we will work with the *tree* output, where individual trees are recorded with position.
 
@@ -307,9 +305,9 @@ To answer the questions the most straight forward way is to look the *landscape*
 
 ### Working with the output {#sec-out}
 
-The output database has a *.sqlite* extension. You can explore outputs:
+The output database has a `.sqlite` extension. You can explore outputs:
 
--   Open and browse it in the *DB Browser* software that was on the software list. (https://sqlitebrowser.org/)
+-   Open and browse it in the `DB Browser` software that was on the software list. ([https://sqlitebrowser.org/](ttps://sqlitebrowser.org/))
 -   Load the file into R, where you can make additional data analyses needed to answer the questions in the exercise.
 
 ```{r ex8, eval=FALSE, message = FALSE, warning=FALSE}
@@ -336,7 +334,7 @@ summary(landscape)
 head(landscape)
 ```
 
-There are different output tables in iLand and all have specific structure, column and spatial representation of the records. The landscape output gives information on the whole landscape, but here we will work with one 1 ha pixel that is our "whole" landscape for now. Here species specific information is also available for each year. More about the meaning of the columns in the landscape output you can find here: https://iland-model.org/Outputs#Landscape_aggregates_per_species Not always all outputs are produced, in the project file we can set which output tables we want to enable, and those will be created.
+There are different output tables in iLand and all have specific structure, column and spatial representation of the records. The landscape output gives information on the whole landscape, but here we will work with one 1 ha pixel that is our "whole" landscape for now. Here species specific information is also available for each year. More about the meaning of the columns in the landscape output you can find here: [https://iland-model.org/Outputs#Landscape_aggregates_per_species](https://iland-model.org/Outputs#Landscape_aggregates_per_species) Not always all outputs are produced, in the project file we can set which output tables we want to enable, and those will be created.
 
 ### Run alternative scenarios {#sec-as}
 
@@ -383,7 +381,7 @@ We simulate stand development without management activities, which most likely g
 
 #### Initialization of trees
 
-iLand considers trees higher than 4m as individuals. All trees smaller than this size are simulated as cohorts. We initialize individual trees in year=0, but no regeneration layer, however the process of regeneration is turned on, consequently trees are producing seeds and after the establishment they start to grow. It takes some 15-20-25 years to be able to see this regeneration effect on the outputs which we will study (that are based on individual trees). You can find more information here: https://iland-model.org/regeneration?highlight=regeneration
+iLand considers trees higher than 4m as individuals. All trees smaller than this size are simulated as cohorts. We initialize individual trees in year=0, but no regeneration layer, however the process of regeneration is turned on, consequently trees are producing seeds and after the establishment they start to grow. It takes some 15-20-25 years to be able to see this regeneration effect on the outputs which we will study (that are based on individual trees). You can find more information here: [https://iland-model.org/regeneration?highlight=regeneration](https://iland-model.org/regeneration?highlight=regeneration)
 
 #### Closed system
 
@@ -402,7 +400,7 @@ piab 0.00001 acps 0.00001</externalSeedBackgroundInput>
      
 ```
 
-More information on external seeds are here: https://iland-model.org/external+seeds?highlight=seed
+More information on external seeds are [here: https://iland-model.org/external+seeds?highlight=seed](https://iland-model.org/external+seeds?highlight=seed)
 
 ### Group 1 - Question A {#sec-A_1}
 
@@ -503,7 +501,7 @@ We can see that there is an initial increase in mean dbh, then a drop after 20/2
 
 #### Species diversity {#sec-A_1.4}
 
-To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity. First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1). You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
+To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity. First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1). You can find the documentation of the adiv package here: `documents/adiv.pdf`.
 
 Shannon index is calculated as follows:
 
@@ -1093,7 +1091,7 @@ The diameter differentiation increases with the increasing average difference in
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 2? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)
 
-Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: `iLand_simulations/output/`. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the `summerSchoolExercise.Rproj` project in R studio and start working there.
 
 #### Read the landscape output table {#sec-B_2.1}
 
@@ -1285,7 +1283,7 @@ The living carbon stock doubled over 100 years due to the accumulation of biomas
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 3?
 
-Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*.We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: `iLand_simulations/output/`. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the `summerSchoolExercise.Rproj` project in R studio and start working there.
 
 #### Read the tree output table {#sec-A_3.1}
 
@@ -1382,7 +1380,7 @@ We can see that there is an initial increase in mean dbh, then a drop after 12/1
 
 #### Species diversity {#sec-A_3.4}
 
-To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity. First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1). You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
+To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity. First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1). You can find the documentation of the adiv package here: `documents/adiv.pdf`.
 
 Shannon index is calculated as follows:
 
@@ -1453,7 +1451,7 @@ We see that the values of Shannon index are first stable and then tend to decrea
 
 #### Spatial diversity {#sec-A_3.5}
 
-We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com). You can find a short description of the package here: *"documents/treespat_package.pdf"*
+We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com). You can find a short description of the package here: `documents/treespat_package.pdf`
 
 You can install the package using devtools:
 
@@ -1720,7 +1718,7 @@ The living C stock more than doubled over 100 years due to the accumulation of b
 
 -   How are biodiversity indices changing in time and across the simulated scenario(s) on Plot 4?
 
-Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: `iLand_simulations/output/`. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the `summerSchoolExercise.Rproj` project in R studio and start working there.
 
 Read in the *tree* output table from two outputs you have for your plot:
 
@@ -1814,7 +1812,7 @@ We can see that there is an initial increase in mean dbh, then a drop after 15/2
 
 #### Species diversity {#sec-A_4.4}
 
-To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity. First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1). You can find the documentation of the adiv package here: *"documents/adiv.pdf"*
+To study biodiversity aspects, we can calculate biodiversity indicators. Let's use the *adiv* package for species diversity. First we need to change the database structure to have the number of trees for each species in different columns (pivot_wider) without any additional columns for the *adiv* package *speciesdiv* function. We work first only with tree data from one simulation (tree1). You can find the documentation of the adiv package here: `documents/adiv.pdf`.
 
 Shannon index is calculated as follows:
 
@@ -1885,7 +1883,7 @@ We see that the values of Shannon index are first stable and then tend to decrea
 
 #### Spatial diversity {#sec-A_4.5}
 
-We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com). You can find a short description of the package here: *"documents/treespat_package.pdf"*
+We can calculate some additional biodiversity indices targeting spatial diversity using the *treespat* package developed by Francesco Chianucci (fchianucci\@gmail.com). You can find a short description of the package here: `documents/treespat_package.pdf`
 
 You can install the package using devtools:
 
@@ -1950,7 +1948,7 @@ The diameter differentiation increases with the increasing average difference in
 
 -   How are the species distribution and total living biomass C content changing in time on Plot 4? Compare 0 year and 100 year status in the reference case and in the case of your scenario(s)
 
-Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: *iLand_simulations/output/*. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the *summerSchoolExercise.Rproj* project in R studio and start working there.
+Run the model as it is described in the previous chapters @sec-run, @sec-as and @sec-out to have at least 2 simulations completed: one with reference conditions and one scenario with some changes in the environment. Check if you have the output files in the output folder: `iLand_simulations/output/`. We show all of the solutions on the example of one reference and one alternative scenario output file. Open the `summerSchoolExercise.Rproj` project in R studio and start working there.
 
 #### Read the landscape output table {#sec-B_4.1}
 
